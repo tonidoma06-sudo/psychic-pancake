@@ -1,0 +1,4 @@
+{ "slug": "roman-toy-theatre-3d", "en": "Toy Theatre 3D", "cn": "3D 玩具剧场", "based_on": "tilt-shift", "borrows": ["game-show"], "size": "1080x1920",
+  "library_version": "143f387", "created": "2026-11-09",
+  "line": "Stylised 3D people about seven heads tall, acting in bright story sets under a moving camera, with bold word-by-word captions for vertical Shorts.",
+  "line_cn": "约七头身的风格化 3D 小人在明亮的故事场景中表演，镜头运动，竖屏逐词大字幕。" }
