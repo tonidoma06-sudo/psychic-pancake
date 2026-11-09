@@ -1,0 +1,12 @@
+Dobrodošli · Almissa Digital promo (test film), Silkscreen Travel Poster style
+
+Picture: drawn in code (Canvas 2D). The screen-print engine engine/silk.js is from the Lemo-Opuscar library
+(github.com/lemomo-ai/lemo-opuscar, MIT licence). The harbour scene is a generic Dalmatian river-mouth town drawn as paths;
+no photographs, no real logos.
+
+Fonts (SIL Open Font License 1.1; licence texts in fonts/; files from the @fontsource npm packages):
+  Big Shoulders Display — Patric King / Google Fonts
+  Outfit — Rodrigo Fuenzalida / Google Fonts
+
+Music and sound: synthesized in code (mix.py): Karplus–Strong plucked guitar, cajón-like hits, squeegee, ink,
+clamp, paper stamps, water and gulls. No samples, no voice.
