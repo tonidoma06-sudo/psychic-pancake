@@ -1,0 +1,13 @@
+{
+  "id": "P027",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "My Booking score is my whole business, and I am not letting a new one-man company's robot talk to my guests. If it gives one wrong answer about parking or check-out and someone writes it in a review, my 9.4 becomes 9.1 and I lose more than it costs.",
+  "objection": "Who are these people? If the company disappears in a year or the AI says something stupid to a German family, my reviews pay for it. And €150 plus €35 a month is a lot from what I earn on one apartment, when I already answer guests myself on WhatsApp.",
+  "would_change_my_mind": "Seeing it working for a year at a neighbour's apartment I know, with their review score not dropping, and paying nothing until I see that myself.",
+  "price_too_cheap": 5,
+  "price_cheap": 10,
+  "price_expensive": 20,
+  "price_too_expensive": 30
+}

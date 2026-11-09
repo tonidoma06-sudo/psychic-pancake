@@ -1,0 +1,13 @@
+{
+  "id": "P028",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "habit",
+  "reason": "Booking and Airbnb scheduled messages plus my printed rules sheet already answer the Wi-Fi and parking questions, and my guests come back because they talk to me, not a robot. With four or five apartments that is €150 or more a month and €600 setup for something I think I already have covered.",
+  "objection": "Guests like the personal touch with me, and I worry a chatbot gets something wrong or makes my place feel like a hotel chain. Paying per apartment adds up fast on my income.",
+  "would_change_my_mind": "Seeing it handle a real August week of German messages for a neighbour I trust, with one price for all my apartments instead of per unit.",
+  "price_too_cheap": 5,
+  "price_cheap": 10,
+  "price_expensive": 20,
+  "price_too_expensive": 30
+}

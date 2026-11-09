@@ -1,0 +1,13 @@
+{
+  "id": "P013",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My guests ask the same three things, Wi-Fi, parking, where is the beach, and I already send a welcome message and have a printed sheet in each apartment. With several units, €35 each plus €150 setup each is real money out of what the renting brings me, for questions I can answer from my phone at lunch.",
+  "objection": "In July and August I am drowning, yes, but the messages that eat my time are the late arrival, the broken air conditioner, the key problem, not the Wi-Fi password. A bot will just forward those to my WhatsApp anyway, so I still have to answer them myself.",
+  "would_change_my_mind": "One price for all my apartments, around €15 to €20 a month total only in the season and no setup fee, so I can try it on one unit in July and see if my phone really goes quieter.",
+  "price_too_cheap": 5,
+  "price_cheap": 10,
+  "price_expensive": 20,
+  "price_too_expensive": 35
+}

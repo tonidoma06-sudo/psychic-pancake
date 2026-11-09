@@ -1,0 +1,13 @@
+{
+  "id": "P031",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "€35 every month per apartment plus €150 to start is real money on my income, and my laminated sheet plus the free Booking and Airbnb messages already answer the Wi-Fi and check-in questions. When a guest asks something odd, they phone or WhatsApp me anyway.",
+  "objection": "I already get automatic messages free from Booking and Airbnb, so why pay a monthly fee for the same answers my printed sheet gives? And if it breaks, I have to wait for my nephew to fix it.",
+  "would_change_my_mind": "If it were a single one-time payment with no monthly fee, or if a neighbour host showed me it really saved her hours of messages every week in season.",
+  "price_too_cheap": 3,
+  "price_cheap": 8,
+  "price_expensive": 15,
+  "price_too_expensive": 25
+}

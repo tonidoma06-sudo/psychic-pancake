@@ -1,0 +1,13 @@
+{
+  "id": "P020",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My guests ask about Wi-Fi, parking and check-out, and I already have a printed sheet and my phone. I am not paying €35 a month and €150 up front for something I do myself for free.",
+  "objection": "It is a monthly fee for answering three questions I already know by heart, and on my income every euro counts. If something breaks I have to call my nephew anyway.",
+  "would_change_my_mind": "No setup fee and a one-time price for the season, maybe €50 for the summer, and seeing a neighbour use it and saying it saved them real time with the German guests.",
+  "price_too_cheap": 3,
+  "price_cheap": 8,
+  "price_expensive": 15,
+  "price_too_expensive": 25
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P022",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "My villa lives and dies on the Booking score, and one wrong answer from a robot about check-in or the pool could cost me a 10 and drop me from 9.5 to 9.2. I'm not handing my guests to a new one-person company I've never heard of, even if the money is small.",
+  "objection": "If the AI tells a guest something wrong or the company disappears mid-season, I'm the one who gets the bad review, not them, and I'm often abroad so I can't fix it fast.",
+  "would_change_my_mind": "Seeing it running for a full season at a few other high-end villas nearby with their Booking scores holding or going up, and a named backup person who answers if the founder is unavailable.",
+  "price_too_cheap": 10,
+  "price_cheap": 25,
+  "price_expensive": 60,
+  "price_too_expensive": 100
+}
