@@ -1,0 +1,25 @@
+{
+  "business": "Almissa Digital: websites only (SCENARIO C, not panel-tested)",
+  "unit": "website",
+  "price": 400,
+  "variable": [
+    {"label": "Domain, first year (estimate)", "cost": 15},
+    {"label": "Hosting, first year included (estimate)", "cost": 60},
+    {"label": "Stock photos / fonts / plugins (estimate)", "cost": 20},
+    {"label": "Payment fees ~3% (estimate)", "cost": 12}
+  ],
+  "fixed_monthly": [
+    {"label": "Paušalni obrt contributions 2026", "cost": 290.98},
+    {"label": "Software: AI subscription, site builder/hosting account (estimate)", "cost": 50},
+    {"label": "Phone and fuel for visits (estimate)", "cost": 50}
+  ],
+  "startup": [
+    {"label": "Portfolio: 2 demo sites + flyers (estimate)", "cost": 150},
+    {"label": "Ads (estimate)", "cost": 300},
+    {"label": "Obrt registration and accountant setup (estimate)", "cost": 150}
+  ],
+  "days_per_month": 1,
+  "capacity_per_day": 6,
+  "plan_per_day": 2,
+  "ramp_per_day": [1, 2, 3, 3, 2, 1, 0, 0, 1, 1, 2, 1]
+}
