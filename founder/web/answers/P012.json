@@ -1,0 +1,13 @@
+{
+  "id": "P012",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "I already have a website and nobody books from it. The guests find us on Booking and book there, so a nicer site in six languages does not by itself bring me direct bookings, and €600 is a lot of money for me in the winter.",
+  "objection": "Guests book through Booking anyway. A WhatsApp button does not change that, and I would be paying €600 plus €15 every month for something that may sit there like the old site does.",
+  "would_change_my_mind": "If a villa owner near me showed me they really got direct bookings from a site like this in one season, and my daughter said she could send guests to it from Instagram.",
+  "price_too_cheap": 150,
+  "price_cheap": 300,
+  "price_expensive": 500,
+  "price_too_expensive": 800
+}
