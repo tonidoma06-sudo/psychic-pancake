@@ -128,7 +128,7 @@ const SHOTS = [
     cam: (t, u) => camAt(V(-10.0 + .04 * u, 1.12, lerp(2.95, 2.8, eio(u))), V(-10.0, .98, 1.3), 40, lerp(1.15, 1.0, u), 3) },
   // 2b · the paper comes down: the smug face, the café and the tower behind
   { t0: S2b, t1: C3, set: 'bv', lt: { ...DAY, pos: [-30, 40, 30], tgt: [-12, 0, 2], r: 8 }, act: t => act2(t),
-    cam: (t, u) => camAt(V(lerp(-9.85, -9.45, eio(u)), lerp(1.2, 1.4, u), lerp(2.9, 4.4, eio(u))), V(-10.0, 1.12, 1.3), 40, lerp(1.6, 3.1, u), 4) },
+    cam: (t, u) => camAt(V(lerp(-9.85, -10.3, eio(u)), lerp(1.2, 1.4, u), lerp(2.9, 4.05, eio(u))), V(-10.0, 1.12, 1.3), 40, lerp(1.6, 2.8, u), 4) },
   // 3a · the forged letter: official stationery, the stamp slams down on "official"
   { t0: C3, t1: S3b, set: 'sa', lt: SALON, act: t => act3a(t),
     cam: (t, u) => camAt(V(lerp(.8, .95, u), lerp(1.55, 1.5, u), lerp(-.5, -.65, u)), V(1.95, 1.15, -1.5), 46, 1.5, 4) },
@@ -262,7 +262,7 @@ function act5(t) {
     lu.aL.sh.rotation.set(-.6, -.2, .1); lu.aL.el.rotation.x = -.7;
   }
 }
-const CARZ0 = -46, CARZ1 = 8;
+const CARZ0 = -24, CARZ1 = 9;
 function act6a(t) {
   reset(); car.visible = true; notes.visible = true;
   const u = seg(t, C6, S6b + .2), z = lerp(CARZ0, CARZ1, Math.pow(u, 1.15));
