@@ -407,6 +407,7 @@ function render(t) {
   ov.clearRect(0, 0, W, H);
   if (fl > 0) { ov.fillStyle = `rgba(255,255,255,${fl})`; ov.fillRect(0, 0, W, H); }
   rewindFX(t);
+  if (QS.get('poster')) { ov.clearRect(0, 0, W, H); [['HE SOLD THE', 210, -4, '#FFFFFF'], ['EIFFEL TOWER!', 360, -4, '#FFD23F']].forEach(([text, y, rot, col]) => drawTelop({ t0: -9, text, y, size: 136, col, rot }, t)); return; }
   if (t < LOOP) { TEL.forEach(x => { if (t >= x.t0 && t < x.t1) drawTelop(x, t); }); drawCaptions(t); }
 }
 function texts(t) {
