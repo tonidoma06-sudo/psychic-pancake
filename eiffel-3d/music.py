@@ -2,7 +2,7 @@
   python music.py out/mix_voice.wav voice/scratch_full.wav    # with a voice (the scratch read, or YOUR recording)
   python music.py out/mix_novoice.wav none                     # score + SFX only
 120 BPM in G minor, swing-musette style: a musette accordion (three detuned reeds) on the tune, "pompe" guitar
-(bass on 1 & 3, chord on 2 & 4), a walking pizzicato double bass and brushed snare. The sections follow the story:
+(the guitar on every beat, accented on 2 & 4), a two-feel pizzicato double bass (root and fifth) and brushed snare. The sections follow the story:
 open = the caper tune; newspaper = celesta and bass only; the scheme = full band; the secret meeting = a sneaky
 bassoon over a clock tick that stops dead on "shh"; the deal = the tune again, with a cash register; the getaway =
 double time; the embarrassment = everything stops for a sad trombone; "again" = a tape rewind, then the tune restarts;
@@ -44,7 +44,7 @@ tt_ = lambda n: np.arange(n) / SR
 def accordion(m, dur, bright=1.):
     """musette accordion: three reeds (one in tune, two detuned for the shimmer), bellows envelope"""
     n = int(dur * SR); t = tt_(n); s = np.zeros(n)
-    for det in (0, .0045, -.004):
+    for det in (0, .0015, -.0012):          # a gentle 'swing' tuning: a little shimmer, never out of tune
         f = mtof(m) * (1 + det); ph = 2 * np.pi * f * t
         for h in range(1, 11): s += np.sin(ph * h) * (1 / h) * (1 if h % 2 else .55)
     s = lp(s / 3, 1800 + 1600 * bright)
@@ -99,7 +99,7 @@ def rustle(dur=.3):
 def shh(dur=.55):
     n = int(dur * SR); t = tt_(n); return bp(rng.standard_normal(n), 2500, 7500) * np.sin(np.pi * t / dur) ** .6 * .55
 def register():
-    out = np.zeros(int(1.2 * SR)); a = bell(96, 1.1) * .5; b = bell(100, 1.0) * .45; out[:len(a)] += a; i = int(.07 * SR); out[i:i + len(b)] += b[:len(out) - i]
+    out = np.zeros(int(1.2 * SR)); a = bell(98, 1.1) * .5; b = bell(102, 1.0) * .45;   # D + F#: sits on the D7 bar out[:len(a)] += a; i = int(.07 * SR); out[i:i + len(b)] += b[:len(out) - i]
     c = coins_(8); j = int(.12 * SR); out[j:j + len(c)] += c[:len(out) - j] * .6; return out
 def coins_(k=10):
     out = np.zeros(int(.9 * SR))
@@ -118,10 +118,16 @@ def gliss(ms, step_=.045, dur=.35, fn=accordion):
 def woodblock_(f=1100):
     n = int(.1 * SR); t = tt_(n); return (np.sin(2 * np.pi * f * t) + .4 * np.sin(2 * np.pi * f * 1.6 * t)) * np.exp(-t * 55) * .7
 
+def sparkle_gm():
+    out = np.zeros(int(.9 * SR))
+    for k, m in enumerate([79, 82, 86, 91]): b_ = bell(m, .7) * .35; i = int(k * .05 * SR); out[i:i + len(b_)] += b_[: len(out) - i]
+    return out
+
 # ---------------- harmony ----------------
 MINOR = ['Gm', 'D7', 'Gm', 'D7', 'Cm', 'Gm', 'D7', 'Gm']; MAJOR = ['G', 'D7', 'G', 'D7', 'C', 'G', 'D7', 'G']
-CH = {'Gm': ([43, 45, 46, 47], [62, 67, 70]), 'D7': ([38, 42, 45, 44], [60, 62, 66]), 'Cm': ([36, 39, 43, 42], [60, 63, 67]),
-      'G': ([43, 47, 50, 49], [62, 67, 71]), 'C': ([36, 40, 43, 42], [60, 64, 67])}
+# chord → (root, fifth below or above, the guitar voicing). The bass only ever plays chord tones (root / fifth), so it can't
+# clash with the strums; the colour notes stay in the tune.
+CH = {'Gm': (43, 38, [62, 67, 70]), 'D7': (38, 45, [60, 62, 66]), 'Cm': (36, 43, [60, 63, 67]), 'G': (43, 38, [62, 67, 71]), 'C': (36, 43, [60, 64, 67])}
 MEL = [
     [(0, 67, .5), (.5, 69, .5), (1, 70, .5), (1.5, 74, 1), (2.5, 73, .5), (3, 74, 1)],
     [(0, 72, .5), (.5, 70, .5), (1, 69, .5), (1.5, 66, .5), (2, 69, 1), (3, 62, 1)],
@@ -144,26 +150,29 @@ for b in range(nb):
     for k in range(4):                     # beat by beat: harmony is global, the arrangement follows the section
         tb = t0 + k * BEAT; sec = section(tb + .01)
         if tb >= LOOP - 1e-6: break
-        maj = sec == 'lesson'; name = (MAJOR if maj else MINOR)[b % 8]; walk, chord = CH[name]
+        maj = sec == 'lesson'; name = (MAJOR if maj else MINOR)[b % 8]; root, fifth, chord = CH[name]
+        bassn = root if k < 2 else fifth                                   # two-feel: root on 1, fifth on 3
         if sec in ('open', 'scheme', 'deal', 'lesson') or (sec == 'again' and tb >= REW + 1.0):
-            add(dbass(walk[k]), tb, .9); strum(chord, tb, .9) if k % 2 else None
+            if k % 2 == 0: add(dbass(bassn), tb, .9)
+            strum(chord, tb, .9 if k % 2 else .35)                         # pompe: the guitar on every beat, accented on 2 and 4
             add(brush(True) if k % 2 else brush(), tb, .9, -.2); add(brush(), tb + BEAT / 2 + SWING, .6, -.2)
         elif sec == 'news':
-            add(dbass(walk[k], .3), tb, .75)
+            if k % 2 == 0: add(dbass(bassn, .35), tb, .75)
             if k % 2: add(brush(), tb, .6, -.2)
         elif sec == 'meeting' and tb < SHH - .05:
-            add(dbass(walk[0] if k % 2 == 0 else walk[2], .2), tb, .8); add(woodblock_(1500 if k % 2 else 1100), tb, .25, .4)
-            add(bassoon(MEL[b % 8][min(k, len(MEL[b % 8]) - 1)][1] - 24, .22), tb + .25, .9, -.1)
+            if k % 2 == 0: add(dbass(bassn, .2), tb, .8)
+            add(woodblock_(1500 if k % 2 else 1100), tb, .25, .4)
+            add(bassoon([chord[1], chord[2], chord[0], chord[2]][k] - 12, .2), tb + .25, .9, -.1)
         elif sec == 'getaway':
-            for j in range(2): add(dbass(walk[(k * 2 + j) % 4] + 12 * (j % 2), .22), tb + j * BEAT / 2, .8)
+            for j, m in enumerate([root, root + 12] if k % 2 == 0 else [fifth, fifth + 12]): add(dbass(m, .22), tb + j * BEAT / 2, .8)
             add(snare(), tb, .22, -.2); add(snare(), tb + BEAT / 2, .14, -.2); add(hat(), tb + BEAT / 4, .3, .3)
-            if k % 2 == 0: add(gliss([67, 70, 74, 79, 82, 79, 74, 70], .055, .2), tb, .8, .1)
+            if k % 2 == 0: add(gliss([chord[0] + 12, chord[1] + 12, chord[2] + 12, chord[0] + 24, chord[2] + 12, chord[1] + 12], .06, .2), tb, .8, .1)
         elif sec == 'chase':
-            add(dbass(walk[k], .22), tb, .8); add(dbass(walk[k] + 7, .22), tb + BEAT / 2, .6)
+            add(dbass([root, fifth, root + 12, fifth][k], .22), tb, .8); add(dbass(root + 12 if k % 2 == 0 else fifth, .22), tb + BEAT / 2, .6)
             for j in range(4): add(snare(), tb + j * BEAT / 4, .1 + .1 * (j == 0), -.2)
             if k % 2 == 0: add(accordion(chord[2] + 12, .2), tb, .9); add(accordion(chord[1] + 12, .2), tb + .25, .8)
         elif sec == 'sad':
-            if k == 0: add(pad([n - 12 for n in CH['Gm'][1]], BAR), tb, .5)
+            if k == 0: add(pad([n - 12 for n in CH['Gm'][2]], BAR), tb, .5)
         elif sec == 'again' and tb < REW + 1.0:
             pass
     # the tune
@@ -187,14 +196,14 @@ add(gliss([62, 66, 69, 72, 74], .08, .2), LOOP + .02, .9)
 # ---------------- SFX ----------------
 for e in EV:
     s, t = e['s'], e['t']
-    if s == 'sting': addv(sparkle(), t, .3)
-    elif s == 'tag': addv(whoosh(.4, up=False), t - .38, .5); addv(boing(160, 420, .5), t, .7); addv(thud(60, .6), t, .5)
-    elif s == 'tip': addv(pop(1200), t, .3); addv(sparkle(), t + .05, .18)
+    if s == 'sting': addv(sparkle_gm(), t, .3)
+    elif s == 'tag': addv(whoosh(.4, up=False), t - .38, .5); addv(boing(147, 392, .5), t, .7); addv(thud(60, .6), t, .5)
+    elif s == 'tip': addv(pop(1200), t, .3); addv(bell(86, .7), t + .05, .2)
     elif s == 'stamp': addv(stamp(), t, .6)
     elif s == 'cut': addv(whoosh(.3), t - .15, .14)
     elif s == 'paper': addv(rustle(.32), t, .7, -.1)
     elif s == 'pop': addv(pop(900), t, .3)
-    elif s == 'ding': addv(bell(88, 1.2), t, .35); addv(sparkle(), t, .25)
+    elif s == 'ding': addv(bell(86, 1.2), t, .35); addv(sparkle_gm(), t, .25)
     elif s == 'shh': addv(shh(), t - .25, .8)
     elif s == 'cash': addv(register(), t, .7)
     elif s == 'car': addv(engine(2.1), t, .8, -.2); addv(whoosh(.9), t + 1.1, .45, .3)
@@ -205,7 +214,7 @@ for e in EV:
     elif s == 'step': addv(step(), t, .55, -.1); addv(step(), t + .25, .4, .1)
     elif s == 'sweep': addv(whoosh(.8), t - .1, .35); addv(gliss([67, 71, 74, 79, 83, 86], .06, .5, lambda m, d: bell(m, d) * .3), t, .6)
     elif s == 'flip': addv(whoosh(.45), t - .1, .4)
-    elif s == 'scam': addv(stamp(big=True), t, .75); add(pad([43, 50, 55, 58], 1.2), t, 1.2)
+    elif s == 'scam': addv(stamp(big=True), t, .75); add(pad([43, 50, 55, 59], 1.2), t, 1.2)
 
 # ---------------- voice ----------------
 VB = np.zeros(S.N)
@@ -222,7 +231,7 @@ if VOICE != 'none':
 def tame(x): x = hp(x, 35); return x - .4 * lp(x, 100)
 ML, MR = tame(S.L), tame(S.R)
 venv = lp(np.abs(VB), 8, order=1); venv /= (np.max(venv) + 1e-9)
-duck = 1 - np.clip(.6 * np.clip(venv * 4, 0, 1), 0, .6)
+duck = 1 - np.clip(.4 * np.clip(venv * 4, 0, 1), 0, .4)          # gentler ducking: no pumping between lines
 rms = lambda x: np.sqrt(np.mean(x ** 2) + 1e-12)
 act = np.zeros(S.N, bool)
 for l in TM['lines']: act[int(l['t0'] * SR):int(l['t1'] * SR)] = True
