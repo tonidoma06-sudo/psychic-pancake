@@ -87,6 +87,31 @@ export function store() {
   for (let i = 0; i < 8; i++) for (const x of [-2.6, 0, 2.6]) { const l = M(box(1.4, .05, .4), mat('#FFFFFF', { e: '#FFF8E8', ei: 1.4 }), g, x, 4.15, 6 - i * 4.5); l.castShadow = false; }
   for (const x of [-8, 8]) { const w = plane(40, 4.2, mat('#E6EEF0')); w.rotation.y = -Math.sign(x) * Math.PI / 2; w.position.set(x, 2.1, -8); g.add(w); }
   const bw = plane(16, 4.2, mat('#E6EEF0')); bw.position.set(0, 2.1, -27); g.add(bw);
+  // the store front (behind the shopper at the top of aisle 7): windows onto the car park, the entrance, the big sign, displays
+  const fw = plane(16, 4.2, mat('#E6EEF0')); fw.rotation.y = Math.PI; fw.position.set(0, 2.1, 11.9); g.add(fw);
+  const outside = ctex(512, 320, (c, w, h) => { const gr = c.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#9CCBF0'); gr.addColorStop(.55, '#DDEFFC'); gr.addColorStop(.56, '#9A9890'); gr.addColorStop(1, '#7E7C76'); c.fillStyle = gr; c.fillRect(0, 0, w, h); const R = rng(21);
+    for (let i = 0; i < 7; i++) { const x = 20 + i * 72 + R() * 10; c.fillStyle = ['#C8283A', '#2E6FB5', '#F2F0EA', '#3A3A40', '#E8B030', '#3E9A4A', '#9AA0A8'][i]; c.beginPath(); c.roundRect(x, 200, 60, 36, 10); c.fill(); c.fillRect(x - 4, 222, 68, 22); c.fillStyle = '#1C1C1E'; c.beginPath(); c.arc(x + 12, 246, 8, 0, 7); c.arc(x + 50, 246, 8, 0, 7); c.fill(); c.fillStyle = 'rgba(200,230,255,.8)'; c.fillRect(x + 10, 206, 40, 14); }
+    c.fillStyle = '#5E8A4A'; for (let i = 0; i < 9; i++) { c.beginPath(); c.arc(30 + i * 60, 172, 22 + R() * 8, 0, 7); c.fill(); } });
+  const frameM = mat('#9AA0A8', { m: .6, r: .35 });
+  for (const x of [-4.3, 4.3]) { const win = plane(5.2, 2.4, std(outside, { e: '#ffffff', ei: .55, r: .2 })); win.rotation.y = Math.PI; win.position.set(x, 1.55, 11.88); g.add(win); for (let k = -2; k <= 2; k++) M(box(.06, 2.5, .06), frameM, g, x + k * 1.3, 1.55, 11.86); M(box(5.3, .08, .08), frameM, g, x, 2.78, 11.86); M(box(5.3, .08, .08), frameM, g, x, .33, 11.86); }
+  const door = plane(2.4, 2.6, std(outside, { e: '#ffffff', ei: .5, r: .15 })); door.rotation.y = Math.PI; door.position.set(0, 1.3, 11.88); g.add(door);
+  M(box(.08, 2.7, .1), frameM, g, 0, 1.35, 11.84); for (const x of [-1.24, 1.24]) M(box(.1, 2.7, .1), frameM, g, x, 1.35, 11.84); M(box(2.6, .14, .12), frameM, g, 0, 2.66, 11.84);
+  const ent = textPlane([{ text: 'ENTRANCE · EXIT', size: 60, y: 62, color: '#FFFFFF' }], 1.6, .22, { w: 760, h: 104, bg: '#2E8A4A', round: 14 }); ent.rotation.y = Math.PI; ent.position.set(0, 2.95, 11.84); g.add(ent);
+  const big = textPlane([{ text: 'SUPER SAVE', size: 150, y: 140, color: '#C8283A' }, { text: 'LOW PRICES EVERY DAY', size: 54, y: 236, color: '#1C4E9A' }], 4.6, 1.0, { w: 1400, h: 300, bg: '#FFFFFF', round: 24 }); big.rotation.y = Math.PI; big.position.set(0, 3.62, 11.82); g.add(big);
+  // produce stands and a soda pyramid by the door; a cart corral
+  const fruit = new THREE.InstancedMesh(sph(.06, 10, 8), new THREE.MeshStandardMaterial({ roughness: .45 }), 360); let fi = 0;
+  for (const [sx, col] of [[-3.0, ['#D8302A', '#E84A2A', '#B82020']], [3.0, ['#F29A1F', '#F2B030', '#E8861A']], [-5.2, ['#8CC63F', '#A8D44A', '#7AB830']], [5.2, ['#F2D23A', '#E8C430', '#F8DC50']]]) {
+    const st = G(); st.position.set(sx, 0, 9.6); g.add(st); M(box(1.6, .7, 1.0, .03), mat('#8A5A34', { r: .8 }), st, 0, .35, 0); M(box(1.5, .06, .9), mat('#6A4426', { r: .8 }), st, 0, .72, 0);
+    for (let k = 0; k < 90 && fi < 360; k++) { const i = k % 12, j = Math.floor(k / 12) % 7, lv = Math.floor(k / 84); _q.identity(); _m.compose(_v.set(sx - .66 + i * .12, .79 + lv * .1 + (j % 2) * .01, 9.6 - .38 + j * .12), _q, _s.set(1, 1, 1)); fruit.setMatrixAt(fi, _m); fruit.setColorAt(fi, new THREE.Color(col[(i + j) % 3])); fi++; }
+    const tag = textPlane([{ text: ['APPLES', 'ORANGES', 'LIMES', 'LEMONS'][[-3.0, 3.0, -5.2, 5.2].indexOf(sx)], size: 60, y: 60, color: '#FFFFFF' }], .6, .2, { w: 360, h: 120, bg: '#C8283A', round: 16 }); tag.rotation.y = Math.PI; tag.position.set(0, 1.05, .45); st.add(tag);
+  }
+  fruit.count = fi; fruit.instanceMatrix.needsUpdate = true; fruit.instanceColor.needsUpdate = true; fruit.castShadow = true; g.add(fruit);
+  const soda = new THREE.InstancedMesh(new THREE.BoxGeometry(.3, .2, .2), new THREE.MeshStandardMaterial({ roughness: .5 }), 40); let si = 0;
+  for (let lv = 0; lv < 5; lv++) for (let k = 0; k < 5 - lv; k++) for (const zz of [0, .22]) { if (si >= 40) break; _q.identity(); _m.compose(_v.set(1.6 + (k - (4 - lv) / 2) * .32, .1 + lv * .21, 7.2 + zz), _q, _s.set(1, 1, 1)); soda.setMatrixAt(si, _m); soda.setColorAt(si, new THREE.Color(lv % 2 ? '#C8283A' : '#F2F0EA')); si++; }
+  soda.count = si; soda.instanceMatrix.needsUpdate = true; soda.instanceColor.needsUpdate = true; soda.castShadow = true; g.add(soda);
+  const sale = textPlane([{ text: 'SALE', size: 110, y: 100, color: '#FFD23F' }], .7, .4, { w: 340, h: 190, bg: '#C8283A', round: 18 }); sale.rotation.y = Math.PI; sale.position.set(1.6, 1.4, 7.1); g.add(sale);
+  const wk = textPlane([{ text: 'WEEKLY DEALS', size: 86, y: 90, color: '#FFFFFF' }], 2.2, .42, { w: 900, h: 170, bg: '#1C4E9A', round: 18 });
+  for (const sd of [0, Math.PI]) { const p2 = wk.clone(); p2.rotation.y = sd; p2.position.set(0, 3.55, 6.5 + (sd ? -.006 : .006)); g.add(p2); } M(box(2.2, .42, .01), mat('#1C4E9A'), g, 0, 3.55, 6.5);
   // two long shelf units facing each other across the aisle, stocked with boxes; the pudding section on the left
   const R = rng(13), cols = ['#C8283A', '#E8B030', '#2E6FB5', '#3E9A4A', '#F2F0EA', '#E07A1F', '#7A3A8A', '#2AA6A0', '#F2D79A'];
   const boxes = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshStandardMaterial({ roughness: .6 }), 1400); boxes.castShadow = true; let bi = 0;
@@ -112,11 +137,11 @@ export function store() {
   g.userData.pud = pud; g.userData.pudZ = PUDZ;
   // the promotion: a standee and a shelf talker
   const sign = textPlane([{ text: 'FLY FREE!', size: 120, y: 120, color: '#FFD23F' }, { text: 'AIRLINE MILES', size: 76, y: 240, color: '#FFFFFF' }, { text: 'FOR EVERY BARCODE', size: 56, y: 330, color: '#FFFFFF' }], 1.2, .8, { w: 800, h: 520, bg: '#1C4E9A', round: 30 });
-  const st = G(); st.position.set(-.95, 0, .2); st.rotation.y = .5; g.add(st); M(cyl(.025, .025, 1.5, 8), mat('#C0C0C8', { m: .7 }), st, 0, .75, 0); sign.position.y = 1.85; st.add(sign);
+  const st = G(); st.position.set(-.95, 0, .2); st.rotation.y = .5; g.add(st); M(cyl(.025, .025, 1.5, 8), mat('#C0C0C8', { m: .7 }), st, 0, .75, 0); sign.position.set(0, 1.85, .012); st.add(sign); M(box(1.22, .82, .02, .01), mat('#E8E2D4', { r: .9 }), st, 0, 1.85, 0);
   const plane_ = G(); plane_.position.set(.42, 2.15, .02); st.add(plane_); toyPlane(plane_, .35);
   g.userData.standee = st;
   // the aisle sign
-  const as = textPlane([{ text: 'AISLE 7', size: 70, y: 70, color: '#FFFFFF' }, { text: 'DESSERTS', size: 56, y: 150, color: '#FFD23F' }], 1.4, .6, { w: 560, h: 220, bg: '#C8283A', round: 16 }); as.position.set(0, 3.6, -1); g.add(as);
+  const as = textPlane([{ text: 'AISLE 7', size: 70, y: 70, color: '#FFFFFF' }, { text: 'DESSERTS', size: 56, y: 150, color: '#FFD23F' }], 1.4, .6, { w: 560, h: 220, bg: '#C8283A', round: 16 }); as.position.set(0, 3.6, -.988); g.add(as); const asB = as.clone(); asB.rotation.y = Math.PI; asB.position.z = -1.012; g.add(asB); M(box(1.4, .6, .02), mat('#C8283A'), g, 0, 3.6, -1);
   for (const s of [-1, 1]) M(cyl(.008, .008, .5, 4), mat('#888'), g, s * .5, 3.95, -1);
   // the checkout at the end of the aisle: a counter with a belt, a register, a candy rack
   const co = G(); co.position.set(-.3, 0, -15.5); g.add(co); g.userData.checkout = co;

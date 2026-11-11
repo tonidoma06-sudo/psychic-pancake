@@ -12,6 +12,7 @@ import { skyDome } from './sky.js';
 const W = 1080, H = 1920;
 await document.fonts.load('700 80px Fredoka'); await document.fonts.load('600 40px Fredoka');
 const TM = await (await fetch('timing.json')).json();
+const QS0 = new URLSearchParams(location.search);
 const B = 60 / TM.bpm, DUR = TM.dur, LOOP = DUR - B;
 const LN = Object.fromEntries(TM.lines.map(l => [l.id, l]));
 const nrm = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -62,11 +63,13 @@ const dv = mk(LOOKS.david), cash = mk(LOOKS.cashier), v1 = mk(LOOKS.vol1), v2 = 
 const CASTS = [dv, cash, v1, v2, v3, att];
 const heroCup = cup(1.6); dv.props.add(heroCup); heroCup.rotation.x = Math.PI; heroCup.position.set(0, .0, .02);
 const calc = calculator(); dv.propsL.add(calc); calc.rotation.set(-1.3, 0, 0); calc.position.set(0, -.02, .03);
-const spn = spoon(); dv.props.add(spn); spn.rotation.x = Math.PI;
+const spn = spoon(); dv.props.add(spn); spn.rotation.x = Math.PI; spn.scale.setScalar(1.5);
+const eatCup = cup(1.8); dv.propsL.add(eatCup); eatCup.position.set(0, -.01, .03);
+M(new THREE.CylinderGeometry(.06, .06, .004, 24), mat('#5A3220', { r: .25 }), eatCup, 0, .05 * 1.8 + .002, 0);   // the lid is off: pudding
 const card = goldCard(); card.scale.setScalar(.25); att.props.add(card); card.rotation.set(-Math.PI / 2 - .3, 0, 0); card.position.set(0, -.05, .06);
 const boxP = G(); M(new THREE.BoxGeometry(.42, .28, .32), mat('#C9A06A', { r: .9 }), boxP, 0, -.02, 0); { const cs = cups(12, 1.4); boxP.add(cs); for (let k = 0; k < 12; k++) setInst(cs, k, ((k % 4) - 1.5) * .09, .13, (Math.floor(k / 4) - 1) * .09, 0, k, 0); cs.instanceMatrix.needsUpdate = true; }
 dv.spine.add(boxP); boxP.position.set(0, .12, .3);
-const PROPS = [heroCup, calc, spn, card, boxP];
+const PROPS = [heroCup, calc, spn, card, boxP, eatCup];
 const jetM = jet(); scene.add(jetM);
 const fall = cups(240, 1.6); scene.add(fall);
 const carts = [0, 1, 2, 3].map(i => { const c = cart(); loadCart(c, 230 + i * 10, 3 + i); SET.store.add(c); return c; });
@@ -101,7 +104,7 @@ const show = (...ps) => PROPS.forEach(o => o.visible = ps.includes(o));
 const CAMP = new THREE.Vector3();
 function reset() { CASTS.forEach(p => p.P.visible = false); show(); jetM.visible = false; fall.visible = false; carts.forEach(c => c.visible = false); scTable.visible = false; }
 const P2 = Object.assign(POSES, {
-  calc: { sp: [4, 0, 0], hd: [14, 0, 0], aL: [-55, 28, -12, 95, 20], aR: [-50, -30, 14, 98, 0], lL: [0, -3, 2], lR: [0, 3, 2], y: 0, gL: .55, gR: .2, face: 'calm', pt: 1 },
+  calc: { sp: [4, 0, 0], hd: [20, 0, 0], aL: [-34, 24, -10, 84, 20], aR: [-50, -30, 14, 98, 0], lL: [0, -3, 2], lR: [0, 3, 2], y: 0, gL: .55, gR: .2, face: 'calm', pt: 1 },
   push: { sp: [14, 0, 0], hd: [-8, 0, 0], aL: [-58, 10, -6, 22, 0], aR: [-58, -10, 6, 22, 0], lL: [0, -3, 2], lR: [0, 3, 2], y: -.01, gL: .95, gR: .95, face: 'happy' },
   peel: { sp: [12, 0, 0], hd: [16, 0, 0], aL: [-48, 30, -10, 100, 0], aR: [-48, -30, 10, 100, 0], lL: [0, -3, 2], lR: [0, 3, 2], y: 0, gL: .45, gR: .55, face: 'calm' },
   sitPeel: { sp: [10, 0, 0], hd: [16, 0, 0], aL: [-48, 30, -10, 100, 0], aR: [-48, -30, 10, 100, 0], lL: [-85, -6, 85], lR: [-85, 6, 85], y: -.47, gL: .45, gR: .55, face: 'worried' },
@@ -150,7 +153,7 @@ const SHOTS = [
     cam: (t, u) => camAt(V(lerp(.45, .3, u), 1.58, lerp(-1.05, -1.35, eio(u))), V(-.05, 1.5, -3.1), 38, lerp(2.0, 1.75, u), 5) },
   // 4b · the scale: miles outweigh pudding
   { t0: S4b, t1: C5, set: 'store', lt: STORE, act: t => act4(t),
-    cam: (t, u) => camAt(V(lerp(.82, .72, u), 1.38, lerp(-.8, -.95, u)), V(.56, 1.2, -3.3), 46, 2.45, 4) },
+    cam: (t, u) => camAt(V(lerp(.42, .34, u), 1.45, lerp(.05, -.2, eio(u))), V(.42, 1.15, -3.25), 44, 3.3, 4) },
   // 5a · every cup he could find: the cart train down the aisle
   { t0: C5, t1: S5b, set: 'store', lt: STORE, act: t => act5(t), after: 1,
     cam: (t, u) => { const z = carts[0].position.z; return camAt(V(.55, 1.75, z - 3.6), V(-.05, .95, z + 1.4), 44, 4.2, 4); } },
@@ -171,7 +174,8 @@ const SHOTS = [
     cam: (t, u) => camAt(V(lerp(.15, .3, u), lerp(1.35, 1.3, u), lerp(2.2, 1.85, eio(u))), V(.8, 1.08, -.05), 40, 2.0, 4) },
   // 9 · a tax write-off… for the pudding (and the bin pops: the loop)
   { t0: C9, t1: LOOP, set: 'cabin', lt: CABIN, act: t => act9(t),
-    cam: (t, u) => camAt(V(lerp(.3, .38, u), lerp(1.42, 1.38, u), lerp(1.38, 1.2, eio(u))), V(.84, .98, .12), 38, 1.15, 5) },
+    cam: (t, u) => { const k = eio(seg(t, tTax - .2, tWrite - .02)) - eio(seg(t, tPud9 - .45, tPud9 - .1));
+      return camAt(V(lerp(lerp(.3, .38, u), .58, k), lerp(lerp(1.42, 1.38, u), 1.24, k), lerp(lerp(1.38, 1.2, eio(u)), 1.12, k)), V(lerp(.84, .78, k), lerp(.98, .74, k), lerp(.12, .52, k)), 38, lerp(1.15, .72, k), 5); } },
   { t0: LOOP, t1: DUR + 1, set: 'sub', loop: true },
 ];
 SHOTS[SHOTS.length - 1] = { ...SHOTS[0], t0: LOOP, t1: DUR + 1, act: () => act1(0), cam: () => SHOTS[0].cam(0, 0) };
@@ -261,12 +265,22 @@ function act8(t) {
   put(att, .2, 0, .5, 2.05); apply(att, giving ? POSES.offer : POSES.stand, { t, seed: 9, face: 'happy', look: lookAtP(dv, 1.05) });
   card.visible = giving;
 }
+const _qa = new THREE.Quaternion(); let EATM = [0, .03, .12];
+if (QS0.get('eatR')) POSES.sitEat.aR = JSON.parse(QS0.get('eatR')); if (QS0.get('eatL')) POSES.sitEat.aL = JSON.parse(QS0.get('eatL')); if (QS0.get('eatM')) EATM = JSON.parse(QS0.get('eatM'));
 function act9(t) {
-  reset(); show(spn);
-  form.userData.redraw(t >= tWrite - .05 ? 1 : 0);
+  reset(); show(spn, eatCup);
+  const stamp = t >= tWrite - .05 ? 1 : 0; if (stamp !== form.userData.st) { form.userData.redraw(stamp); form.userData.st = stamp; }
   const eat = t > tPud9 - .5;
   put(dv, .85, .03, -.02, 0); apply(dv, eat ? POSES.sitEat : POSES.sitRelax, { t, seed: 1, face: eat ? 'happy' : 'smug', wink: t > tPud9 && t < tPud9 + .5 ? 1 : 0, look: t > tWrite - .2 && !eat ? V(.85, .74, .55) : CAMP });
-  spn.visible = eat; trayCup.visible = true;
+  spn.visible = eat; eatCup.visible = eat; trayCup.visible = !eat;
+  if (eat) {   // spooning: the cup stays upright in his left hand, the spoon runs from his right hand to his mouth / into the cup
+    const sp = .5 + .5 * Math.sin((t - tPud9) * 7 - 1.2);
+    dv.aR.el.rotation.x -= sp * .25; dv.P.updateMatrixWorld(true);
+    dv.propsL.getWorldQuaternion(_qa); eatCup.quaternion.copy(_qa.invert());
+    const H = dv.props.getWorldPosition(V(0, 0, 0)), mouth = dv.head.localToWorld(V(...EATM)), cupTop = eatCup.getWorldPosition(V(0, 0, 0)).add(V(0, .09, 0));
+    const tgt = cupTop.lerp(mouth, sp), d = tgt.sub(H).normalize();
+    dv.props.getWorldQuaternion(_qa); d.applyQuaternion(_qa.invert()); spn.quaternion.setFromUnitVectors(V(0, -1, 0), d);
+  }
   // the overhead bin pops open and the cups rain down: back to the avalanche
   binLid.rotation.x = -1.6 * eo(seg(t, RAIN - .15, RAIN + .1));
   if (t > RAIN - .15) avalanche(t - RAIN + .1, 'bin');
@@ -291,7 +305,7 @@ const TEL = [
   { t0: tTurned, t1: C3, text: t => num(1000000 * eo(seg(t, tTurned, tMillion))) + '+ MILES', y: 300, size: 104, col: '#FFFFFF', rot: 3, plate: '#1C4E9A', grow: 1 },
   { t0: t1999, t1: tBarcode + .3, text: '1999', y: 300, size: 170, col: '#FFD23F', rot: -5 },
   { t0: tDavid - .05, t1: S4b + .4, text: 'DAVID PHILLIPS', y: 1270, size: 84, col: '#FFFFFF', rot: -3, plate: '#3E7CC0', sub: 'ENGINEER' },
-  { t0: tWay - .05, t1: C5, text: 'WORTH WAY MORE!', y: 330, size: 104, col: '#7BE07B', rot: -5 },
+  { t0: tWay - .05, t1: C5, text: 'WORTH WAY MORE!', y: 225, size: 104, col: '#7BE07B', rot: -5 },
   { t0: tBought, t1: C6, text: t => num(t < t12150 ? 12150 * eo(seg(t, tBought, t12150)) : 12150), y: 300, size: 170, col: '#FFD23F', rot: -4, sub: 'PUDDING CUPS', grow: 1 },
   { t0: tProblem - .05, t1: C7, text: '12,000 LABELS TO PEEL', y: 300, size: 84, col: '#FFFFFF', rot: 3, plate: '#C8283A' },
   { t0: tDeadline - .05, t1: C7, text: 'DEADLINE!', y: 470, size: 120, col: '#FFD23F', rot: -6, stamp: 1 },
