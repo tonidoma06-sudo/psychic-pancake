@@ -1,0 +1,17 @@
+Pepsi, where's my jet? · 3D YouTube Short (1080×1920), style v4 "Toon 3D"
+
+Picture: modelled, lit and animated in code with three.js (MIT). Post (depth of field, bloom, grade): core/three/post.js from
+the Lemo-Opuscar library (github.com/lemomo-ai/lemo-opuscar, MIT). Toon characters with hand-drawn canvas faces, the jet,
+the school, the rooms and every prop are built from primitives for this film. The people are stylised stand-ins with no
+real likeness. On-screen branding is generic (a blue "COLA" can, "POINTS"); no real logo is shown. "LAKEVIEW HIGH" is invented.
+
+Style: techniques studied from a reference Short supplied by the creator (see toon-3d/style/REFERENCE.md); characters,
+designs, story and assets here are original.
+
+Voice-over: generated with ElevenLabs v4 (voice preset "Harrison") through the creator's Higgsfield account; pauses tightened
+and the read sped up 15 % (pitch unchanged) in timing.py. Check Higgsfield's / ElevenLabs' terms for your use.
+
+Fonts: Montserrat — Julieta Ulanovsky et al., SIL Open Font License 1.1 (fonts/OFL-Montserrat.txt);
+Fredoka — Milena Brandão, SIL OFL 1.1 (fonts/OFL-Fredoka.txt).
+
+Music and sound effects: synthesised in code (music.py; synth_lib.py from the Lemo-Opuscar library, MIT). No samples.
