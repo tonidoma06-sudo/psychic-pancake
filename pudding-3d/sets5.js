@@ -137,8 +137,10 @@ export function store() {
   g.userData.pud = pud; g.userData.pudZ = PUDZ;
   // the promotion: a standee and a shelf talker
   const sign = textPlane([{ text: 'FLY FREE!', size: 120, y: 120, color: '#FFD23F' }, { text: 'AIRLINE MILES', size: 76, y: 240, color: '#FFFFFF' }, { text: 'FOR EVERY BARCODE', size: 56, y: 330, color: '#FFFFFF' }], 1.2, .8, { w: 800, h: 520, bg: '#1C4E9A', round: 30 });
-  const st = G(); st.position.set(-.95, 0, .2); st.rotation.y = .5; g.add(st); M(cyl(.025, .025, 1.5, 8), mat('#C0C0C8', { m: .7 }), st, 0, .75, 0); sign.position.set(0, 1.85, .012); st.add(sign); M(box(1.22, .82, .02, .01), mat('#E8E2D4', { r: .9 }), st, 0, 1.85, 0);
-  const plane_ = G(); plane_.position.set(.42, 2.15, .02); st.add(plane_); toyPlane(plane_, .35);
+  // hung from the ceiling over the aisle (clear of the shelves and of the carts below), printed on both sides
+  const st = G(); st.position.set(-.3, 2.35, .4); g.add(st); sign.position.z = .012; st.add(sign); const signB = sign.clone(); signB.rotation.y = Math.PI; signB.position.z = -.012; st.add(signB);
+  M(box(1.22, .82, .02, .01), mat('#1C4E9A'), st, 0, 0, 0); for (const s2 of [-1, 1]) M(cyl(.006, .006, 1.45, 4), mat('#888'), st, s2 * .5, 1.125, 0);
+  const plane_ = G(); plane_.position.set(.42, .3, .07); st.add(plane_); toyPlane(plane_, .35);
   g.userData.standee = st;
   // the aisle sign
   const as = textPlane([{ text: 'AISLE 7', size: 70, y: 70, color: '#FFFFFF' }, { text: 'DESSERTS', size: 56, y: 150, color: '#FFD23F' }], 1.4, .6, { w: 560, h: 220, bg: '#C8283A', round: 16 }); as.position.set(0, 3.6, -.988); g.add(as); const asB = as.clone(); asB.rotation.y = Math.PI; asB.position.z = -1.012; g.add(asB); M(box(1.4, .6, .02), mat('#C8283A'), g, 0, 3.6, -1);

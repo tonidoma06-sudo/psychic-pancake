@@ -122,7 +122,7 @@ function avalanche(t, src = 'garage') {
     const t0 = -1.2 + i * .016, k = t - t0;
     if (k < 0) { setInst(fall, i, 0, -50, 0); continue; }
     let x, y, z, vx, vy, vz;
-    if (src === 'garage') { x = 2.0 + hash(i) * 2.4; y = 2.6 + hash(i + 7) * .4; z = -1.1; vx = (hash(i + 3) - .5) * 1.6; vy = .5 + hash(i + 5) * 1.5; vz = 1.4 + hash(i + 9) * 2.6; }
+    if (src === 'garage') { x = 2.3 + hash(i) * 2.5; y = 1.15 + hash(i + 7) * .85; z = -1.45; vx = (hash(i + 3) - .5) * 1.4; vy = .3 + hash(i + 5) * 1.5; vz = 1.6 + hash(i + 9) * 2.4; }   // off the heap and out through the open door (x 2.0–5.3, under the 2.5 m header)
     else { x = .95 + (hash(i) - .5) * .5; y = 2.35; z = .3 + (hash(i + 7) - .5) * .6; vx = (hash(i + 3) - .5) * 1.2; vy = -.2; vz = (hash(i + 9) - .5) * 1.2; }
     const dt = .02; let s = 0, rest = false;
     for (; s < k && s < 4; s += dt) {
@@ -147,7 +147,7 @@ const SHOTS = [
     cam: (t, u) => camAt(V(lerp(3.9, 4.1, u), lerp(.75, .6, u), lerp(7.2, 7.6, u)), V(lerp(2.4, 2.0, eio(u)), lerp(2.0, 5.2, eio(u)), -2), 50, 6.2, 2) },
   // 3 · 1999, aisle 7: the promotion
   { t0: C3, t1: C4, set: 'store', lt: STORE, act: t => act3(t),
-    cam: (t, u) => camAt(V(lerp(.35, .1, eio(u)), lerp(1.6, 1.55, u), lerp(6.4, 3.4, eio(u))), V(lerp(-.55, -.78, u), lerp(1.5, 1.75, u), lerp(-1, .2, u)), 42, lerp(6, 3.1, u), 4) },
+    cam: (t, u) => camAt(V(lerp(.35, -.15, eio(u)), 1.6, lerp(6.4, 3.6, eio(u))), V(lerp(-.45, -.3, eio(u)), lerp(1.75, 2.3, eio(u)), lerp(-1, .4, eio(u))), 42, lerp(6, 3.2, u), 4) },
   // 4a · the engineer does the math
   { t0: C4, t1: S4b, set: 'store', lt: STORE, act: t => act4(t),
     cam: (t, u) => camAt(V(lerp(.45, .3, u), 1.58, lerp(-1.05, -1.35, eio(u))), V(-.05, 1.5, -3.1), 38, lerp(2.0, 1.75, u), 5) },
