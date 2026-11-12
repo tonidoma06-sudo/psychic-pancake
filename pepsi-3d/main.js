@@ -379,7 +379,7 @@ function render(t) {
   if (dis > 0) { frame(prev, t); sctx.clearRect(0, 0, W, H); sctx.drawImage(renderer.domElement, 0, 0); }
   frame(sh, t);
   if (dis > 0) { ov.globalAlpha = eio(dis) * .85; ov.drawImage(snap, 0, 0); ov.globalAlpha = 1; }
-  if (QS.get('poster')) { ov.clearRect(0, 0, W, H); [['HE TRIED TO BUY', 230, -4, '#FFFFFF'], ['A FIGHTER JET', 380, -4, '#F2C230'], ['WITH PEPSI', 530, 3, '#FFFFFF']].forEach(([text, y, rot, col]) => drawTelop({ t0: -9, text, y, size: 128, col, rot }, t)); return; }
+  if (QS.get('poster')) { ov.clearRect(0, 0, W, H); [['HE TRIED TO BUY', 170, -4, '#FFFFFF'], ['A FIGHTER JET', 310, -4, '#F2C230'], ['WITH PEPSI', 450, 3, '#FFFFFF']].forEach(([text, y, rot, col]) => drawTelop({ t0: -9, text, y, size: 120, col, rot }, t)); return; }
   if (QS.get('clean')) return;
   if (t < LOOP) { TEL.forEach(x => { if (t >= x.t0 && t < x.t1) drawTelop(x, t); }); drawCaption(t); }
 }
