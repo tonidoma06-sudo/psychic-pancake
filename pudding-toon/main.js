@@ -198,7 +198,7 @@ const SHOTS = [
     cam: (t, u) => { const a = lerp(-.4, .35, eio(u)); return hand(camAt(V(.25 + Math.sin(a) * 3.8, lerp(2.3, 2.05, u), -1.2 + Math.cos(a) * 3.8 + .6), V(.25, .9, -1.4), 50, 4.2, 3), t); } },
   // 8 · 1,250,000 miles, lifetime elite: first class
   { t0: C8, t1: C9, set: 'cabin', lt: CABIN, at: V(.5, 0, 0), act: t => act8(t),
-    cam: (t, u) => hand(camAt(V(lerp(.1, .3, u), lerp(1.3, 1.25, u), lerp(2.2, 1.7, eio(u))), V(.78, lerp(1.0, 1.08, u), -.05), 44, lerp(2.4, 1.85, u), 4), t) },
+    cam: (t, u) => hand(camAt(V(lerp(.25, .45, u), lerp(1.3, 1.25, u), lerp(2.2, 1.7, eio(u))), V(.78, lerp(1.0, 1.08, u), -.05), 44, lerp(2.4, 1.85, u), 4), t) },
   // 9 · a tax write-off… for the pudding (tilt down to the stamp, back up to him eating; the bin pops: the loop)
   { t0: C9, t1: LOOP, set: 'cabin', lt: CABIN, at: V(.5, 0, 0), act: t => act9(t),
     cam: (t, u) => { const k = eio(seg(t, tTax - .2, tWrite - .02)) - eio(seg(t, tPud9 - .45, tPud9 - .1));
@@ -258,7 +258,7 @@ function act6(t) {
   const clock = SET.sub.userData.clock; clock.userData.hands[0].rotation.z = -t * 1.2; clock.userData.hands[1].rotation.z = -t * 14;
   const p = V(2.6, 0, -1.5); p.y = HH(p.x, p.z) - .44;
   put(dv, p, .1);
-  apply(dv, TP.sitPeel, { t, seed: 1, face: t > tDeadline - .1 ? 'shock' : t > tPeel - .2 ? 'worried' : 'calm', look: t > tProblem && t < tPeel + .4 ? V(3.6, 2.4, -4.9) : CAMP, eyes: [0, -.5] });
+  apply(dv, TP.sitPeel, { t, seed: 1, face: t > tDeadline - .1 ? 'shock' : t > tProblem - .1 ? 'worried' : 'calm', look: CAMP, eyes: [0, -.5] });
   twitch(dv, t, .05);
 }
 function act7(t) {
@@ -282,7 +282,7 @@ function act8(t) {
   put(dv, V(.85, .06, -.02), 0); apply(dv, t < tLifetime ? TP.sitRelax : mix(TP.sit, TP.sitRelax, .2), { t, seed: 1, face: t < tLifetime ? 'smug' : 'proud', look: t < tLifetime ? CAMP : headOf(att) });
   binLid.rotation.x = 0;
   const giving = t > tLifetime - .3;
-  put(att, V(.2, 0, .55), 2.05); apply(att, giving ? TP.offer : TP.stand, { t, seed: 9, face: 'happy', look: headOf(dv) });
+  put(att, V(.08, 0, .55), 2.05); apply(att, giving ? TP.offer : TP.stand, { t, seed: 9, face: 'happy', look: headOf(dv) });
   card.visible = giving;
 }
 const _qa = new THREE.Quaternion();
@@ -296,6 +296,7 @@ function act9(t) {
     const sp = .5 + .5 * Math.sin((t - tPud9) * 7 - 1.2);
     dv.aR.el.rotation.x -= sp * .25; dv.P.updateMatrixWorld(true);
     dv.propsL.getWorldQuaternion(_qa); eatCup.quaternion.copy(_qa.invert());
+    eatCup.position.copy(dv.propsL.worldToLocal(dv.propsL.getWorldPosition(V(0, 0, 0)).add(V(0, -.055, .015))));
     const Hh = dv.props.getWorldPosition(V(0, 0, 0)), mouth = dv.head.localToWorld(V(0, -.07, .19)), cupTop = eatCup.getWorldPosition(V(0, 0, 0)).add(V(0, .1, 0));
     const d = cupTop.lerp(mouth, sp).sub(Hh).normalize(); dv.props.getWorldQuaternion(_qa); d.applyQuaternion(_qa.invert()); spn.quaternion.setFromUnitVectors(V(0, -1, 0), d);
   }
@@ -329,7 +330,7 @@ const TEL = [
   { t0: tDeadline - .05, t1: C7, text: 'DEADLINE!', y: 470, size: 120, col: '#FFD23F', rot: -6, stamp: 1 },
   { t0: tGenius - .05, t1: S7b + .6, text: 'GENIUS MOVE', y: 300, size: 120, col: '#FFD23F', rot: -5 },
   { t0: t125 - .05, t1: C9, text: t => num(t < tLifetime - .2 ? 1250000 * eo(seg(t, t125 - .05, t125 + .9)) : 1250000) + ' MILES', y: 300, size: 92, col: '#FFFFFF', rot: -3, plate: '#1C4E9A' },
-  { t0: tLifetime - .05, t1: C9, text: 'LIFETIME ELITE', y: 450, size: 88, col: '#3A2A00', rot: 4, plate: '#E8C04A' },
+  { t0: tLifetime - .05, t1: C9, text: 'LIFETIME ELITE', y: 1470, size: 92, col: '#FFFFFF', rot: 4, plate: '#C9971E' },
   { t0: tTax - .05, t1: LOOP, text: '+ TAX WRITE-OFF', y: 300, size: 96, col: '#7BE07B', rot: -4, plate: '#1C3A2A' },
 ];
 function drawTelop(x, t) {
