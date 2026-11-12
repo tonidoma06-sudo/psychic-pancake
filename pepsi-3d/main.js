@@ -65,7 +65,7 @@ const SCH = school(); scene.add(SCH);
 const JET = jet(); scene.add(JET);
 const LR0 = V(300, 0, 0), OF0 = V(400, 0, 0), CT0 = V(500, 0, 0);
 const LIV = room({ name: 'living', w: 7, d: 6.5, h: 3.0, wall: 'stripes', wallA: '#E8D8B0', wallB: '#DCC898', window: [-2.0, 1.7, 1.8, 1.3] }); LIV.position.copy(LR0); scene.add(LIV);
-const sofa = couch('#C8643C'); sofa.position.set(0, 0, 1.6); LIV.add(sofa);
+const sofa = couch('#C8643C'); sofa.position.set(0, 0, 1.6); sofa.rotation.y = Math.PI; LIV.add(sofa);   // facing the TV
 const TV = tv(); TV.position.set(0, 0, -2.6); LIV.add(TV);
 const tbl = coffeeTable(); tbl.position.set(0, 0, .45); LIV.add(tbl);
 const CAT = catalog(); CAT.rotation.set(-Math.PI / 2, 0, .12); CAT.position.set(-.18, .456, .45); LIV.add(CAT);
@@ -112,7 +112,7 @@ const tHarrier = w('L3', 'harrier'), t7m = w('L3', '7000000'), tJoke = w('L4', '
 const t700k = w('L5', '700000'), tFor5 = w('L5', 'for'), t30m = w('L5', '30');
 const tInvest = w('L6', 'investors'), tMailed = w('L6', 'mailed'), tCheck = w('L6', 'check');
 const tNo = w('L7', 'no'), tSued = w('L7', 'sued');
-const tReason = w('L8', 'reasonable'), tJet8 = w('L8', 'jet');
+const tReason = w('L8', 'reasonable'), tJet8 = w('L8', 'fighter') - .02;
 const tChanged = w('L9', 'changed'), t700m = w('L9', '700000000'), tKid = w('L9', 'just');
 const S1b = 1.25, S3b = t7m - .12, S4b = tBut - .08, S4c = t10c + .25, S5b = tFor5 - .1, S6b = tMailed - .25, S7b = tSued - .45, S8b = 26.6, S9b = tKid + .4;
 
@@ -161,10 +161,10 @@ const SHOTS = [
     cam: (t, u) => { const k = eio(seg(t, S5b, t30m + .1)); return hand(camAt(V(lerp(-1.2, -3.6, k), lerp(1.0, 2.6, k), lerp(4.8, 7.6, k)), V(lerp(-1.6, -.5, k), lerp(1.1, 2.0, k), lerp(3.0, -2.0, k)), lerp(48, 52, k), lerp(1.7, 9, k), 3), t); } },
   // 6a · the investors: money bags fly into his arms
   { t0: C6, t1: S6b, lt: OUT, at: JOHN6, act: t => act6(t),
-    cam: (t, u) => { const a = lerp(-.45, .3, eio(u)), r = lerp(3.4, 2.7, u); return hand(camAt(V(JOHN6.x + Math.sin(a) * r, lerp(1.25, 1.4, u), JOHN6.z + Math.cos(a) * r), V(JOHN6.x, 1.05, JOHN6.z), 50, r, 4), t); } },
+    cam: (t, u) => { const a = lerp(-.35, .25, eio(u)), r = lerp(4.3, 3.5, u); return hand(camAt(V(JOHN6.x + Math.sin(a) * r, lerp(1.3, 1.45, u), JOHN6.z + Math.cos(a) * r), V(JOHN6.x, 1.0, JOHN6.z - .4), 52, r, 4), t); } },
   // 6b · the giant check goes in the mailbox… and the envelope rockets off
   { t0: S6b, t1: C7, lt: OUT, at: MBX, act: t => act6(t), fpv: .5, after: 1,
-    cam: (t, u) => { const k = eio(seg(t, tCheck - .2, C7)); const base = V(MBX.x + .8, 1.2, MBX.z - .75), jf = V(MBX.x + .36, 1.2, MBX.z + .66), up = ENV.position.clone(); return hand(camAt(base.clone().lerp(V(MBX.x + 1.2, 1.15, MBX.z - .4), k), jf.clone().lerp(up, k), lerp(48, 54, k), 1.6, 4), t, 1.2); } },
+    cam: (t, u) => { const k = eio(seg(t, tCheck - .2, C7)); const base = V(MBX.x + 1.6, 1.35, MBX.z - .02), jf = V(MBX.x + .2, 1.12, MBX.z + .36), up = ENV.position.clone(); return hand(camAt(base.clone().lerp(V(MBX.x + 1.7, 1.2, MBX.z + .3), k), jf.clone().lerp(up, k), lerp(50, 56, k), 1.5, 4), t, 1.2); } },
   // 7a · Pepsi said no: the exec laughs… and stamps it NO
   { t0: C7, t1: S7b, lt: OFFICE, at: OF0, act: t => act7(t),
     cam: (t, u) => hand(camAt(L(OF0, lerp(.6, .25, eio(u)), lerp(1.3, 1.25, u), lerp(1.4, .6, eio(u))), L(OF0, .02, 1.12, -1.2), 44, lerp(2.7, 1.9, u), 4), t) },
@@ -206,7 +206,7 @@ function dustRing(t, k) {
 function act1(t) {
   reset(); placeJet(t, seg(t, 1.55, 2.0)); dustRing(t, 1 - seg(t, 1.6, 2.6) * .7);
   // kids in the foreground, shocked
-  [[-1.6, 3.6, .5], [1.4, 4.4, -.6], [-3.6, 1.6, .9]].forEach(([x, z, ry], i) => { put(kids[i], V(x, 0, z), ry); apply(kids[i], mix(TP.stand, TP.cheer, i === 1 ? .35 : .15), { t, seed: 20 + i, face: 'shock', look: JET.position }); });
+  [[-1.1, 1.3, .4], [1.9, 1.7, -.5], [-3.9, .3, .9]].forEach(([x, z, ry], i) => { put(kids[i], V(x, 0, z), ry); apply(kids[i], mix(TP.stand, TP.cheer, i === 1 ? .35 : .15), { t, seed: 20 + i, face: 'shock', look: JET.position }); });
   // John in the cockpit (body hidden in the fuselage), popping up with a can on "Pepsi!"
   const cp = cockpit(t), up = eo(seg(t, 1.7, 2.1));
   put(john, V(cp.x, cp.y - 1.05 + up * .62, cp.z), JRY + .35); show(can);
@@ -246,6 +246,7 @@ function act4(t) {
   put(john, SOFA(), Math.PI);
   if (t < S4b) apply(john, TP.sitLaugh, { t, seed: 1, face: 'laugh', look: L(LR0, 0, .96, -2.6) });
   else apply(john, mix(TP.sit, TP.rub, .7), { t, seed: 1, face: t >= S4c ? 'evil' : 'smug', look: t >= S4c ? CAMP : L(LR0, -.2, .45, .4) });
+  john.P.visible = !(t >= S4b && t < S4c);
   const hl = seg(t, tBuy - .1, t10c + .1); CAT.userData.draw(hl);
   MAG.visible = t >= S4b && t < S4c; MAG.position.set(lerp(-.34, -.04, eio(seg(t, S4b + .1, t10c))), .5, .69);
 }
@@ -262,7 +263,7 @@ function act6(t) {
     put(john, JOHN6, .2);
     const n = BAGS.filter((b, i) => t > tInvest - .3 + i * .22 + .45).length;
     apply(john, mix(TP.hold, TP.cheer, Math.min(1, n * .25) * .4), { t, seed: 1, face: n >= 3 ? 'laugh' : 'happy', look: CAMP, sq: 0 });
-    INV.forEach((p, i) => { const a = [-1.95, -1.3, 1.3, 1.95][i], home = V(JOHN6.x + Math.sin(a) * 1.9, 0, JOHN6.z + Math.cos(a) * 1.6 + .2); const tt = tInvest - .3 + i * .22;
+    INV.forEach((p, i) => { const a = [-1.6, -1.0, 1.0, 1.6][i], off = [[-1.15, -.25], [-.7, -.95], [.7, -.95], [1.15, -.25]][i], home = V(JOHN6.x + off[0], 0, JOHN6.z + off[1]); const tt = tInvest - .3 + i * .22;
       const run = seg(t, C6, tt), pos = V(lerp(home.x + Math.sin(a) * 3, home.x, eo(run)), 0, lerp(home.z + 2, home.z, eo(run)));
       put(p, pos, Math.atan2(JOHN6.x - pos.x, JOHN6.z - pos.z)); apply(p, t < tt ? walk(TP.stand, t * 9 + i, run < 1 ? 1 : 0) : mix(TP.present, TP.cheer, seg(t, tt, tt + .3)), { t, seed: 30 + i, face: i % 2 ? 'happy' : 'smug', look: john.P.position.clone().add(V(0, 1.2, 0)) });
       const b = BAGS[i], k = seg(t, tt, tt + .45), from = pos.clone().add(V(0, 1.1, 0)), to = JOHN6.clone().add(V((i - 1.5) * .14, 1.0 + (i % 2) * .22 + Math.floor(i / 2) * .16, .32));
@@ -272,7 +273,7 @@ function act6(t) {
     const front = V(Math.sin(.5), 0, Math.cos(.5)), at = MBX.clone().add(front.clone().multiplyScalar(.75));
     put(john, at, .5 + Math.PI); const push = seg(t, S6b + .3, tCheck - .1);
     apply(john, mix(TP.present, TP.hold, push), { t, seed: 1, face: t > tCheck - .25 ? 'laugh' : 'happy', look: MBX.clone().add(V(0, 1.2, 0)) });
-    CHK.position.set(0, -.12, .14 + push * .12); CHK.rotation.set(-.35, 0, 0); CHK.scale.set(lerp(1.2, .3, ei(push)), lerp(1.2, .5, push), 1); CHK.visible = push < .98;
+    CHK.position.set(0, -.2, .14 + push * .12); CHK.rotation.set(.35, 0, Math.PI); CHK.scale.set(lerp(.85, .25, ei(push)), lerp(.85, .4, push), 1); CHK.visible = push < .98;
     const k = seg(t, tCheck - .15, C7 + .1); ENV.visible = k > 0; ENV.position.copy(MBX).add(V(0, 1.45 + ei(k) * 9, 0)).add(front.clone().multiplyScalar(-k * 2)); ENV.rotation.set(k * 6, k * 9, k * 2);
     SCH.userData.mailbox.rotation.z = Math.sin(t * 40) * .03 * seg(t, S6b + .3, tCheck);
   }
@@ -324,7 +325,7 @@ const TEL = [
   { t0: t700k - .05, t1: C6, text: t => '$' + num(t < tFor5 ? 700000 * eo(seg(t, t700k - .05, t700k + .7)) : 700000), y: 300, size: 140, col: '#7BE07B', rot: -3, grow: 1, sub: t => t > t30m ? 'FOR A $30,000,000+ JET' : null },
   { t0: tNo - .03, t1: S7b, text: 'NO.', y: 330, size: 200, col: '#E8423A', rot: -8, stamp: 1 },
   { t0: tReason - .05, t1: C9, text: '"NO REASONABLE PERSON…"', y: 300, size: 76, col: '#FFFFFF', rot: -3, plate: '#7A1E22' },
-  { t0: tJet8 + .05, t1: C9, text: 'PEPSI WINS', y: 470, size: 110, col: '#F2C230', rot: 4, stamp: 1 },
+  { t0: tJet8 + .05, t1: C9, text: 'PEPSI WINS', y: 570, size: 110, col: '#F2C230', rot: 4, stamp: 1 },
 ];
 function drawTelop(x, t) {
   const p = seg(t, x.t0, x.t0 + .25), sc = x.stamp ? lerp(2.2, 1, eo(p)) : back(p, 2.6), wob = 1 + .02 * Math.sin((t - x.t0) * 8);
