@@ -206,13 +206,13 @@ export function crate(label = '.303 AMMO') {
 // the scoreboard: a painted board on two posts; set(emus, aus) flips the numbers in
 export function scoreboard() {
   const g = G();
-  for (const s of [-1, 1]) TM(new THREE.BoxGeometry(.18, 3.2, .18), '#7A5A3A', g, s * 1.75, 1.6, 0, .012);
-  TM(new THREE.BoxGeometry(3.9, 2.25, .14), '#6A4A2A', g, 0, 2.2, 0, .012);
+  for (const s of [-1, 1]) TM(new THREE.BoxGeometry(.18, 4.0, .18), '#7A5A3A', g, s * 1.75, 2.0, 0, .012);
+  TM(new THREE.BoxGeometry(3.9, 2.25, .14), '#6A4A2A', g, 0, 2.95, 0, .012);
   const draw = (e, a) => [{ text: 'FINAL SCORE', size: 120, y: 150, color: '#FFD23F', weight: 900, font: 'Montserrat' },
     { text: 'EMUS', size: 150, y: 380, x: 380, color: '#FFFFFF', weight: 900, font: 'Montserrat' }, { text: e, size: 210, y: 390, x: 1080, color: '#FFFFFF', weight: 900, font: 'Montserrat' },
     { text: 'AUSTRALIA', size: 124, y: 625, x: 440, color: '#FFFFFF', weight: 900, font: 'Montserrat' }, { text: a, size: 210, y: 630, x: 1080, color: '#FFFFFF', weight: 900, font: 'Montserrat' }];
   const o = { w: 1280, h: 740, bg: '#1F3A2A', border: '#E8E0C8', bw: 22, round: 26 };
-  const board = textPlane(draw('–', '–'), 3.6, 2.08, o); board.position.set(0, 2.2, .075); g.add(board);
+  const board = textPlane(draw('–', '–'), 3.6, 2.08, o); board.position.set(0, 2.95, .075); g.add(board);
   let key = ''; g.userData.set = (e, a) => { const k = e + a; if (k !== key) { key = k; board.userData.redraw(draw(e, a), o); } };
   return g;
 }

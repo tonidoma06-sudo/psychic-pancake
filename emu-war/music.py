@@ -27,7 +27,7 @@ def W(lid, word):
 tLOST, tRAN, tNO, tWORLD, tRET = W('L1', 'lost'), W('L4', 'ran'), W('L8', 'no'), W('L7', 'world'), W('L6', 'retreated')
 tHE = W('L7', 'he'); tAGAIN = W('L8', 'again')
 SECS = [('hook', 0), ('farm', CUT['L2']), ('army', CUT['L3']), ('ambush', CUT['L4']), ('chase', CUT['L5']), ('retreat', CUT['L6']),
-        ('press', CUT['L7']), ('emuarmy', tHE - .15), ('farmers', CUT['L8']), ('office', tAGAIN + .42), ('final', CUT['L9']), ('loop', LOOP)]
+        ('press', CUT['L7']), ('emuarmy', tHE - .15), ('farmers', CUT['L8']), ('office', tAGAIN + .42), ('final', W('L9', 'final')), ('loop', LOOP)]
 def section(t):
     cur = 'hook'
     for n, a in SECS:
@@ -114,7 +114,7 @@ for b in range(nb):
 add(brass([65, 69, 72, 77], .5), 0, 1.0); add(kick(1.0), 0, .8)
 add(brass([62, 65, 69], .45), tRAN - .02, .5); add(timp(38, 1.0), tWORLD - .02, .8); add(brass([62, 65, 69, 74], .5), tWORLD - .02, .7)
 add(trombone((60, 59, 58, 57)), tRET + .05, .8)
-add(brass([65, 69, 72, 77], .6), CUT['L9'], .8); add(brass([67, 72, 76, 79], .9), W('L9', '0') - .02, .8)
+add(brass([65, 69, 72, 77], .6), W('L9', 'final'), .8); add(brass([67, 72, 76, 79], .9), W('L9', '0') - .02, .8)
 for k in range(4): add(snare(), LOOP - .02 + k * .12, .12 + .06 * k)
 
 # ---------------- SFX ----------------

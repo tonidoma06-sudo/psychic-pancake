@@ -89,7 +89,7 @@ const BOARD = scoreboard(); scene.add(BOARD);
 const BINO = binoculars(); MER.props.add(BINO); BINO.position.set(-.04, .02, .06);
 const MIC = microphone(); scene.add(MIC);
 const LET = letter(); FARM.props.add(LET); LET.position.set(0, .2, .03); LET.rotation.set(0, 0, 0);
-const LET2 = letter(); SET.office.add(LET2); LET2.rotation.x = -Math.PI / 2; LET2.position.set(.05, .835, -.32); LET2.scale.setScalar(.9);
+const LET2 = letter(); SET.office.add(LET2); LET2.rotation.x = -Math.PI / 2; LET2.position.set(.05, .843, -.32); LET2.scale.setScalar(.9);
 const STAMP = rubberStamp(); GEN.props.add(STAMP); STAMP.rotation.x = Math.PI; STAMP.position.set(0, -.02, .02);
 const PROPS = [gunA, gunB, BOARD, BINO, MIC, LET, STAMP, ...crates];
 
@@ -104,7 +104,7 @@ const tWeek = w('L6', 'week'), tRetreat = w('L6', 'retreated');
 const tSaid = w('L7', 'said'), tHe = w('L7', 'he'), tBeat = w('L7', 'beat'), tWorld = w('L7', 'world');
 const tFarmers = w('L8', 'farmers'), tAgain = w('L8', 'again'), tNo = w('L8', 'no');
 const tFinal = w('L9', 'final'), tOne = w('L9', '1'), tZero = w('L9', '0');
-const S1b = tWar - .05, S2b = t20k - .25, S3b = tTwo - .25, S4b = tBut - .15, S4c = tRan - .3, S5b = tThe5 - .1, S7b = tHe - .15, S8b = tAgain + .42, S9b = tZero + .35;
+const S1b = tWar - .05, S2b = t20k - .25, S3b = tTwo - .25, S4b = tBut - .15, S4c = tRan - .3, S5b = tThe5 - .1, S7b = tHe - .15, S8b = tAgain + .42, S9b = tZero + .35, S9a = tFinal + .02;
 const tGrab = tBirds + .06;
 
 // ---------------- helpers ----------------
@@ -116,6 +116,7 @@ function reset() {
   MER.head.add(HAT); HAT.position.set(0, 0, 0); HAT.rotation.set(0, 0, 0); HAT.scale.setScalar(1); HAT.visible = true; comb.visible = false;
   for (let i = 0; i < FLOCK.n; i++) FLOCK.hide(i);
   gunT.userData.flash.visible = false; flashK = 0;
+  FLOCK.commit();   // upload the hidden state: acts without a flock must not show the last frame's birds
 }
 let flashK = 0;
 const headOf = p => { p.P.updateMatrixWorld(true); return p.head.getWorldPosition(V(0, 0, 0)); };
@@ -218,7 +219,7 @@ const SHOTS = [
     cam: (t, u) => { const f = fpv3(t, u), k = eio(seg(t, tMajor + .1, S3b)); if (k > 0) { f.pos.lerp(V(17.15, 1.32, 18.8), k); f.look.lerp(V(17.4, 1.3, 21.4), k); f.fov = lerp(46, 42, k); f.focus = f.pos.distanceTo(f.look); f.aper = 5; f.roll *= 1 - k; } return hand(f, t, .5); }, fpv: .8 },
   // 3b · two machine guns… and 10,000 bullets: the guns slam down, the crates pile up
   { t0: S3b, t1: C4, set: 'out', lt: DAY, at: CP, act: t => act3(t),
-    cam: (t, u) => { const k = eio(seg(t, t10k - .1, t10k + .6)); return hand(camAt(V(lerp(16.85, 17.0, k), lerp(1.05, 1.5, k), lerp(18.7, 17.6, k)), V(lerp(17.25, 17.7, k), lerp(.72, 1.2, k), lerp(20.3, 20.6, k)), lerp(46, 50, k), lerp(1.7, 3.1, k), 5), t, .7); } },
+    cam: (t, u) => { const k = eio(seg(t, t10k - .1, t10k + .6)); return hand(camAt(V(lerp(16.85, 17.0, k), lerp(1.12, 1.5, k), lerp(18.55, 17.6, k)), V(lerp(17.25, 17.7, k), lerp(.98, 1.03, k), lerp(20.3, 20.6, k)), lerp(50, 50, k), lerp(1.75, 3.1, k), 5), t, .7); } },
   // 4a · The plan: ambush the flock: over the shoulder at the dam, then round to his evil grin
   { t0: C4, t1: S4b, set: 'out', lt: DAY, at: V(DX, 0, DZ + 8), act: t => act4(t),
     after: 1, cam: (t, u) => { const k = eio(seg(t, tAmbush - .35, tAmbush + .25)), hd = headOf(MER), A = camAt(V(lerp(36.6, 36.3, u), 1.05, lerp(-2.2, -2.8, u)), V(lerp(35.4, 35.6, u), .8, -18), 44, 13, 3), Bc = camAt(hd.clone().add(V(.22, .1, -1.55)), hd.clone().add(V(0, -.04, 0)), 40, 1.57, 6);
@@ -248,11 +249,11 @@ const SHOTS = [
   { t0: C8, t1: S8b, set: 'out', lt: DAY, at: V(-3, 0, 4), act: t => act8(t),
     cam: (t, u) => hand(camAt(V(lerp(-2.4, -2.9, eio(u)), lerp(1.25, 1.42, u), lerp(8.9, 7.55, eio(u))), V(-3.1, 1.32, 5.4), lerp(48, 44, u), lerp(3.6, 2.2, u), 4), t) },
   // 8b · …the army said no: the office; the stamp comes down on DENIED
-  { t0: S8b, t1: C9, set: 'office', lt: OFFICE, at: OFF, act: t => act8(t),
+  { t0: S8b, t1: S9a, set: 'office', lt: OFFICE, at: OFF, act: t => act8(t),
     cam: (t, u) => { const c = hand(camAt(V(OFF.x + lerp(.45, .32, u), lerp(1.36, 1.3, u), OFF.z + lerp(1.15, .9, u)), V(OFF.x + .02, lerp(1.04, 1.0, u), OFF.z - .7), 44, 1.5, 6), t, .6); const sh = Math.exp(-Math.pow((t - tNo - .05) / .08, 2)) * .02; c.pos.y += Math.sin(t * 80) * sh; return c; } },
   // 9a · Final score: emus 1… Australia 0: the scoreboard; the emus party
-  { t0: C9, t1: S9b, set: 'out', lt: DAY, at: SB, act: t => act9(t),
-    cam: (t, u) => hand(camAt(V(lerp(10.2, 8.9, eio(u)), lerp(1.1, 1.75, u), lerp(9.8, 4.9, eio(u))), V(lerp(8.4, 8.1, u), lerp(2.0, 2.25, u), -2), lerp(52, 46, u), lerp(11, 6.9, u), 3), t) },
+  { t0: S9a, t1: S9b, set: 'out', lt: DAY, at: SB, act: t => act9(t),
+    cam: (t, u) => hand(camAt(V(lerp(10.2, 8.9, eio(u)), lerp(1.1, 1.75, u), lerp(9.8, 4.7, eio(u))), V(lerp(8.4, 8.1, u), 2.0, -2), lerp(52, 46, u), lerp(11, 6.7, u), 3), t) },
   // 9b · the thief in the Major's hat: a wink
   { t0: S9b, t1: LOOP, set: 'out', lt: DAY, at: SB, act: t => act9(t),
     after: 1, cam: (t, u) => { const h = emuHead(THIEF); return hand(camAt(h.clone().add(V(lerp(.32, .2, u), lerp(-.06, .0, u), lerp(1.45, 1.0, eo(u)))), h.clone().add(V(0, -.06, 0)), 40, lerp(1.48, 1.02, eo(u)), 6), t, .7); } },
@@ -370,7 +371,7 @@ function act7(t) {
     apply(MER, TP.speech, { t, seed: 1, face: t < tSaid + .2 ? 'proud' : 'smug', look: CAMP, talk: talking ? .45 + .45 * Math.sin(t * 26) : 0 });
     MER.aR.sh.rotation.x += Math.sin(t * 5) * .15;
     // flash bulbs
-    const fl = [C7 + .15, C7 + .7, C7 + 1.25, C7 + 1.6].reduce((a, tf) => a + Math.exp(-Math.pow((t - tf) / .05, 2)), 0); bulb.intensity = fl * 30; bulb.position.set(17.0, 1.8, 18.5); flashK = fl;
+    const fl = [C7 + .15, C7 + .7, C7 + 1.25, C7 + 1.6].reduce((a, tf) => a + Math.exp(-Math.pow((t - tf) / .05, 2)), 0); bulb.intensity = fl * 18; bulb.position.set(17.0, 1.8, 18.5); flashK = fl;
   } else {
     const zl = ZA(t);
     flockArmy(t, zl); FLOCK.commit();
@@ -393,7 +394,7 @@ function act8(t) {
   } else {
     put(GEN, V(OFF.x, .02, OFF.z - 1.12), 0);
     const k = seg(t, tNo - .16, tNo);
-    apply(GEN, t < tNo - .16 ? TP.stampUp : mix(TP.stampUp, TP.stampDn, k * k), { t, seed: 6, face: 'deadpan', look: V(OFF.x, .8, OFF.z - .3) });
+    apply(GEN, t < tNo - .16 ? TP.stampUp : mix(TP.stampUp, TP.stampDn, k * k), { t, seed: 6, face: 'deadpan', look: CAMP });
     show(STAMP); LET2.userData.stamp(t >= tNo ? 1 : 0);
   }
 }
@@ -419,7 +420,7 @@ ev(C5, 'engine', { d: C6 - C5 + .2 }); ev(tTruck5 - .3, 'whoosh'); ev(S5b - .05,
 ev(C6 - .1, 'whoosh'); ev(tRetreat - .02, 'stamp'); ev(tRetreat, 'trombone');
 ev(C7 - .1, 'whoosh'); for (const tf of [C7 + .15, C7 + .7, C7 + 1.25, C7 + 1.6]) ev(tf, 'flash'); ev(S7b - .1, 'whoosh'); ev(S7b, 'march', { d: C8 - S7b }); ev(tWorld - .02, 'sting');
 ev(C8, 'cut'); ev(tFarmers + .05, 'pop'); ev(tFarmers + .4, 'pop'); ev(tFarmers + .75, 'pop'); ev(S8b, 'cut'); ev(tNo - .02, 'slam');
-ev(C9 - .05, 'whoosh'); ev(tOne, 'flip'); ev(tZero, 'flip'); ev(tOne + .1, 'squawk'); ev(tZero + .2, 'squawk'); ev(S9b + .45, 'ding');
+ev(S9a - .05, 'whoosh'); ev(tOne, 'flip'); ev(tZero, 'flip'); ev(tOne + .1, 'squawk'); ev(tZero + .2, 'squawk'); ev(S9b + .45, 'ding');
 
 // ---------------- the overlay: telops + counters + 1–3 word captions ----------------
 const ov = document.getElementById('ov').getContext('2d');
@@ -491,7 +492,7 @@ function render(t) {
   if (dis > 0) { frame(prev, t); sctx.clearRect(0, 0, W, H); sctx.drawImage(renderer.domElement, 0, 0); }
   frame(sh, t);
   if (dis > 0) { ov.globalAlpha = eio(dis) * .85; ov.drawImage(snap, 0, 0); ov.globalAlpha = 1; }
-  if (flashK > .02) { ov.fillStyle = `rgba(255,255,255,${Math.min(.7, flashK * .7)})`; ov.fillRect(0, 0, W, H); }
+  if (flashK > .02) { ov.fillStyle = `rgba(255,255,255,${Math.min(.38, flashK * .38)})`; ov.fillRect(0, 0, W, H); }
   if (QS.get('poster')) { ov.clearRect(0, 0, W, H); [['AUSTRALIA WENT TO WAR', 170, -4, '#FFFFFF', 104], ['WITH EMUS… AND LOST', 320, -4, '#FFD23F', 112]].forEach(([text, y, rot, col, size]) => drawTelop({ t0: -9, text, y, size, col, rot }, t)); return; }
   if (QS.get('clean')) return;
   if (t < LOOP) { TEL.forEach(x => { if (t >= x.t0 && t < x.t1) drawTelop(x, t); }); drawCaption(t); }
