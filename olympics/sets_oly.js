@@ -94,6 +94,7 @@ export function stadium() {
   const tape = M(new THREE.BoxGeometry(.02, .06, 5.2), std({ color: '#F4F1EA' }), g, FIELD.finishX, 1.15, 9); g.userData.tape = tape;
   const fb = textPlane([{ text: 'FINISH', size: 150, y: 128, color: '#FFFFFF', weight: 900, font: 'Montserrat' }], 2.4, .55, { w: 900, h: 220, bg: '#2A3A7A', border: '#F4F1EA', bw: 14, round: 10 }); fb.position.set(FIELD.finishX + .04, 2.2, 9); fb.rotation.y = Math.PI / 2; g.add(fb);
   const fb2 = fb.clone(); fb2.position.x = FIELD.finishX - .04; fb2.rotation.y = -Math.PI / 2; g.add(fb2);
+  M(new THREE.BoxGeometry(.075, .53, 2.37), std({ color: '#F4F1EA' }), g, FIELD.finishX, 2.2, 9);
   M(new THREE.BoxGeometry(.06, .06, 5.4), std({ color: '#2A3A7A' }), g, FIELD.finishX, 2.2, 9);
   // the wooden grandstand with its crowd, a roof on posts, bunting and flags
   const gs = G(); gs.position.set(0, 0, FIELD.standZ); g.add(gs);

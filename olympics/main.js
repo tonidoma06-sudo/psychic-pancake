@@ -112,7 +112,7 @@ function tapeBreak(t, tc) {   // the runner reaches the tape at tc: it snaps, an
   TAPEH.forEach((pv, i) => { pv.visible = on; if (!on) return; const k = eo(seg(t, tc, tc + .6)), s = i ? -1 : 1, fl = Math.sin((t - tc) * 13 + i * 2) * .14 * (1 - k * .7);
     pv.rotation.set(s * (1.0 * k + fl * k), s * -.75 * k, 0); });
 }
-const MEDALHOLD = { ...TP.offer, aR: [-104, 12, 0, 26] };   // Alice lifts the medal by its ribbon, up in front of him
+const MEDALHOLD = { ...TP.offer, aR: [-112, 16, 0, 10] };   // Alice lifts the medal by its ribbon, up in front of him
 const MCAM = F(-2.4, 1.3, 5.4);   // where the cameras of the medal shots stand, so the medal faces them
 // dust: soft billboard points with their own size and alpha
 const ND = 700, dpos = new Float32Array(ND * 3), dsz = new Float32Array(ND), dal = new Float32Array(ND);
@@ -217,7 +217,7 @@ const SHOTS = [
   { t0: tPoses - .12, t1: tShes - .12, set: 'field', lt: HOT, at: F(0, 0, 9), act: t => actLorz(t),
     cam: (t, u) => hand(camAt(F(lerp(-2.4, -2.2, u), 1.4, lerp(5.3, 5.6, u)), F(.1, 1.3, 9.2), 40, 4.2, 5), t, .6) },
   { t0: tShes - .12, t1: C.L14, set: 'field', lt: HOT, at: F(0, 0, 9), act: t => actLorz(t), after: 1,
-    cam: (t, u) => { const m = MEDAL.getWorldPosition(V(0, 0, 0)); return hand(camAt(m.clone().add(V(lerp(-.9, -.6, eo(u)), lerp(.15, .1, u), lerp(-1.3, -.9, eo(u)))), m.clone().add(V(0, .05, 0)), 40, lerp(1.6, 1.1, eo(u)), 6), t, .5); } },
+    cam: (t, u) => { const m = MEDAL.getWorldPosition(V(0, 0, 0)); return hand(camAt(m.clone().add(V(lerp(-.95, -.7, eo(u)), lerp(.38, .32, u), lerp(-1.4, -1.05, eo(u)))), m.clone().add(V(0, .3, 0)), 40, lerp(1.7, 1.3, eo(u)), 6), t, .5); } },
   { t0: C.L14, t1: C.L15, set: 'field', lt: HOT, at: F(0, 0, 9), act: t => actLorz(t),
     cam: (t, u) => { const k = eo(seg(t, tCheat - .15, tCheat + .2)); return hand(camAt(F(lerp(-2.8, -1.2, k), lerp(1.3, 1.5, k), lerp(6.0, 7.4, k)), F(lerp(-.4, .35, k), lerp(1.3, 1.55, k), lerp(9.4, 9.2, k)), lerp(42, 36, k), lerp(3.6, 1.8, k), 5), t, 1 + k * 2); } },
   { t0: C.L15, t1: CARDS[2].t0, set: 'field', lt: HOT, at: F(0, 0, 9), act: t => actLorz(t),
@@ -362,22 +362,22 @@ function actLorz(t) {
     apply(LORZ, walk(t < tc ? TP.run : TP.cheer, x * 2.1, t < tc ? 1.4 : lerp(.9, .15, kt)), { t, seed: 1, face: 'laugh', look: CAMP });
     tapeBreak(t, tc);
   } else if (t < C.L14) {   // the photo, the President's daughter, the medal
-    animCrowd(SET.field, t, .5); SET.field.userData.tape.visible = false;
-    const pl = F(-.25, 0, 9.4), pa = F(.5, 0, 9.5), hold = t > tShes - .2;
-    put(LORZ, pl, face(pl, pa.clone().lerp(MCAM, .65))); apply(LORZ, TP.hips, { t, seed: 1, face: 'proud', look: hold ? handOf(ALICE) : CAMP });
-    put(ALICE, pa, face(pa, pl.clone().lerp(MCAM, hold ? .35 : .6))); apply(ALICE, hold ? MEDALHOLD : TP.stand, { t, seed: 8, face: 'smile', look: hold ? headOf(LORZ) : CAMP });
+    animCrowd(SET.field, t, .5); tapeBreak(t, -9);   // the snapped tape still hangs from the posts
+    const pl = F(-.21, 0, 9.81), pa = F(.45, 0, 9.35), hold = t > tShes - .2;
+    put(LORZ, pl, face(pl, pa) + (hold ? .6 : 1.0)); apply(LORZ, TP.hips, { t, seed: 1, face: 'proud', look: hold ? handOf(ALICE) : CAMP });
+    put(ALICE, pa, face(pa, pl) - (hold ? .5 : 1.1)); apply(ALICE, hold ? MEDALHOLD : TP.stand, { t, seed: 8, face: 'smile', look: hold ? headOf(LORZ) : CAMP });
     put(PHOTO, F(-2.6, 0, 4.7), face(V(-2.6, 0, 4.7), V(0, 0, 9.4))); apply(PHOTO, TP.hold, { t, seed: 9, face: 'calm' });
     const pc = SET.field.userData.pcam; pc.visible = true; pc.userData.flash.visible = Math.abs(t - (tPoses + .25)) < .07 || Math.abs(t - (tPoses + .9)) < .07;
     MEDAL.visible = hold; const hp = handOf(ALICE); MEDAL.position.copy(hp).add(V(0, -.33, 0)); MEDAL.rotation.set(0, face(MEDAL.position, MCAM), Math.sin(t * 2.6) * .07);
   } else if (t < C.L15) {   // "he cheated!"
-    animCrowd(SET.field, t, t > tCheat ? 0 : .5); SET.field.userData.tape.visible = false;
-    const pl = F(-.25, 0, 9.4), pa = F(.5, 0, 9.5), ox = lerp(-4.5, -1.6, eo(seg(t, C.L14, tCheat))), oh = F(ox, 1.45, 8.6);
-    put(LORZ, pl, face(pl, pa.clone().lerp(MCAM, .65))); apply(LORZ, TP.hips, { t, seed: 1, face: t > tCheat ? 'shock' : 'proud', look: t > tCheat ? oh : handOf(ALICE) });
-    put(ALICE, pa, face(pa, pl.clone().lerp(MCAM, .35))); apply(ALICE, MEDALHOLD, { t, seed: 8, face: t > tCheat ? 'shock' : 'smile', look: t > tCheat ? oh : headOf(LORZ) });
-    put(OFF, F(ox, 0, 8.6), face(V(ox, 0, 8.6), V(-.25, 0, 9.4))); apply(OFF, t > tCheat - .2 ? TP.point : walk(TP.run, ox * 2, 1.2), { t, seed: 4, face: 'angry', look: headOf(LORZ), talk: t > tCheat - .3 ? .6 : 0 });
+    animCrowd(SET.field, t, t > tCheat ? 0 : .5); tapeBreak(t, -9);   // the snapped tape still hangs from the posts
+    const pl = F(-.21, 0, 9.81), pa = F(.45, 0, 9.35), ox = lerp(-4.5, -1.6, eo(seg(t, C.L14, tCheat))), oh = F(ox, 1.45, 8.6);
+    put(LORZ, pl, face(pl, pa) + .6); apply(LORZ, TP.hips, { t, seed: 1, face: t > tCheat ? 'shock' : 'proud', look: t > tCheat ? oh : handOf(ALICE) });
+    put(ALICE, pa, face(pa, pl) - .5); apply(ALICE, MEDALHOLD, { t, seed: 8, face: t > tCheat ? 'shock' : 'smile', look: t > tCheat ? oh : headOf(LORZ) });
+    put(OFF, F(ox, 0, 8.6), face(V(ox, 0, 8.6), V(-.21, 0, 9.81))); apply(OFF, t > tCheat - .2 ? TP.point : walk(TP.run, ox * 2, 1.2), { t, seed: 4, face: 'angry', look: headOf(LORZ), talk: t > tCheat - .3 ? .6 : 0 });
     MEDAL.visible = true; MEDAL.position.copy(handOf(ALICE)).add(V(0, -.33, 0)); MEDAL.rotation.set(0, face(MEDAL.position, MCAM), Math.sin(t * 2.6) * .07);
   } else {   // "just a joke" … banned for life
-    animCrowd(SET.field, t, 0); SET.field.userData.tape.visible = false;
+    animCrowd(SET.field, t, 0); tapeBreak(t, -9);   // the snapped tape still hangs from the posts
     put(LORZ, F(.35, 0, 9.4), Math.PI); apply(LORZ, t > tBanned ? TP.stand : TP.shrug, { t, seed: 1, face: t > tBanned ? 'deadpan' : 'happy', look: CAMP, talk: t < tJoke + .3 ? .4 + .4 * Math.sin(t * 24) : 0 });
   }
 }
@@ -474,7 +474,7 @@ function actEnd(t) {
     apply(LORZ, walk(t < tc ? TP.run : TP.cheer, x * 2.1, t < tc ? 1.5 : lerp(.9, .15, kt)), { t, seed: 1, face: 'laugh', look: CAMP });
     tapeBreak(t, tc);
   } else if (t < C.L33) {   // the gold … and Boston
-    animCrowd(SET.field, t, .3); SET.field.userData.tape.visible = false;
+    animCrowd(SET.field, t, .3); tapeBreak(t, -9);   // the snapped tape still hangs from the posts
     put(HICKS, F(-.7, 0, 9.4), Math.PI); apply(HICKS, TP.slump, { t, seed: 2, face: 'happy', look: CAMP, eyes: [Math.sin(t * 4) * .6, Math.cos(t * 4) * .4] }); HICKS.P.position.y = -.0; HICKS.spine.scale.x *= .85;
     MEDAL2.visible = true; MEDAL2.position.copy(headOf(HICKS).add(V(0, -.42, -.2))); MEDAL2.rotation.set(-.2, 0, 0);
     put(LORZ, F(.9, 0, 9.4), Math.PI); apply(LORZ, TP.cheer, { t, seed: 1, face: 'laugh', look: CAMP });
