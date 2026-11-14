@@ -45,7 +45,8 @@ export function country() {
   const wsign = textPlane([{ text: 'WATER', size: 120, y: 128, color: '#2A1A10', weight: 700, font: 'Fredoka' }], .9, .3, { w: 512, h: 256, bg: '#E8DCC0', border: '#5A3A22', bw: 12, round: 10 }); wsign.position.set(0, 1.35, .7); wl.add(wsign);
   // mile posts
   const mile = (x, txt, z = -2.6) => { const mp = G(); mp.position.set(x, 0, z); g.add(mp); M(new THREE.BoxGeometry(.12, 1.4, .12), std({ color: '#6A4A2E' }), mp, 0, .7, 0);
-    const t = textPlane([{ text: txt, size: 130, y: 140, color: '#1A1416', weight: 900, font: 'Montserrat' }], 1.0, .45, { w: 600, h: 270, bg: '#F2EAD6', border: '#2A1A10', bw: 14, round: 8 }); t.position.set(0, 1.35, .07); mp.add(t); return mp; };
+    const t = textPlane([{ text: txt, size: 130, y: 140, color: '#1A1416', weight: 900, font: 'Montserrat' }], 1.0, .45, { w: 600, h: 270, bg: '#F2EAD6', border: '#2A1A10', bw: 14, round: 8 }); t.position.set(0, 1.35, .07); t.material.side = THREE.FrontSide; mp.add(t);
+    M(new THREE.BoxGeometry(1.04, .49, .03), std({ color: '#6A4A2E' }), mp, 0, 1.35, .045); return mp; };   // plain board behind, so the text never reads mirrored
   mile(ROAD.mile9.x, 'MILE 9'); mile(-70, 'MILE 4'); mile(80, 'MILE 19');
   const sp = G(); sp.position.set(ROAD.signX, 0, -2.7); g.add(sp); M(new THREE.BoxGeometry(.12, 2.0, .12), std({ color: '#6A4A2E' }), sp, 0, 1.0, 0);
   const st = textPlane([{ text: 'ST. LOUIS →', size: 110, y: 120, color: '#1A1416', weight: 900, font: 'Montserrat' }], 1.4, .38, { w: 800, h: 220, bg: '#E8DCC0', border: '#2A1A10', bw: 12, round: 8 }); st.position.set(0, 1.75, .07); sp.add(st);
