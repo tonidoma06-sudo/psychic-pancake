@@ -92,8 +92,8 @@ export function stadium() {
   // finish posts + tape
   for (const z of [6.4, 11.6]) { M(new THREE.CylinderGeometry(.06, .06, 1.8, 10), std({ color: '#F4F1EA' }), g, FIELD.finishX, .9, z); M(new THREE.SphereGeometry(.09, 10, 8), std({ color: '#C8202A' }), g, FIELD.finishX, 1.82, z); }
   const tape = M(new THREE.BoxGeometry(.02, .06, 5.2), std({ color: '#F4F1EA' }), g, FIELD.finishX, 1.15, 9); g.userData.tape = tape;
-  const fb = textPlane([{ text: 'FINISH', size: 150, y: 128, color: '#FFFFFF', weight: 900, font: 'Montserrat' }], 2.4, .55, { w: 900, h: 220, bg: '#2A3A7A', border: '#F4F1EA', bw: 14, round: 10 }); fb.position.set(FIELD.finishX, 2.2, 9); fb.rotation.y = Math.PI / 2; g.add(fb);
-  const fb2 = fb.clone(); fb2.rotation.y = -Math.PI / 2; g.add(fb2);
+  const fb = textPlane([{ text: 'FINISH', size: 150, y: 128, color: '#FFFFFF', weight: 900, font: 'Montserrat' }], 2.4, .55, { w: 900, h: 220, bg: '#2A3A7A', border: '#F4F1EA', bw: 14, round: 10 }); fb.position.set(FIELD.finishX + .04, 2.2, 9); fb.rotation.y = Math.PI / 2; g.add(fb);
+  const fb2 = fb.clone(); fb2.position.x = FIELD.finishX - .04; fb2.rotation.y = -Math.PI / 2; g.add(fb2);
   M(new THREE.BoxGeometry(.06, .06, 5.4), std({ color: '#2A3A7A' }), g, FIELD.finishX, 2.2, 9);
   // the wooden grandstand with its crowd, a roof on posts, bunting and flags
   const gs = G(); gs.position.set(0, 0, FIELD.standZ); g.add(gs);
@@ -196,7 +196,9 @@ export function egg() { const g = G(); const e = TM(new THREE.SphereGeometry(.04
 export function cup() { const g = G(); const pr = [[0, 0], [.04, 0], [.05, .09], [.048, .1]].map(([r, y]) => new THREE.Vector2(r, y)); const c = TM(new THREE.LatheGeometry(pr, 16), '#E8E0CC', g, 0, 0, 0, .003); c.material = c.material.clone(); c.material.side = THREE.DoubleSide; M(new THREE.CircleGeometry(.044, 14), std({ color: '#F2E8C0' }), g, 0, .085, 0).rotation.x = -Math.PI / 2; return g; }
 export function apple(col = '#8EC23A') { const g = G(); TM(new THREE.SphereGeometry(.05, 12, 10), col, g, 0, 0, 0, .003); TM(new THREE.CylinderGeometry(.004, .004, .03, 4), '#5A3A22', g, 0, .05, 0, 0); return g; }
 export function dice() { const g = G(); for (const x of [-.06, .06]) { const d = TM(new THREE.BoxGeometry(.07, .07, .07), '#F4F1EA', g, x, .035, 0, .003); for (let k = 0; k < 1; k++) M(new THREE.SphereGeometry(.012, 8, 6), toon('#C8202A'), d, 0, .036, 0); } return g; }
-export function medal() { const g = G(); TM(new THREE.CylinderGeometry(.07, .07, .012, 24), '#E8B830', g, 0, 0, 0, .004).rotation.x = Math.PI / 2; const r = M(new THREE.TorusGeometry(.13, .012, 6, 20, Math.PI), toon('#2A3A9A'), g, 0, .11, 0); r.rotation.z = 0; return g; }
+export function medal(loop = false) { const g = G(); TM(new THREE.CylinderGeometry(.07, .07, .012, 24), '#E8B830', g, 0, 0, 0, .004).rotation.x = Math.PI / 2;
+  if (loop) { const r = M(new THREE.TorusGeometry(.1, .014, 6, 28), toon('#2A3A9A'), g, 0, .2, 0); r.scale.y = 1.3; return g; }   // a ribbon loop from the disc up to the hand that holds it (top at y .33)
+  const r = M(new THREE.TorusGeometry(.13, .012, 6, 20, Math.PI), toon('#2A3A9A'), g, 0, .11, 0); r.rotation.z = 0; return g; }
 export function scissors() { const g = G(); for (const s of [-1, 1]) { const b = TM(new THREE.BoxGeometry(.32, .02, .035), '#C8CCD0', g, .16, 0, s * .01, .003); b.rotation.y = s * .18; TM(new THREE.TorusGeometry(.04, .012, 6, 14), '#C8202A', g, -.05, 0, s * .05, 0).rotation.x = Math.PI / 2; } return g; }
 export function mailbag() { const g = G(); const b = TM(new THREE.BoxGeometry(.3, .26, .1), '#8A6A3A', g, 0, 0, 0, .005); TM(new THREE.BoxGeometry(.31, .12, .11), '#7A5A2E', g, 0, .08, .005, 0); return g; }
 export function chair() { const g = G(); TM(new THREE.BoxGeometry(.5, .06, .5), '#6A4426', g, 0, .48, 0, .006); TM(new THREE.BoxGeometry(.5, .6, .06), '#6A4426', g, 0, .8, -.22, .006); for (const [x, z] of [[-.2, -.2], [.2, -.2], [-.2, .2], [.2, .2]]) TM(new THREE.BoxGeometry(.05, .48, .05), '#5A3A22', g, x, .24, z, 0); return g; }

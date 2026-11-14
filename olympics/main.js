@@ -93,7 +93,7 @@ const BRANDY = bottle('BRANDY', '#6A3A1A', true); TRA2.props.add(BRANDY);
 const EGG = egg(); TRA1.propsL.add(EGG); const CUP = cup(); scene.add(CUP);
 const APL = apple(); CARV.props.add(APL);
 const DICE = dice(); scene.add(DICE);
-const MEDAL = medal(); scene.add(MEDAL); const MEDAL2 = medal(); scene.add(MEDAL2);
+const MEDAL = medal(true); scene.add(MEDAL); const MEDAL2 = medal(); scene.add(MEDAL2);
 const SCIS = scissors(); DISC.props.add(SCIS);
 const BAG = mailbag(); CARV.spine.add(BAG); BAG.position.set(.2, .18, .06); BAG.rotation.z = .2;
 const LAUREL = new THREE.Mesh(new THREE.TorusGeometry(.2, .035, 8, 24), toon('#4E8A36')); scene.add(LAUREL);
@@ -105,6 +105,15 @@ const BOSTON = textPlane([{ text: 'BOSTON MARATHON · 1905', size: 110, y: 120, 
 const ZS = Array.from({ length: 3 }, () => { const z = textPlane([{ text: 'Z', size: 220, y: 128, color: '#FFFFFF', weight: 900, font: 'Montserrat', stroke: '#1A1416', sw: 26 }], .3, .3, { w: 256, h: 256 }); z.material.depthWrite = false; scene.add(z); return z; });
 const SMOKE = Array.from({ length: 8 }, () => { const s = new THREE.Mesh(new THREE.SphereGeometry(.3, 10, 8), new THREE.MeshStandardMaterial({ color: '#5A5A60', transparent: true, opacity: .6, depthWrite: false })); scene.add(s); return s; });
 const PROPS = [CAR, CAR2, DOG, STRY, BRANDY, EGG, CUP, APL, DICE, MEDAL, MEDAL2, SCIS, BAG, LAUREL, BENCH, CLIP, LEMON, DREAMSIGN, BOSTON, ...ZS, ...SMOKE];
+const TAPEH = [6.4, 11.6].map((z0, i) => { const pv = new THREE.Group(), h = new THREE.Mesh(new THREE.BoxGeometry(.02, .06, 2.6), SET.field.userData.tape.material); h.position.z = i ? -1.3 : 1.3; h.castShadow = true; pv.add(h); pv.position.copy(F(FIELD.finishX, 1.15, z0)); pv.rotation.order = 'YXZ'; scene.add(pv); return pv; });
+PROPS.push(...TAPEH);
+function tapeBreak(t, tc) {   // the runner reaches the tape at tc: it snaps, and each half droops from its post and trails behind him (-x)
+  const on = t >= tc; SET.field.userData.tape.visible = !on;
+  TAPEH.forEach((pv, i) => { pv.visible = on; if (!on) return; const k = eo(seg(t, tc, tc + .6)), s = i ? -1 : 1, fl = Math.sin((t - tc) * 13 + i * 2) * .14 * (1 - k * .7);
+    pv.rotation.set(s * (1.0 * k + fl * k), s * -.75 * k, 0); });
+}
+const MEDALHOLD = { ...TP.offer, aR: [-104, 12, 0, 26] };   // Alice lifts the medal by its ribbon, up in front of him
+const MCAM = F(-2.4, 1.3, 5.4);   // where the cameras of the medal shots stand, so the medal faces them
 // dust: soft billboard points with their own size and alpha
 const ND = 700, dpos = new Float32Array(ND * 3), dsz = new Float32Array(ND), dal = new Float32Array(ND);
 const dgeo = new THREE.BufferGeometry(); dgeo.setAttribute('position', new THREE.BufferAttribute(dpos, 3)); dgeo.setAttribute('size', new THREE.BufferAttribute(dsz, 1)); dgeo.setAttribute('alpha', new THREE.BufferAttribute(dal, 1));
@@ -198,7 +207,7 @@ const SHOTS = [
   { t0: C.L10, t1: C.L11, set: 'road', lt: HOT, at: ROAD.mile9, act: t => actLorz(t),
     cam: (t, u) => hand(camAt(V(lerp(9.6, 9.0, u), 1.3, 2.6), V(4.6, 1.0, -.2), 42, 5, 4), t) },
   { t0: C.L11, t1: C.L12, set: 'road', lt: HOT, at: V(30, 0, 0), act: t => actLorz(t),
-    cam: (t, u) => { const x = LORZCAR(t); return hand(camAt(V(x + .4, 1.45, -3.1), V(x - .4, 1.25, 0), 40, 3.2, 5), t, 1.3); } },
+    cam: (t, u) => { const x = LORZCAR(t); return hand(camAt(V(x + .4, 1.45, -3.1), V(x - .4, 1.25, .5), 40, 3.6, 5), t, 1.3); } },
   { t0: C.L12, t1: tJogs - .1, set: 'road', lt: HOT, at: V(64, 0, 0), act: t => actLorz(t),
     cam: (t, u) => hand(camAt(V(lerp(69, 68.4, u), 1.2, lerp(-3.4, -3.0, u)), V(64, 1.0, 0), 40, 6, 4), t) },
   { t0: tJogs - .1, t1: C.L13, set: 'field', lt: HOT, at: F(FIELD.gateX, 0, 9), act: t => actLorz(t),
@@ -276,7 +285,7 @@ const SHOTS = [
 
 // ---------------- acting ----------------
 function pack(t, x0, n = 5, o = {}) {   // the extras jogging in a loose bunch along the road
-  RUN.slice(0, n).forEach((p, i) => { const x = x0 - (i % 3) * 1.4 - Math.floor(i / 3) * 2.2 + Math.sin(t * .7 + i) * .25, z = ((i % 2) ? .9 : -.7) + (i % 3) * .25 + (o.dz ?? 0);
+  RUN.slice(0, n).forEach((p, i) => { const x = x0 - (i % 3) * 1.4 - Math.floor(i / 3) * 2.2 + Math.sin(t * .7 + i) * .25, z = o.z ? o.z(i) : ((i % 2) ? .9 : -.7) + (i % 3) * .25 + (o.dz ?? 0);
     runner(p, x, z, t, { seed: 10 + i, ph: i * 1.7, face: o.face?.(i) ?? ['worried', 'calm', 'worried', 'deadpan', 'calm'][i], pose: o.pose?.(i), amt: o.amt ?? 1.6, look: o.look }); });
 }
 function actHook(t) {
@@ -334,11 +343,11 @@ function actLorz(t) {
     const k = eio(seg(t, C.L10, C.L10 + 1.3)), s = seat(CAR, 'seatB'), p = V(5.4, 0, -.3).lerp(s.clone().add(V(0, -.48, 0)), k); p.y += Math.sin(k * Math.PI) * .5;
     put(LORZ, p, lerp(.3, Math.PI / 2, k)); apply(LORZ, k < 1 ? TP.cheer : TP.sit, { t, seed: 1, face: 'happy', look: CAMP });
   } else if (t < C.L12) {   // ten miles in the back seat, waving at the runners
-    const x = LORZCAR(t); placeCar(CAR, x, .8, Math.PI / 2, t);
+    const x = LORZCAR(t); placeCar(CAR, x, 1.55, Math.PI / 2, t);
     put(LORZ, seat(CAR, 'seatB'), Math.PI / 2 + 1.0); apply(LORZ, TP.wave, { t, seed: 1, face: 'happy', look: CAMP }); LORZ.P.position.y -= .48; LORZ.aR.sh.rotation.z += Math.sin(t * 12) * .3;
     put(MGR, seat(CAR, 'seatF', 0, .3), Math.PI / 2); apply(MGR, TP.sit, { t, seed: 2, face: 'calm' }); MGR.P.position.y -= .48; MGR.aL.sh.rotation.x = MGR.aR.sh.rotation.x = -1.2;
-    pack(t, x + 6 - 2.2 * (t - C.L11), 4, { face: i => 'shock', amt: 1.3, look: headOf(LORZ) });
-    dust(t, [{ p: tt => V(LORZCAR(tt) - 1.6, 0, .8), t0: C.L11 - 1, t1: C.L12, n: 200, spread: 1.0, size: .8, alpha: .45 }]);
+    pack(t, x + 6 - 2.2 * (t - C.L11), 4, { z: i => [-.15, -1.05, .1, -.65][i], face: i => 'shock', amt: 1.3, look: headOf(LORZ) });
+    dust(t, [{ p: tt => V(LORZCAR(tt) - 1.6, 0, 1.55), t0: C.L11 - 1, t1: C.L12, n: 200, spread: 1.0, size: .8, alpha: .45 }]);
   } else if (t < tJogs - .1) {   // the car breaks down; he hops out
     placeCar(CAR, 64, .8, Math.PI / 2, t, t < tBreaks ? 1 : 0); put(MGR, seat(CAR, 'seatF', 0, .3), Math.PI / 2 + .3); apply(MGR, t > tBreaks ? TP.shrug : TP.sit, { t, seed: 2, face: t > tBreaks ? 'worried' : 'calm' }); MGR.P.position.y -= .48;
     SMOKE.forEach((s, i) => { const u = ((t * .7 + i / 8) % 1); s.visible = t > tBreaks; s.position.set(65.3 + u * .4, 1.0 + u * 2.2, .8 + Math.sin(i) * .3); s.scale.setScalar(.6 + u * 1.6); s.material.opacity = .65 * (1 - u); });
@@ -348,21 +357,25 @@ function actLorz(t) {
   } else if (t < C.L13) {   // into the stadium
     animCrowd(SET.field, t, .6); const x = lerp(FIELD.gateX + 3, 25, seg(t, tJogs - .1, C.L13)); runner(LORZ, x, O('field').z + 9, t, { ry: -Math.PI / 2, seed: 1, face: 'happy', amt: 1.4 });
   } else if (t < tPoses - .12) {   // breaks the tape, arms up
-    animCrowd(SET.field, t, 1); const x = lerp(4, -1.8, seg(t, C.L13, tPoses - .3)); put(LORZ, F(x, 0, 9.2), -Math.PI / 2 + (x < 0 ? .6 : 0)); apply(LORZ, x < 0 ? TP.cheer : walk(TP.run, x * 2.1, 1.4), { t, seed: 1, face: 'laugh', look: CAMP });
-    SET.field.userData.tape.visible = x > 0;
+    animCrowd(SET.field, t, 1); const t1 = tPoses - .3, s = seg(t, C.L13, t1), x = lerp(4, -1.6, 1 - (1 - s) ** 2), tc = lerp(C.L13, t1, 1 - Math.sqrt(1 - 4 / 5.6));
+    const p = F(x, 0, 9.2), kt = eo(seg(t, tc + .05, tc + .6)); put(LORZ, p, lerp(-Math.PI / 2, face(p, CAMP), kt));
+    apply(LORZ, walk(t < tc ? TP.run : TP.cheer, x * 2.1, t < tc ? 1.4 : lerp(.9, .15, kt)), { t, seed: 1, face: 'laugh', look: CAMP });
+    tapeBreak(t, tc);
   } else if (t < C.L14) {   // the photo, the President's daughter, the medal
     animCrowd(SET.field, t, .5); SET.field.userData.tape.visible = false;
-    put(LORZ, F(-.2, 0, 9.4), Math.PI + .3); apply(LORZ, TP.hips, { t, seed: 1, face: 'proud', look: CAMP });
-    put(ALICE, F(.65, 0, 9.5), Math.PI - .4); apply(ALICE, t > tShes - .2 ? TP.offer : TP.stand, { t, seed: 8, face: 'smile', look: t > tShes ? headOf(LORZ) : CAMP });
+    const pl = F(-.25, 0, 9.4), pa = F(.5, 0, 9.5), hold = t > tShes - .2;
+    put(LORZ, pl, face(pl, pa.clone().lerp(MCAM, .65))); apply(LORZ, TP.hips, { t, seed: 1, face: 'proud', look: hold ? handOf(ALICE) : CAMP });
+    put(ALICE, pa, face(pa, pl.clone().lerp(MCAM, hold ? .35 : .6))); apply(ALICE, hold ? MEDALHOLD : TP.stand, { t, seed: 8, face: 'smile', look: hold ? headOf(LORZ) : CAMP });
     put(PHOTO, F(-2.6, 0, 4.7), face(V(-2.6, 0, 4.7), V(0, 0, 9.4))); apply(PHOTO, TP.hold, { t, seed: 9, face: 'calm' });
     const pc = SET.field.userData.pcam; pc.visible = true; pc.userData.flash.visible = Math.abs(t - (tPoses + .25)) < .07 || Math.abs(t - (tPoses + .9)) < .07;
-    const hp = handOf(ALICE); MEDAL.visible = t > tShes - .3; const k = eo(seg(t, tShes, C.L14)); MEDAL.position.copy(hp.clone().lerp(headOf(LORZ).add(V(0, -.25, 0)), k * .6)); MEDAL.rotation.set(0, face(hp, CAMP), Math.sin(t * 3) * .1);
+    MEDAL.visible = hold; const hp = handOf(ALICE); MEDAL.position.copy(hp).add(V(0, -.33, 0)); MEDAL.rotation.set(0, face(MEDAL.position, MCAM), Math.sin(t * 2.6) * .07);
   } else if (t < C.L15) {   // "he cheated!"
     animCrowd(SET.field, t, t > tCheat ? 0 : .5); SET.field.userData.tape.visible = false;
-    put(LORZ, F(-.2, 0, 9.4), Math.PI + .3); apply(LORZ, TP.hips, { t, seed: 1, face: t > tCheat ? 'shock' : 'proud', look: CAMP });
-    put(ALICE, F(.65, 0, 9.5), Math.PI - .4); apply(ALICE, TP.offer, { t, seed: 8, face: t > tCheat ? 'shock' : 'smile', look: headOf(LORZ) });
-    const ox = lerp(-4.5, -1.6, eo(seg(t, C.L14, tCheat))); put(OFF, F(ox, 0, 8.6), face(V(ox, 0, 8.6), V(-.2, 0, 9.4))); apply(OFF, t > tCheat - .2 ? TP.point : walk(TP.run, ox * 2, 1.2), { t, seed: 4, face: 'angry', look: headOf(LORZ), talk: t > tCheat - .3 ? .6 : 0 });
-    MEDAL.visible = true; MEDAL.position.copy(handOf(ALICE)); MEDAL.rotation.set(0, Math.PI, 0);
+    const pl = F(-.25, 0, 9.4), pa = F(.5, 0, 9.5), ox = lerp(-4.5, -1.6, eo(seg(t, C.L14, tCheat))), oh = F(ox, 1.45, 8.6);
+    put(LORZ, pl, face(pl, pa.clone().lerp(MCAM, .65))); apply(LORZ, TP.hips, { t, seed: 1, face: t > tCheat ? 'shock' : 'proud', look: t > tCheat ? oh : handOf(ALICE) });
+    put(ALICE, pa, face(pa, pl.clone().lerp(MCAM, .35))); apply(ALICE, MEDALHOLD, { t, seed: 8, face: t > tCheat ? 'shock' : 'smile', look: t > tCheat ? oh : headOf(LORZ) });
+    put(OFF, F(ox, 0, 8.6), face(V(ox, 0, 8.6), V(-.25, 0, 9.4))); apply(OFF, t > tCheat - .2 ? TP.point : walk(TP.run, ox * 2, 1.2), { t, seed: 4, face: 'angry', look: headOf(LORZ), talk: t > tCheat - .3 ? .6 : 0 });
+    MEDAL.visible = true; MEDAL.position.copy(handOf(ALICE)).add(V(0, -.33, 0)); MEDAL.rotation.set(0, face(MEDAL.position, MCAM), Math.sin(t * 2.6) * .07);
   } else {   // "just a joke" … banned for life
     animCrowd(SET.field, t, 0); SET.field.userData.tape.visible = false;
     put(LORZ, F(.35, 0, 9.4), Math.PI); apply(LORZ, t > tBanned ? TP.stand : TP.shrug, { t, seed: 1, face: t > tBanned ? 'deadpan' : 'happy', look: CAMP, talk: t < tJoke + .3 ? .4 + .4 * Math.sin(t * 24) : 0 });
@@ -456,8 +469,10 @@ function actEnd(t) {
     animCrowd(SET.field, t, 0); put(LORZ, F(.35, 0, 9.4), Math.PI); apply(LORZ, t > tLifted ? TP.cheer : TP.stand, { t, seed: 1, face: t > tLifted ? 'laugh' : 'deadpan', look: CAMP });
   } else if (t < C.L32) {   // Boston, 1905: a fair win
     animCrowd(SET.field, t, 1); BOSTON.visible = true; BOSTON.position.copy(F(0, 3.0, 9)); BOSTON.rotation.y = Math.PI;
-    const x = lerp(5, -1.6, seg(t, tNext - .12, C.L32 - .3)); put(LORZ, F(x, 0, 9.2), -Math.PI / 2 + (x < 0 ? .6 : 0)); apply(LORZ, x < 0 ? TP.cheer : walk(TP.run, x * 2.1, 1.5), { t, seed: 1, face: 'laugh', look: CAMP });
-    SET.field.userData.tape.visible = x > 0;
+    const t0 = tNext - .12, t1 = C.L32 - .3, s = seg(t, t0, t1), x = lerp(5, -1.6, 1 - (1 - s) ** 2), tc = lerp(t0, t1, 1 - Math.sqrt(1 - 5 / 6.6));
+    const p = F(x, 0, 9.2), kt = eo(seg(t, tc + .05, tc + .6)); put(LORZ, p, lerp(-Math.PI / 2, face(p, CAMP), kt));
+    apply(LORZ, walk(t < tc ? TP.run : TP.cheer, x * 2.1, t < tc ? 1.5 : lerp(.9, .15, kt)), { t, seed: 1, face: 'laugh', look: CAMP });
+    tapeBreak(t, tc);
   } else if (t < C.L33) {   // the gold … and Boston
     animCrowd(SET.field, t, .3); SET.field.userData.tape.visible = false;
     put(HICKS, F(-.7, 0, 9.4), Math.PI); apply(HICKS, TP.slump, { t, seed: 2, face: 'happy', look: CAMP, eyes: [Math.sin(t * 4) * .6, Math.cos(t * 4) * .4] }); HICKS.P.position.y = -.0; HICKS.spine.scale.x *= .85;
