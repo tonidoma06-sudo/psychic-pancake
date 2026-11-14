@@ -345,7 +345,7 @@ function actLorz(t) {
     if (t < tHops + .6) { put(LORZ, p, Math.PI / 2 - k); apply(LORZ, k > 0 ? TP.cheer : TP.sit, { t, seed: 1, face: k > 0 ? 'happy' : 'worried', look: CAMP }); }
     else { const x = 64.2 + 2.2 * (t - tHops - .6); runner(LORZ, x, -1.2, t, { seed: 1, face: 'happy', amt: 1.0, pose: TP.run }); }
   } else if (t < C.L13) {   // into the stadium
-    animCrowd(SET.field, t, .6); const x = lerp(FIELD.gateX + 2, 18, seg(t, tJogs - .1, C.L13)); runner(LORZ, x, O('field').z + 9, t, { ry: -Math.PI / 2, seed: 1, face: 'happy', amt: 1.4 });
+    animCrowd(SET.field, t, .6); const x = lerp(FIELD.gateX + 3, 25, seg(t, tJogs - .1, C.L13)); runner(LORZ, x, O('field').z + 9, t, { ry: -Math.PI / 2, seed: 1, face: 'happy', amt: 1.4 });
   } else if (t < tPoses - .12) {   // breaks the tape, arms up
     animCrowd(SET.field, t, 1); const x = lerp(4, -1.8, seg(t, C.L13, tPoses - .3)); put(LORZ, F(x, 0, 9.2), -Math.PI / 2 + (x < 0 ? .6 : 0)); apply(LORZ, x < 0 ? TP.cheer : walk(TP.run, x * 2.1, 1.4), { t, seed: 1, face: 'laugh', look: CAMP });
     SET.field.userData.tape.visible = x > 0;
@@ -501,7 +501,7 @@ const TEL = [
   { t0: tOrg - .05, t1: CARDS[1].t0, text: 'THE ORGANIZER', y: 790, x: 520, size: 70, col: '#FFFFFF', rot: -2, plate: '#2E2E36', sub: 'STUDYING DEHYDRATION' },
   { t0: tLorz9 - .1, t1: C.L10, text: 'FRED LORZ', y: 790, x: 460, size: 76, col: '#FFFFFF', rot: -2, plate: '#2A3A7A', sub: 'USA' },
   { t0: w('L11', 'ten') - .05, t1: C.L12, text: '10 MILES BY CAR', y: 120, size: 96, col: '#FFD23F', rot: -3, plate: '#2E5A3A' },
-  { t0: tCheat - .03, t1: C.L15, text: 'HE CHEATED!', y: 140, size: 140, col: '#E8423A', rot: -6, stamp: 1 },
+  { t0: tCheat - .03, t1: tJoke - .15, text: 'HE CHEATED!', y: 140, size: 140, col: '#E8423A', rot: -6, stamp: 1 },
   { t0: tJoke - .1, t1: tBanned - .05, text: '"JUST A JOKE!"', y: 120, size: 96, col: '#FFFFFF', rot: 3, plate: '#1B1213' },
   { t0: tBanned - .03, t1: CARDS[2].t0, text: 'BANNED FOR LIFE', y: 140, size: 120, col: '#E8423A', rot: -5, stamp: 1 },
   { t0: tHicks - .1, t1: C.L17, text: 'THOMAS HICKS', y: 790, x: 480, size: 76, col: '#FFFFFF', rot: -2, plate: '#2A3A7A', sub: 'USA' },
