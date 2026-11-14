@@ -151,7 +151,7 @@ export function saloon() {
   M(new THREE.PlaneGeometry(14, 5), std({ map: wall }), g, 0, 2.5, -3.5);
   for (const s of [-1, 1]) { const w = M(new THREE.PlaneGeometry(10, 5), std({ map: wall }), g, s * 5, 2.5, 1.5); w.rotation.y = -s * Math.PI / 2; }
   const tb = G(); tb.position.set(0, 0, -.6); g.add(tb); g.userData.table = tb;
-  M(new THREE.CylinderGeometry(1.2, 1.2, .08, 32), std({ color: '#2E6A3E', roughness: .9 }), tb, 0, .82, 0); M(new THREE.TorusGeometry(1.2, .06, 8, 32), std({ color: '#5A3A22' }), tb, 0, .84, 0).rotation.x = Math.PI / 2; M(new THREE.CylinderGeometry(.12, .3, .8, 12), std({ color: '#3A2416' }), tb, 0, .4, 0);
+  M(new THREE.CylinderGeometry(.85, .85, .08, 32), std({ color: '#2E6A3E', roughness: .9 }), tb, 0, .82, 0); M(new THREE.TorusGeometry(.85, .06, 8, 32), std({ color: '#5A3A22' }), tb, 0, .84, 0).rotation.x = Math.PI / 2; M(new THREE.CylinderGeometry(.12, .3, .8, 12), std({ color: '#3A2416' }), tb, 0, .4, 0);
   const lamp = G(); lamp.position.set(0, 2.6, -.6); g.add(lamp); M(new THREE.ConeGeometry(.45, .3, 18, 1, true), std({ color: '#2E5A3A', side: THREE.DoubleSide }), lamp, 0, 0, 0); M(new THREE.SphereGeometry(.1, 10, 8), new THREE.MeshBasicMaterial({ color: '#FFE6A0' }), lamp, 0, -.08, 0);
   M(new THREE.CylinderGeometry(.01, .01, 1.5, 4), toon('#1A1416'), lamp, 0, .9, 0);
   const sign = textPlane([{ text: 'NEW ORLEANS', size: 110, y: 120, color: '#F2D890', weight: 900, font: 'Montserrat' }], 2.4, .5, { w: 1000, h: 220, bg: '#2A1410', border: '#C8962E', bw: 12, round: 10 }); sign.position.set(0, 3.3, -3.45); g.add(sign);

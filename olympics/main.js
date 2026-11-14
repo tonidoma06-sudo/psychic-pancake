@@ -234,7 +234,7 @@ const SHOTS = [
   { t0: C.L22, t1: C.L23, set: 'road', lt: HOT, at: V(ROAD.signX, 0, 0), act: t => actMail(t),
     cam: (t, u) => hand(camAt(V(ROAD.signX + lerp(.9, .6, u), 1.0, lerp(1.4, 1.0, eo(u))), V(ROAD.signX + .4, 1.05, -1.6), 40, 2.8, 6), t) },
   { t0: C.L23, t1: tHitch - .12, set: 'room', lt: ROOM, at: RM(0, 0, -.6), act: t => actMail(t),
-    cam: (t, u) => hand(camAt(RM(lerp(1.5, 1.25, u), lerp(1.4, 1.3, u), lerp(-1.5, -1.3, eo(u))), RM(0, 1.0, .1), 42, 2.0, 6), t, .7) },
+    cam: (t, u) => hand(camAt(RM(lerp(2.75, 2.45, eo(u)), lerp(1.55, 1.45, u), lerp(-.25, -.4, eo(u))), RM(0, 1.0, -.45), 42, 2.7, 6), t, .7) },
   { t0: tHitch - .12, t1: C.L24, set: 'road', lt: HOT, at: V(ROAD.signX, 0, 0), act: t => actMail(t),
     cam: (t, u) => hand(camAt(V(ROAD.signX + lerp(3.4, 2.8, u), 1.1, lerp(2.0, 1.8, u)), V(ROAD.signX + .2, 1.25, -1.6), 42, 4.4, 5), t) },
   { t0: C.L24, t1: C.L25, set: 'field', lt: HOT, at: F(-12, 0, 9), act: t => actMail(t),
@@ -276,15 +276,15 @@ const SHOTS = [
 
 // ---------------- acting ----------------
 function pack(t, x0, n = 5, o = {}) {   // the extras jogging in a loose bunch along the road
-  RUN.slice(0, n).forEach((p, i) => { const x = x0 - (i % 3) * 1.4 - Math.floor(i / 3) * 2.2 + Math.sin(t * .7 + i) * .25, z = ((i % 2) ? .9 : -.7) + (i % 3) * .25;
+  RUN.slice(0, n).forEach((p, i) => { const x = x0 - (i % 3) * 1.4 - Math.floor(i / 3) * 2.2 + Math.sin(t * .7 + i) * .25, z = ((i % 2) ? .9 : -.7) + (i % 3) * .25 + (o.dz ?? 0);
     runner(p, x, z, t, { seed: 10 + i, ph: i * 1.7, face: o.face?.(i) ?? ['worried', 'calm', 'worried', 'deadpan', 'calm'][i], pose: o.pose?.(i), amt: o.amt ?? 1.6, look: o.look }); });
 }
 function actHook(t) {
   reset();
   if (t < C.L2) {   // the pack eats the dust of an officials' car
-    const x = PACKX(t); pack(t, x, 5, { face: i => t > 2.2 ? 'shock' : 'worried', pose: i => t > 2.4 && i % 2 ? TP.cough : null });
-    const cx = x - 9 + 8.5 * (t - .2); placeCar(CAR2, cx, -.4, Math.PI / 2, t); put(OFF, seat(CAR2, 'seatF'), Math.PI / 2); apply(OFF, TP.sit, { t, seed: 4, face: 'happy', look: CAMP }); OFF.P.position.y -= .48;
-    dust(t, [{ p: tt => V(x - 9 + 8.5 * (tt - .2) - 1.4, 0, -.4), t0: 0, t1: C.L2, n: 260, spread: 1.6, size: 1.0, alpha: .5 }]);
+    const x = PACKX(t); pack(t, x, 5, { dz: .5, face: i => t > 2.2 ? 'shock' : 'worried', pose: i => t > 2.4 && i % 2 ? TP.cough : null });
+    const cx = x - 9 + 8.5 * (t - .2); placeCar(CAR2, cx, -1.6, Math.PI / 2, t); put(OFF, seat(CAR2, 'seatF'), Math.PI / 2); apply(OFF, TP.sit, { t, seed: 4, face: 'happy', look: CAMP }); OFF.P.position.y -= .48;
+    dust(t, [{ p: tt => V(x - 9 + 8.5 * (tt - .2) - 1.4, 0, -1.4), t0: 0, t1: C.L2, n: 260, spread: 1.6, size: 1.0, alpha: .5 }]);
   } else if (t < tWinner - .12) {   // Lorz rides by, waving
     const x = 4 + 6.5 * (t - C.L2); placeCar(CAR, x, .2, Math.PI / 2, t);
     put(LORZ, seat(CAR, 'seatB'), Math.PI / 2 + .9); apply(LORZ, TP.wave, { t, seed: 1, face: 'happy', look: CAMP }); LORZ.P.position.y -= .48; LORZ.aR.sh.rotation.z += Math.sin(t * 12) * .3;
@@ -399,9 +399,10 @@ function actMail(t) {
   if (t < C.L23) {   // the mailman from Cuba
     const p = V(ROAD.signX + .4, 0, -1.7); put(CARV, p, face(p, CAMP)); apply(CARV, TP.wave, { t, seed: 3, face: 'happy', look: CAMP }); CARV.aR.sh.rotation.z += Math.sin(t * 10) * .25;
   } else if (t < tHitch - .12) {   // dice in New Orleans
-    put(CARV, RM(.05, 0, .25), Math.PI); apply(CARV, t < tGamb ? TP.cheer : TP.slump, { t, seed: 3, face: t < tGamb + .3 ? 'happy' : 'worried', look: RM(0, .9, -.6) }); CARV.P.position.y = t < tGamb ? 0 : -.05; BAG.visible = false;
-    put(MGR, RM(-.1, 0, -1.6), 0); apply(MGR, TP.rub, { t, seed: 2, face: 'evil', look: headOf(CARV) });
-    DICE.visible = true; const k = seg(t, C.L23 + .1, tGamb); DICE.position.copy(RM(lerp(.2, -.1, k), .86 + Math.abs(Math.sin(k * 9)) * .15 * (1 - k), lerp(-.2, -.6, k))); DICE.rotation.set(k * 12, k * 9, 0);
+    const tc = RM(0, 0, -.6), pc = RM(.15, 0, .64), pm = RM(-.2, 0, -1.84);
+    put(CARV, pc, face(pc, tc.clone().lerp(CAMP, .45))); apply(CARV, t < tGamb ? TP.cheer : TP.slump, { t, seed: 3, face: t < tGamb + .3 ? 'happy' : 'worried', look: RM(0, .9, -.6) }); CARV.P.position.y = t < tGamb ? 0 : -.05; BAG.visible = false;
+    put(MGR, pm, face(pm, tc.clone().lerp(CAMP, .3))); apply(MGR, TP.rub, { t, seed: 2, face: 'evil', look: headOf(CARV) });
+    DICE.visible = true; const k = seg(t, C.L23 + .1, tGamb); DICE.position.copy(RM(lerp(.2, -.1, k), .86 + Math.abs(Math.sin(k * 9)) * .15 * (1 - k), lerp(-.05, -.6, k))); DICE.rotation.set(k * 12, k * 9, 0);
     bulb.position.copy(RM(0, 2.4, -.6));
   } else if (t < C.L24) {   // thumb out toward St. Louis
     const p = V(ROAD.signX + .6, 0, -1.6); put(CARV, p, face(p, V(ROAD.signX - 6, 0, 0))); apply(CARV, TP.thumb, { t, seed: 3, face: 'happy', look: CAMP }); CARV.aR.sh.rotation.z += Math.sin(t * 6) * .08;
