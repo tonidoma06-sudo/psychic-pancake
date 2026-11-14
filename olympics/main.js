@@ -171,11 +171,11 @@ const SHOTS = [
   { t0: tWinner - .12, t1: C.L3, set: 'road', lt: HOT, at: V(30, 0, 0), act: t => actHook(t),
     cam: (t, u) => { const x = 30 + .7 * (t - tWinner); return hand(camAt(V(x + 2.4, 1.2, -1.9), V(x - .2, 1.15, .2), 42, 3.3, 5), t, 1.4); } },
   { t0: C.L3, t1: CARDS[0].t0, set: 'road', lt: HOT, at: ROAD.orchard, act: t => actHook(t),
-    cam: (t, u) => { const tr = SET.road.userData.trees[0]; return hand(camAt(tr.clone().add(V(lerp(1.6, 1.2, u), lerp(.65, .55, u), lerp(2.7, 2.1, eo(u)))), tr.clone().add(V(.3, .35, .5)), 40, 2.4, 6), t, .6); } },
+    after: 1, cam: (t, u) => { const h = headOf(CARV); return hand(camAt(h.clone().add(V(lerp(1.25, 1.0, eo(u)), lerp(.42, .32, u), lerp(1.9, 1.5, eo(u)))), h.clone().add(V(.42, -.12, .1)), 40, lerp(2.2, 1.8, eo(u)), 6), t, .5); } },
   { card: 0, t0: CARDS[0].t0, t1: CARDS[0].t1 },
   // ===== the start =====
   { t0: C.L4, t1: tNinety - .12, set: 'field', lt: HOT, at: F(0, 0, 8), act: t => actSetup(t), fpv: .5,
-    cam: (t, u) => { const k = eio(u); return camAt(F(lerp(-10, -2, k), lerp(26, 6.5, k), lerp(-95, -6, k)), F(lerp(0, 2, k), lerp(8, 2.5, k), lerp(-40, 14, k)), lerp(50, 44, k), lerp(60, 14, k), 2, Math.sin(k * Math.PI) * .05); } },
+    cam: (t, u) => { const k = eio(u); return camAt(F(lerp(-34, -2, k), lerp(38, 6.5, k), lerp(-150, -6, k)), F(lerp(0, 2, k), lerp(4, 2.5, k), lerp(-60, 14, k)), lerp(50, 44, k), lerp(80, 14, k), 2, Math.sin(k * Math.PI) * .05); } },
   { t0: tNinety - .12, t1: C.L5, set: 'field', lt: HOT, at: F(-7, 0, 13), act: t => actSetup(t),
     cam: (t, u) => hand(camAt(F(-7.2, lerp(1.6, 2.4, eo(u)), lerp(9.6, 10.6, u)), F(-7, lerp(1.6, 2.6, eo(u)), 13.4), 40, 3.4, 5), t) },
   { t0: C.L5, t1: C.L6, set: 'road', lt: HOT, at: V(0, 0, 0), act: t => actSetup(t),
@@ -243,7 +243,7 @@ const SHOTS = [
   { t0: tEats - .12, t1: C.L26, set: 'road', lt: HOT, at: ROAD.orchard, act: t => actMail(t),
     cam: (t, u) => { const tr = SET.road.userData.trees[0]; return hand(camAt(tr.clone().add(V(lerp(.4, .25, u), 1.1, lerp(2.6, 2.2, eo(u)))), tr.clone().add(V(-.05, 1.0, .7)), 40, 2.0, 6), t, .7); } },
   { t0: C.L26, t1: C.L27, set: 'road', lt: HOT, at: ROAD.orchard, act: t => actMail(t),
-    cam: (t, u) => { const tr = SET.road.userData.trees[0]; return hand(camAt(tr.clone().add(V(lerp(1.9, 1.4, eo(u)), lerp(.9, .6, u), lerp(2.6, 2.0, eo(u)))), tr.clone().add(V(.2, .3, .7)), 40, 2.2, 6), t, .5); } },
+    after: 1, cam: (t, u) => { const h = headOf(CARV); return hand(camAt(h.clone().add(V(lerp(1.25, 1.0, eo(u)), lerp(.42, .32, u), lerp(1.9, 1.5, eo(u)))), h.clone().add(V(.42, -.12, .1)), 40, lerp(2.2, 1.8, eo(u)), 6), t, .5); } },
   { t0: C.L27, t1: tFin27 - .12, set: 'road', lt: HOT, at: ROAD.orchard, act: t => actMail(t), after: 1,
     cam: (t, u) => { const tr = SET.road.userData.trees[0], h = headOf(CARV); return hand(camAt(tr.clone().add(V(3.0, 1.3, 2.3)), h.clone().add(V(0, -.3, 0)), 42, 3.2, 5), t, 1.2); } },
   { t0: tFin27 - .12, t1: CARDS[4].t0, set: 'field', lt: HOT, at: F(0, 0, 9), act: t => actMail(t),
@@ -269,7 +269,7 @@ const SHOTS = [
   { t0: C.L32, t1: C.L33, set: 'field', lt: HOT, at: F(0, 0, 9), act: t => actEnd(t),
     cam: (t, u) => { const k = eio(seg(t, tCar32 - .3, tCar32 + .3)); return hand(camAt(F(lerp(-.7, .9, k), 1.35, 7.0), F(lerp(-.7, .9, k), 1.35, 9.4), 40, 2.4, 6), t, .7); } },
   { t0: C.L33, t1: ENDCARD, set: 'road', lt: DUSK, at: ROAD.orchard, act: t => actEnd(t),
-    cam: (t, u) => { const tr = SET.road.userData.trees[0]; return hand(camAt(tr.clone().add(V(lerp(2.0, 1.3, eo(u)), lerp(.75, .6, u), lerp(2.8, 2.0, eo(u)))), tr.clone().add(V(.25, .32, .7)), 40, 2.3, 6), t, .4); } },
+    after: 1, cam: (t, u) => { const h = headOf(CARV); return hand(camAt(h.clone().add(V(lerp(1.25, 1.0, eo(u)), lerp(.42, .32, u), lerp(1.9, 1.5, eo(u)))), h.clone().add(V(.42, -.12, .1)), 40, lerp(2.2, 1.8, eo(u)), 6), t, .5); } },
   { card: 6, t0: ENDCARD, t1: DUR + 1 },
 ];
 
