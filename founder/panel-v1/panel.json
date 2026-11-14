@@ -1,0 +1,94 @@
+{
+ "n": 40,
+ "seed": 113826,
+ "customer": {
+  "business": "Almissa Digital: done-for-you AI guest assistant for holiday rentals, Omiš/Croatia",
+  "target": "Owners of 1 to 6 holiday apartments, rooms or villas on the Omiš to Makarska coast who host foreign guests (German, Polish, Czech, Italian, English) and are not technical",
+  "where": "Omiš, Split and the Makarska Riviera, Croatia",
+  "age": [
+   32,
+   68
+  ],
+  "segments": [
+   {
+    "name": "Single-apartment family host (one unit in or next to the family house)",
+    "share": 0.4,
+    "income": [
+     6000,
+     18000
+    ]
+   },
+   {
+    "name": "Small portfolio host (2 to 6 units, renting is a main income)",
+    "share": 0.4,
+    "income": [
+     18000,
+     70000
+    ]
+   },
+   {
+    "name": "Villa owner with pool (high-end, weekly bookings, often lives abroad or in Split)",
+    "share": 0.2,
+    "income": [
+     40000,
+     140000
+    ]
+   }
+  ],
+  "behaviours": [
+   {
+    "name": "Does everything by phone",
+    "share": 0.22,
+    "how": "Answers every guest WhatsApp and Booking message personally, often at night; sees it as part of hospitality."
+   },
+   {
+    "name": "Platform-reliant",
+    "share": 0.18,
+    "how": "Uses Booking.com and Airbnb scheduled messages and a printed house-rules sheet; thinks that already covers it."
+   },
+   {
+    "name": "Cost-cutter",
+    "share": 0.16,
+    "how": "Avoids any monthly fee; asks a relative or neighbour for tech help."
+   },
+   {
+    "name": "Review-obsessed",
+    "share": 0.14,
+    "how": "Checks the Booking score weekly; a 9.2 vs 9.5 matters for price and ranking."
+   },
+   {
+    "name": "Overwhelmed in peak season",
+    "share": 0.12,
+    "how": "Has a day job or several units; July and August turnovers leave no time to reply."
+   },
+   {
+    "name": "Uses a PMS or agency",
+    "share": 0.1,
+    "how": "Already pays a channel manager (Smoobu, Rentlio) or a local agency that handles guest communication."
+   },
+   {
+    "name": "Early adopter",
+    "share": 0.08,
+    "how": "Already tried ChatGPT for translating messages; open to new tools if someone sets them up."
+   }
+  ],
+  "objections": [
+   "My guests like talking to me personally, not to a robot",
+   "Booking and Airbnb already send automatic messages for free",
+   "What if the AI tells a guest the wrong thing and I get a bad review?",
+   "Another monthly subscription for only a few months of bookings",
+   "I don't trust a new one-person company with my guests",
+   "My guests ask the same three questions, I can answer them myself",
+   "Is this legal with guests' data (GDPR)?"
+  ],
+  "habits": [
+   "you clean and turn over the apartment yourself on Saturdays in summer",
+   "your adult son or daughter helps with the Booking.com extranet",
+   "you have a day job in Split and host on the side",
+   "you get 10 to 30 guest messages a day in August, many in German",
+   "you print a laminated sheet with the Wi-Fi password and house rules",
+   "you are registered on eVisitor and pay the tourist tax yourself"
+  ]
+ },
+ "pitch": "Almissa Digital, from Omiš: an AI guest assistant for your holiday apartment.\nGuests scan a QR code in the apartment (or open a link you send them) and get instant answers in their own language: Wi-Fi, check-in and check-out, parking, house rules, nearby beaches, restaurants and trips.\nIt only answers from the information you give; when it doesn't know, it tells the guest you will reply and forwards the question to your WhatsApp.\nWe set everything up for you in 1 to 2 weeks and meet you in person in Omiš, Split or Makarska. You change answers in a simple table, or just send us a message.\nPrice: €35 a month per property plus €150 one-time setup. WhatsApp and AI costs included. No long contract, and you can pause the monthly fee outside the season. You try it before paying the first monthly fee.\nAll prices in this pitch are in euros (€). Answer the price questions in euros per month for one property."
+}

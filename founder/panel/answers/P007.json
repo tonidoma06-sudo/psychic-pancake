@@ -1,0 +1,13 @@
+{
+  "id": "P007",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I have one apartment next to our house, and when guests have a question I'm right there or I answer on my phone at lunch. Booking and Airbnb already send my Wi-Fi and check-in messages for free, so €120 a season is money I'd rather keep.",
+  "objection": "It solves a problem I don't really have with one unit. My guests already get automatic messages from Booking and Airbnb, and anything they still ask me takes two minutes on WhatsApp.",
+  "would_change_my_mind": "If it were free or almost free for one small apartment, or a neighbour I trust used it and told me it brought better reviews or saved her real time.",
+  "price_too_cheap": 1,
+  "price_cheap": 3,
+  "price_expensive": 7,
+  "price_too_expensive": 12
+}

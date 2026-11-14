@@ -1,0 +1,13 @@
+{
+  "id": "P014",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My guests find me on Google Maps, they look at the reviews and photos and they walk in or call. A website in six languages with a WhatsApp button doesn't put more people at my tables than that Maps listing already does.",
+  "objection": "Nobody searching 'restaurant Omiš' clicks through to a website. They read the reviews on Maps and come. I'd be paying for something guests never open.",
+  "would_change_my_mind": "If you could show me that a restaurant like mine moved up on Google Maps and got more guests because of your profile work and the website, with real numbers from someone on this coast I can call.",
+  "price_too_cheap": 200,
+  "price_cheap": 400,
+  "price_expensive": 900,
+  "price_too_expensive": 1500
+}

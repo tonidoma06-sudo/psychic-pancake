@@ -1,0 +1,13 @@
+{
+  "id": "P008",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My bookings already come through Facebook, Instagram, Google Maps and WhatsApp, so I don't see what a website adds. €600 plus €15 every month is real money for something I'm not sure brings even one extra transfer.",
+  "objection": "€600 is a lot when I don't know if it brings any bookings. People already find me on Maps and message me on WhatsApp, so why pay for another place to show the same prices?",
+  "would_change_my_mind": "Seeing another taxi or boat guy on this coast whose new site actually brought him more WhatsApp bookings, or paying half now and half only after the bookings come.",
+  "price_too_cheap": 150,
+  "price_cheap": 250,
+  "price_expensive": 400,
+  "price_too_expensive": 600
+}

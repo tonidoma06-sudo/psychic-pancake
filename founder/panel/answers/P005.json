@@ -1,0 +1,13 @@
+{
+  "id": "P005",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "values",
+  "reason": "My guests come back because they talk to me, Jasper, not to a machine. I already answer the Wi-Fi and parking questions myself on WhatsApp, and €120 a season is real money for something I do for free.",
+  "objection": "A robot answering my guests takes away the personal touch that gets me good reviews, and if it says something wrong I am the one who looks bad.",
+  "would_change_my_mind": "If a neighbour host I trust used it a full summer and showed me guests still left good reviews and it saved them real hours, and my nephew could set it up for me.",
+  "price_too_cheap": 3,
+  "price_cheap": 6,
+  "price_expensive": 12,
+  "price_too_expensive": 20
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P038",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "values",
+  "reason": "My guests come to us because they feel welcome like family, and answering them myself, even at midnight, is part of that. For one apartment, my laminated sheet and my phone already do the job, and €150 plus €35 a month is real money for me.",
+  "objection": "Guests will feel they are talking to a robot instead of me, and I would be paying every month for something I already do for free.",
+  "would_change_my_mind": "If it cost almost nothing, around €10 a month with no setup fee, and only took over the boring night questions like Wi-Fi and parking while every real conversation still came straight to me.",
+  "price_too_cheap": 3,
+  "price_cheap": 8,
+  "price_expensive": 15,
+  "price_too_expensive": 25
+}

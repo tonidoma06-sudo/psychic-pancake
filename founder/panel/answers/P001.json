@@ -1,0 +1,13 @@
+{
+  "id": "P001",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "Booking and Airbnb already send my automatic messages for free, and I answer guests on WhatsApp myself. I'm not putting a robot between me and a German guest when one wrong answer about parking or check-in can turn a 9.5 into a 9.2.",
+  "objection": "If the AI tells a guest something wrong at 2am, the bad review lands on my listing, not on Almissa Digital. A refund doesn't fix my Booking score.",
+  "would_change_my_mind": "Seeing other hosts on this coast whose Booking scores went up with it, with guest reviews actually praising the quick answers, and trying it free on one apartment before paying for all of them.",
+  "price_too_cheap": 3,
+  "price_cheap": 8,
+  "price_expensive": 18,
+  "price_too_expensive": 30
+}

@@ -1,0 +1,38 @@
+{
+  "business": "Almissa Digital: multilingual websites for small tourism businesses, Omiš/Croatia",
+  "target": "Owners of small tourism businesses on the Omiš to Makarska coast (taxi/transfer, tours/rafting/boats, restaurants, holiday villas and apartment houses) whose website is missing, outdated, or only a Facebook page, and who are not technical",
+  "where": "Omiš, Split and the Makarska Riviera, Croatia",
+  "age": [28, 66],
+  "segments": [
+    {"name": "Taxi, transfer, tour, rafting or boat operator (takes direct bookings by phone/WhatsApp)", "share": 0.35, "income": [20000, 90000]},
+    {"name": "Restaurant, konoba or bar owner", "share": 0.25, "income": [25000, 120000]},
+    {"name": "Villa or apartment-house owner wanting direct bookings to avoid Booking.com commission", "share": 0.25, "income": [18000, 100000]},
+    {"name": "Single-apartment host or small trade (only a Facebook page now)", "share": 0.15, "income": [6000, 25000]}
+  ],
+  "behaviours": [
+    {"name": "Facebook-and-Instagram only", "share": 0.22, "how": "Thinks the Facebook page and Google Maps listing are enough; has never had a website."},
+    {"name": "Has an old site", "share": 0.20, "how": "A site built 5 to 10 years ago by a friend or agency, not mobile-friendly, prices out of date, only in Croatian and English."},
+    {"name": "Commission-hater", "share": 0.15, "how": "Pays 15-25% to Booking.com, GetYourGuide or Viator and wants more direct bookings."},
+    {"name": "DIY tempted", "share": 0.15, "how": "Has looked at Wix or asked a nephew; would rather spend nothing."},
+    {"name": "Cost-cutter", "share": 0.12, "how": "Avoids any monthly fee and anything not obviously paying back this season."},
+    {"name": "Review and Google-ranking focused", "share": 0.10, "how": "Checks where they appear on Google Maps and what guests see first."},
+    {"name": "Early adopter", "share": 0.06, "how": "Already uses WhatsApp Business and online booking; wants something modern."}
+  ],
+  "objections": [
+    "My Facebook page and Google Maps listing already bring guests",
+    "My nephew or a friend can make one for free or with Wix",
+    "€600 is a lot when I don't know if it brings any bookings",
+    "Another monthly fee, for a site I'll rarely change",
+    "I paid for a website before and it was never updated",
+    "Guests book through Booking or GetYourGuide anyway",
+    "Who owns the domain and the site if I stop paying?"
+  ],
+  "habits": [
+    "you take bookings on WhatsApp while driving or on the boat",
+    "your daughter runs the Instagram account",
+    "you pay commission to a booking platform on most bookings",
+    "your current website still shows last year's prices",
+    "you mostly get guests from Google Maps searches like 'taxi Omiš' or 'rafting Cetina'",
+    "you close or slow down from November to March"
+  ]
+}

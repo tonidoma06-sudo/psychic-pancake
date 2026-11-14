@@ -1,0 +1,11 @@
+SOLD! The Day Rome Was Auctioned · YouTube Short (Game Show Flat style)
+
+Picture: drawn in code (SVG), engine written for this film after the Game Show Flat style of the Lemo-Opuscar library
+(github.com/lemomo-ai/lemo-opuscar, MIT): bean characters, telops, bursts, judgement words, stamp filter.
+Characters are generic toy stand-ins with name tags; no real likenesses, no logos.
+
+Font: Fredoka — Milena Brandão / Google Fonts, SIL Open Font License 1.1 (fonts/OFL-Fredoka.txt; files from the @fontsource npm package).
+
+Music and sound effects: synthesized in code (music.py, synth_lib.py from the Lemo-Opuscar library, MIT). No samples.
+
+Scratch voice (placeholder only, to be replaced by the creator's own recording): Kokoro-82M v1.0 (hexgrad, Apache-2.0) via kokoro-onnx, voice am_michael.

@@ -1,0 +1,13 @@
+{
+  "id": "P017",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "values",
+  "reason": "I have one apartment and I answer my guests myself, even at night. That is how we do hospitality here, and €120 is real money from what I earn when the questions are things I already put in my welcome message.",
+  "objection": "My guests like talking to me personally, not to a robot. If they get a machine first, they will think I don't care, and the reviews come from that personal touch.",
+  "would_change_my_mind": "If another host with one apartment I know showed me guests still left warm reviews and it really stopped the 2 a.m. Wi-Fi and parking messages, and it cost less, maybe €50 for the season.",
+  "price_too_cheap": 2,
+  "price_cheap": 5,
+  "price_expensive": 12,
+  "price_too_expensive": 20
+}

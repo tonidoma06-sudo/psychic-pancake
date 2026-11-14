@@ -1,0 +1,13 @@
+{
+  "id": "P009",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "values",
+  "reason": "My guests pay a lot for the villa and they like that I answer them myself, even at midnight. One villa, weekly bookings, I don't get so many questions that I need a robot between me and them.",
+  "objection": "A high-end guest who gets a chatbot instead of me will feel the place is less personal, and if it answers something wrong about the pool or the villa, it is my name and my reviews that suffer.",
+  "would_change_my_mind": "If I could try it a whole season and see that guests only use it for Wi-Fi and parking at night and still write to me for everything else, with no complaints in reviews.",
+  "price_too_cheap": 8,
+  "price_cheap": 15,
+  "price_expensive": 30,
+  "price_too_expensive": 45
+}

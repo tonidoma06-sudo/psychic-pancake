@@ -1,0 +1,13 @@
+{
+  "id": "P004",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I have one apartment next to my house and I answer the guests myself, ChatGPT already helps me translate. €150 plus €35 every month of the season is a few nights of my profit for something I can mostly do with my phone.",
+  "objection": "For one small apartment it is too much money every month, and if the AI tells a German guest the wrong check-out time or wrong parking, the bad review hits me, not you.",
+  "would_change_my_mind": "No setup fee and around €15 a month only in summer, plus seeing it answer my real guests correctly for a few weeks before I pay anything.",
+  "price_too_cheap": 3,
+  "price_cheap": 10,
+  "price_expensive": 20,
+  "price_too_expensive": 35
+}

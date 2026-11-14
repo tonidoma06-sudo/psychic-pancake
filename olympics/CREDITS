@@ -1,0 +1,13 @@
+The Worst Race in Olympic History (St. Louis, 1904) · 3D long-form video (1920×1080, ~3 min), style v4 "Toon 3D"
+
+Picture: modelled, lit and animated in code with three.js (MIT). Post (depth of field, bloom, grade): core/three/post.js from
+the Lemo-Opuscar library (github.com/lemomo-ai/lemo-opuscar, MIT). Toon cast with hand-drawn canvas faces and 1904 costumes
+(toon.js); the marathon course, Francis Field with the World's Fair, a New Orleans dice room, the 1904 touring car and the dog
+(sets_oly.js, with helpers from the Dexter Short in sets_base.js). The people are stylised stand-ins with no likeness.
+
+Voice-over: ElevenLabs text-to-speech (model eleven_v4, premade voice "George"), generated with the creator's ElevenLabs
+account. Check ElevenLabs' terms for your plan before publishing (the free plan requires attribution and is non-commercial).
+
+Fonts: Montserrat (SIL OFL 1.1, fonts/OFL-Montserrat.txt); Fredoka (SIL OFL 1.1, fonts/OFL-Fredoka.txt).
+Music and sound effects: synthesised in code (music.py: an original ragtime, habanera and music box; synth_lib.py from the
+Lemo-Opuscar library, MIT). No samples.

@@ -1,0 +1,13 @@
+{
+  "id": "P019",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "It's one apartment next to my house; Booking and Airbnb already send my scheduled messages and the rules sheet is on the table, and if a guest is stuck they knock on my door. On what I earn, €120 for something I already have covered is not happening.",
+  "objection": "I don't see what it does that my scheduled messages and the printed sheet don't, and I'm still not sure I'm allowed to put guests' questions through some AI, even with a signed paper.",
+  "would_change_my_mind": "A neighbour with one unit like mine showing me it really stopped the late-night calls, at a price closer to €5 a month.",
+  "price_too_cheap": 2,
+  "price_cheap": 5,
+  "price_expensive": 10,
+  "price_too_expensive": 15
+}
