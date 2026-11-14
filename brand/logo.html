@@ -1,0 +1,72 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Odd Receipts logo</title>
+<style>
+@font-face { font-family: Montserrat; font-weight: 900; src: url('../olympics/fonts/montserrat-latin-900-normal.woff2') format('woff2'); }
+@font-face { font-family: Montserrat; font-weight: 800; src: url('../olympics/fonts/montserrat-latin-800-normal.woff2') format('woff2'); }
+html, body { margin: 0; background: transparent; }
+svg { display: block; }
+text { font-family: Montserrat; font-weight: 900; }
+</style></head>
+<body>
+<script>
+// Odd Receipts: a torn till receipt with a toon face (one eye bigger than the other: odd), shocked, totalling "?!"
+// ?m=icon      800x800 round-safe profile picture on a yellow sunburst
+// ?m=mascot    800x800 mascot alone, transparent
+// ?m=wordmark  1800x600 mascot + name, transparent (banner, end cards)
+const Q = new URLSearchParams(location.search), MODE = Q.get('m') || 'icon';
+const INK = '#1B1213', PAPER = '#FFF8EC', YEL = '#FFD23F', RED = '#E2382F';
+
+function receiptPath(w, h, n = 9, a = 16) {   // zigzag top and bottom, straight sides, centred on 0,0
+  const x0 = -w / 2, y0 = -h / 2, s = w / n; let d = `M${x0},${y0}`;
+  for (let i = 0; i < n; i++) d += ` L${x0 + s * (i + .5)},${y0 - a} L${x0 + s * (i + 1)},${y0}`;
+  d += ` L${x0 + w},${y0 + h}`;
+  for (let i = n - 1; i >= 0; i--) d += ` L${x0 + s * (i + .5)},${y0 + h + a} L${x0 + s * i},${y0 + h}`;
+  return d + ' Z';
+}
+function mascot() {   // drawn around 0,0, about 360 x 520
+  const w = 330, h = 470, p = receiptPath(w, h);
+  const bar = (x, y, l, o = 1) => `<rect x="${x}" y="${y}" width="${l}" height="16" rx="8" fill="${INK}" opacity="${.22 * o}"/>`;
+  return `
+  <path d="${p}" fill="rgba(0,0,0,.28)" transform="translate(14 18)"/>
+  <path d="${p}" fill="${PAPER}" stroke="${INK}" stroke-width="16" stroke-linejoin="round"/>
+  <path d="M${-w / 2 + 14},${h / 2 - 40} L${w / 2 - 14},${h / 2 - 40}" stroke="#EADFCB" stroke-width="22"/>
+  <!-- face -->
+  <ellipse cx="-62" cy="-118" rx="23" ry="27" fill="${INK}"/>
+  <ellipse cx="62" cy="-124" rx="37" ry="43" fill="${INK}"/>
+  <circle cx="-55" cy="-128" r="8" fill="#fff"/><circle cx="74" cy="-140" r="12" fill="#fff"/>
+  <ellipse cx="-98" cy="-66" rx="24" ry="13" fill="#F4A3A0" opacity=".75"/><ellipse cx="104" cy="-66" rx="24" ry="13" fill="#F4A3A0" opacity=".75"/>
+  <ellipse cx="2" cy="-48" rx="27" ry="33" fill="${INK}"/><ellipse cx="2" cy="-30" rx="15" ry="11" fill="${RED}"/>
+  <!-- printed lines -->
+  <line x1="-128" y1="20" x2="128" y2="20" stroke="${INK}" stroke-width="7" stroke-dasharray="14 12" stroke-linecap="round" opacity=".55"/>
+  ${bar(-128, 48, 120)}${bar(70, 48, 58)}
+  ${bar(-128, 82, 150)}${bar(86, 82, 42)}
+  <line x1="-128" y1="122" x2="128" y2="122" stroke="${INK}" stroke-width="7" stroke-dasharray="14 12" stroke-linecap="round" opacity=".55"/>
+  <text x="-128" y="186" font-size="44" fill="${INK}">TOTAL</text>
+  <text x="130" y="200" font-size="104" fill="${RED}" text-anchor="end" stroke="${INK}" stroke-width="7" paint-order="stroke" stroke-linejoin="round">?!</text>`;
+}
+function rays(cx, cy, n, r, col) {
+  let s = ''; for (let i = 0; i < n; i++) { const a0 = (i / n) * Math.PI * 2, a1 = a0 + Math.PI / n;
+    s += `<path d="M${cx},${cy} L${cx + Math.cos(a0) * r},${cy + Math.sin(a0) * r} L${cx + Math.cos(a1) * r},${cy + Math.sin(a1) * r} Z" fill="${col}"/>`; }
+  return s;
+}
+let W = 800, H = 800, body = '';
+if (MODE === 'icon') {
+  body = `<rect width="800" height="800" fill="${YEL}"/>${rays(400, 400, 18, 700, '#FFE27A')}
+    <radialGradient id="v" cx="50%" cy="50%" r="60%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#B07A00" stop-opacity=".22"/></radialGradient>
+    <rect width="800" height="800" fill="url(#v)"/>
+    <g transform="translate(400 404) rotate(-8) scale(1.14)">${mascot()}</g>`;
+} else if (MODE === 'mascot') {
+  body = `<g transform="translate(400 400) rotate(-8) scale(1.05)">${mascot()}</g>`;
+} else {
+  W = 1800; H = 600;
+  const word = (t, x, y, size, col) => `<text x="${x}" y="${y}" font-size="${size}" fill="${col}" stroke="${INK}" stroke-width="${size * .2}" paint-order="stroke" stroke-linejoin="round">${t}</text>`;
+  body = `<g transform="translate(290 300) rotate(-8) scale(.98)">${mascot()}</g>
+    <g transform="translate(560 0) rotate(-3 0 300)">
+      <g transform="translate(7 10)" opacity=".18">${word('ODD', 0, 270, 230, '#000')}${word('RECEIPTS', 0, 480, 200, '#000')}</g>
+      ${word('ODD', 0, 270, 230, YEL)}${word('RECEIPTS', 0, 480, 200, '#FFFFFF')}
+    </g>`;
+}
+document.body.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${body}</svg>`;
+document.fonts.ready.then(() => { window.READY = true; });
+</script>
+</body></html>
