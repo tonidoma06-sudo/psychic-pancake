@@ -167,7 +167,8 @@ const SHOTS = [
   { t0: 0, t1: C.L2, set: 'road', lt: HOT, at: V(-30, 0, 0), act: t => actHook(t),
     cam: (t, u) => hand(camAt(V(PACKX(t) + lerp(6.5, 4.6, u), lerp(.55, .8, u), lerp(1.3, 1.6, u)), V(PACKX(t) - 1, 1.1, -.1), 42, 5, 4), t, 1.2) },
   { t0: C.L2, t1: tWinner - .12, set: 'road', lt: HOT, at: V(10, 0, 0), act: t => actHook(t),
-    cam: (t, u) => { const x = 4 + 6.5 * (t - C.L2); return hand(camAt(V(x + .4, 1.25, -2.5), V(x - .3, 1.25, 0), 40, 2.7, 5), t, 1.3); } },
+    cam: (t, u) => { const x = 4 + 6.5 * (t - C.L2); return hand(camAt(V(x + .4, 1.25, -2.5), V(x - .3, 1.25, 0), 40, 2.7, 5), t, 1.3); },
+    poster: t => { const x = 4 + 6.5 * (t - C.L2); return camAt(V(x + 1.45, 1.0, -2.75), V(x - .15, 1.58, 0), 48, 3.0, 9); } },
   { t0: tWinner - .12, t1: C.L3, set: 'road', lt: HOT, at: V(30, 0, 0), act: t => actHook(t),
     cam: (t, u) => { const x = 30 + .7 * (t - tWinner); return hand(camAt(V(x + 2.4, 1.2, -1.9), V(x - .2, 1.15, .2), 42, 3.3, 5), t, 1.4); } },
   { t0: C.L3, t1: CARDS[0].t0, set: 'road', lt: HOT, at: ROAD.orchard, act: t => actHook(t),
@@ -261,7 +262,7 @@ const SHOTS = [
   { t0: C.L30, t1: tOne30 - .12, set: 'road', lt: DUSK, at: V(14, 0, -2), act: t => actEnd(t),
     cam: (t, u) => hand(camAt(V(lerp(17.5, 16.5, u), 1.4, lerp(2.4, 2.0, u)), V(13, .8, -2.4), 40, 5.5, 4), t) },
   { t0: tOne30 - .12, t1: C.L31, set: 'road', lt: DUSK, at: V(14, 0, -2), act: t => actEnd(t),
-    cam: (t, u) => hand(camAt(V(lerp(11.9, 11.6, u), .9, lerp(.1, -.2, eo(u))), V(11.2, .4, -2.2), 40, 2.3, 6), t, .6) },
+    cam: (t, u) => hand(camAt(V(lerp(11.2, 10.95, u), 1.0, lerp(2.0, 1.7, eo(u))), V(10.75, .62, -1.8), 40, 3.2, 6), t, .6) },
   { t0: C.L31, t1: tNext - .12, set: 'field', lt: HOT, at: F(0, 0, 9), act: t => actEnd(t),
     cam: (t, u) => hand(camAt(F(.35, 1.45, lerp(7.2, 7.6, u)), F(.35, 1.45, 9.2), 38, 1.9, 6), t, .6) },
   { t0: tNext - .12, t1: C.L32, set: 'field', lt: HOT, at: F(0, 0, 9), act: t => actEnd(t), boston: 1,
@@ -448,8 +449,8 @@ function actEnd(t) {
   if (t < C.L31) {   // dusk on the road: the dropouts; one nearly died
     const sits = [[RUN[0], 11.6, -2.3, TP.sit, 'deadpan'], [RUN[2], 13.3, -2.4, TP.slump, 'worried'], [RUN[3], 15.0, -2.2, TP.sit, 'deadpan'], [RUN[4], 16.6, -2.4, TP.slump, 'worried']];
     sits.forEach(([p, x, z, q, f], i) => { put(p, V(x, 0, z), .1 * (i - 1)); apply(p, q, { t, seed: 20 + i, face: f, look: CAMP }); p.P.position.y = -.48 + .02; });
-    put(RUN[1], V(11.2, .1, -1.5), 0); RUN[1].P.rotation.set(-Math.PI / 2 + .05, 0, 0); RUN[1].P.position.y = .12; apply(RUN[1], TP.stand, { t, seed: 22, face: 'worried', noBlink: 1 }); RUN[1].face.set({ blink: 1 });
-    put(TRA2, V(10.5, 0, -1.1), 1.2); apply(TRA2, TP.wave, { t, seed: 6, face: 'worried', look: headOf(RUN[1]) }); TRA2.aR.sh.rotation.z += Math.sin(t * 14) * .4;
+    put(RUN[1], V(11.1, .1, -1.45), 0); RUN[1].P.rotation.set(0, .12, Math.PI / 2 - .06); RUN[1].P.position.y = .18; apply(RUN[1], TP.stand, { t, seed: 22, face: 'worried', noBlink: 1 }); RUN[1].face.set({ blink: 1 });
+    put(TRA2, V(10.0, 0, -2.15), .5); apply(TRA2, TP.wave, { t, seed: 6, face: 'worried', look: headOf(RUN[1]) }); TRA2.aR.sh.rotation.z += Math.sin(t * 14) * .4;
   } else if (t < tNext - .12) {   // the ban gets lifted
     animCrowd(SET.field, t, 0); put(LORZ, F(.35, 0, 9.4), Math.PI); apply(LORZ, t > tLifted ? TP.cheer : TP.stand, { t, seed: 1, face: t > tLifted ? 'laugh' : 'deadpan', look: CAMP });
   } else if (t < C.L32) {   // Boston, 1905: a fair win
@@ -572,7 +573,8 @@ function frame(sh, t) {
   const tt = t, u = seg(t, sh.t0, sh.t1);
   for (const [k, s] of Object.entries(SET)) s.visible = k === sh.set;
   light(sh.lt, sh.at);
-  let c = sh.after ? null : sh.cam(tt, u); if (c) CAMP.copy(c.pos);
+  const pc = QS.get('poster') && sh.poster;
+  let c = sh.after ? null : (pc ? sh.poster(tt, u) : sh.cam(tt, u)); if (c) CAMP.copy(c.pos);
   sh.act(tt);
   if (!c) { c = sh.cam(tt, u); CAMP.copy(c.pos); }
   camera.position.copy(c.pos); sky.position.copy(c.pos); camera.up.set(0, 1, 0); camera.lookAt(c.look); camera.rotateZ(c.roll ?? 0); camera.fov = c.fov; camera.updateProjectionMatrix();
