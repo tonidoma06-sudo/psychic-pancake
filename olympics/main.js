@@ -225,7 +225,7 @@ const SHOTS = [
   { t0: C.L19, t1: C.L20, set: 'road', lt: DREAM, at: V(-10, 0, 0), act: t => actHicks(t), fpv: .9,
     cam: (t, u) => { const x = -12 + 1.2 * (t - C.L19), c = camAt(V(x, lerp(1.35, 1.25, u), .1), V(x + 8, 1.3 + Math.sin(t * 2) * .3, Math.sin(t * 1.3) * 1.2), lerp(48, 64, u), 8, 2, Math.sin(t * 1.7) * .14); return hand(c, t, 2); } },
   { t0: C.L20, t1: C.L21, set: 'field', lt: HOT, at: F(0, 0, 9), act: t => actHicks(t),
-    cam: (t, u) => { const x = lerp(-6, 1.2, seg(t, C.L20, end('L20'))); return hand(camAt(F(x + lerp(1.6, 1.2, u), 1.7, 3.2), F(x - .2, 1.1, 9.1), 42, 6.0, 4), t, 1.1); } },
+    cam: (t, u) => { const x = lerp(6, -1.2, seg(t, C.L20, end('L20'))); return hand(camAt(F(x - lerp(3.2, 2.6, u), 1.3, 6.2), F(x + .1, 1.1, 9.1), 42, 4.2, 5), t, 1.1); } },
   { t0: C.L21, t1: CARDS[3].t0, set: 'field', lt: HOT, at: F(6, 0, 12.5), act: t => actHicks(t),
     cam: (t, u) => hand(camAt(F(lerp(6.6, 6.5, u), lerp(1.0, .95, u), lerp(10.0, 10.6, eo(u))), F(6, .9, 13.1), 40, 2.6, 6), t, .6) },
   { card: 3, t0: CARDS[3].t0, t1: CARDS[3].t1 },
@@ -385,7 +385,7 @@ function actHicks(t) {
     pack(t, x + 10 + Math.sin(t) * 2, 3, { face: i => 'laugh', amt: 2.2 });
   } else if (t < C.L21) {   // carried across the line, feet still going
     animCrowd(SET.field, t, .8); SET.field.userData.tape.visible = false;
-    const x = lerp(-6, 1.2, seg(t, C.L20, end('L20'))), p = F(x, .25, 9.1); put(HICKS, p, -Math.PI / 2); apply(HICKS, walk(TP.run, t * 9, 1.8), { t, seed: 2, face: 'happy', eyes: [Math.sin(t * 5) * .8, Math.cos(t * 5) * .5] });
+    const x = lerp(6, -1.2, seg(t, C.L20, end('L20'))), p = F(x, .25, 9.1); put(HICKS, p, -Math.PI / 2); apply(HICKS, walk(TP.run, t * 9, 1.8), { t, seed: 2, face: 'happy', eyes: [Math.sin(t * 5) * .8, Math.cos(t * 5) * .5] });
     for (const [p2, dz, sd] of [[TRA1, .55, 5], [TRA2, -.55, 6]]) { const pp = F(x, 0, 9.1 + dz); put(p2, pp, -Math.PI / 2); apply(p2, walk({ ...TP.lift }, x * 2.2, 1.0), { t, seed: sd, face: 'worried', look: headOf(HICKS) }); }
   } else {   // gold, eight pounds lighter, the slowest time ever
     animCrowd(SET.field, t, .2); BENCH.visible = true; BENCH.position.copy(F(6, 0, 13.4)); BENCH.rotation.set(0, Math.PI, 0);
