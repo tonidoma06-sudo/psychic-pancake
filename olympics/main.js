@@ -25,6 +25,7 @@ const noise = (t, k) => Math.sin(t * 1.7 + k) * .6 + Math.sin(t * 3.1 + k * 2.3)
 const hash = n => { n = Math.sin(n * 127.1 + 311.7) * 43758.5453; return n - Math.floor(n); };
 const EV = []; const ev = (t, s, o = {}) => EV.push({ t: +t.toFixed(3), s, ...o });
 const QS = new URLSearchParams(location.search);
+const THUMB = !!QS.get('thumb');   // YouTube thumbnail mode
 
 // ---------------- renderer / post ----------------
 const renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true });
@@ -177,7 +178,8 @@ const SHOTS = [
     cam: (t, u) => hand(camAt(V(PACKX(t) + lerp(6.5, 4.6, u), lerp(.55, .8, u), lerp(1.3, 1.6, u)), V(PACKX(t) - 1, 1.1, -.1), 42, 5, 4), t, 1.2) },
   { t0: C.L2, t1: tWinner - .12, set: 'road', lt: HOT, at: V(10, 0, 0), act: t => actHook(t),
     cam: (t, u) => { const x = 4 + 6.5 * (t - C.L2); return hand(camAt(V(x + .4, 1.25, -2.5), V(x - .3, 1.25, 0), 40, 2.7, 5), t, 1.3); },
-    poster: t => { const x = 4 + 6.5 * (t - C.L2); return camAt(V(x + 1.45, 1.0, -2.75), V(x - .15, 1.58, 0), 48, 3.0, 9); } },
+    poster: t => { const x = 4 + 6.5 * (t - C.L2); return camAt(V(x + 1.45, 1.0, -2.75), V(x - .15, 1.58, 0), 48, 3.0, 9); },
+    thumb: t => { const x = 4 + 6.5 * (t - C.L2), k = (QS.get('tc') ?? '1.45,1.0,-2.6,-.3,1.72,0,38,9').split(',').map(Number), pos = V(x + k[0], k[1], k[2]); return camAt(pos, V(x + k[3], k[4], k[5]), k[6], pos.distanceTo(headOf(LORZ)), k[7]); } },
   { t0: tWinner - .12, t1: C.L3, set: 'road', lt: HOT, at: V(30, 0, 0), act: t => actHook(t),
     cam: (t, u) => { const x = 30 + .7 * (t - tWinner); return hand(camAt(V(x + 2.4, 1.2, -1.9), V(x - .2, 1.15, .2), 42, 3.3, 5), t, 1.4); } },
   { t0: C.L3, t1: CARDS[0].t0, set: 'road', lt: HOT, at: ROAD.orchard, act: t => actHook(t),
@@ -296,8 +298,9 @@ function actHook(t) {
     dust(t, [{ p: tt => V(x - 9 + 8.5 * (tt - .2) - 1.4, 0, -1.4), t0: 0, t1: C.L2, n: 260, spread: 1.6, size: 1.0, alpha: .5 }]);
   } else if (t < tWinner - .12) {   // Lorz rides by, waving
     const x = 4 + 6.5 * (t - C.L2); placeCar(CAR, x, .2, Math.PI / 2, t);
-    put(LORZ, seat(CAR, 'seatB'), Math.PI / 2 + .9); apply(LORZ, TP.wave, { t, seed: 1, face: 'happy', look: CAMP }); LORZ.P.position.y -= .48; LORZ.aR.sh.rotation.z += Math.sin(t * 12) * .3;
+    put(LORZ, seat(CAR, 'seatB'), Math.PI / 2 + .9); apply(LORZ, TP.wave, { t, seed: 1, face: THUMB ? 'laugh' : 'happy', look: CAMP }); LORZ.P.position.y -= .48; LORZ.aR.sh.rotation.z += Math.sin(t * 12) * .3;
     put(MGR, seat(CAR, 'seatF', 0, .3), Math.PI / 2); apply(MGR, TP.sit, { t, seed: 2, face: 'calm' }); MGR.P.position.y -= .48; MGR.aL.sh.rotation.x = MGR.aR.sh.rotation.x = -1.2;
+    if (THUMB) { const k = (QS.get('tr') ?? '-1.2,-1.05').split(',').map(Number); runner(RUN[0], x + k[0], k[1], t, { seed: 10, face: 'shock', amt: 1.4, look: headOf(LORZ).lerp(CAMP, +(QS.get('tl') ?? .6)) }); }   // thumbnail only: a worn-out runner being passed
     dust(t, [{ p: tt => V(4 + 6.5 * (tt - C.L2) - 1.6, 0, .2), t0: C.L2 - 1, t1: tWinner, n: 160, spread: 1.0, size: .8, alpha: .45 }]);
   } else if (t < C.L3) {   // Hicks staggers; the trainer holds out the bottle
     const x = 30 + .7 * (t - tWinner); runner(HICKS, x, .1, t, { pose: TP.stagger, amt: .8, seed: 2, face: 'worried', eyes: [Math.sin(t * 3) * .6, .2] });
@@ -591,6 +594,7 @@ function frame(sh, t) {
   light(sh.lt, sh.at);
   const pc = QS.get('poster') && sh.poster;
   let c = sh.after ? null : (pc ? sh.poster(tt, u) : sh.cam(tt, u)); if (c) CAMP.copy(c.pos);
+  if (THUMB && sh.thumb) { sh.act(tt); c = sh.thumb(tt); CAMP.copy(c.pos); }   // aim at where he is, then pose him looking into the lens
   sh.act(tt);
   if (!c) { c = sh.cam(tt, u); CAMP.copy(c.pos); }
   camera.position.copy(c.pos); sky.position.copy(c.pos); camera.up.set(0, 1, 0); camera.lookAt(c.look); camera.rotateZ(c.roll ?? 0); camera.fov = c.fov; camera.updateProjectionMatrix();
@@ -606,8 +610,19 @@ function render(t) {
   if (sh.card !== undefined && !QS.get('poster')) { drawCard(sh.card, t, sh.t0); return; }
   frame(sh, t);
   if (QS.get('poster')) { ov.clearRect(0, 0, W, H); [['THE WORST RACE', 150, -3, '#FFFFFF', 130], ['IN OLYMPIC HISTORY', 300, -3, '#FFD23F', 120]].forEach(([text, y, rot, col, size]) => drawTelop({ t0: -9, text, y, size, col, rot }, t)); return; }
+  if (THUMB) { ov.clearRect(0, 0, W, H); if (!QS.get('clean')) drawThumb(); return; }
   if (QS.get('clean')) return;
   TEL.forEach(x => { if (t >= x.t0 && t < x.t1) drawTelop(x, t); }); drawCaption(t);
+}
+// thumbnail lettering: four words in one huge line across the sky, clear of every face; the timestamp corner (bottom-right) stays clear
+function drawThumb() {
+  const size = +(QS.get('ts') ?? 190), y = +(QS.get('ty') ?? 150), parts = [['HE TOOK ', '#FFFFFF'], ['A CAR?!', '#FFD23F']];
+  ov.save(); ov.translate(W / 2, y); ov.rotate(-3 * Math.PI / 180); ov.font = `900 ${size}px Montserrat`; ov.textAlign = 'left'; ov.textBaseline = 'middle'; ov.lineJoin = 'round';
+  const ws = parts.map(([s]) => ov.measureText(s).width); let x = -(ws[0] + ws[1]) / 2;
+  ov.shadowColor = 'rgba(0,0,0,.55)'; ov.shadowBlur = 30; ov.shadowOffsetY = 12; ov.lineWidth = size * .24; ov.strokeStyle = '#000';
+  parts.forEach(([s], i) => { ov.strokeText(s, x + (i ? ws[0] : 0), 0); });
+  ov.shadowColor = 'transparent'; parts.forEach(([s, col], i) => { ov.fillStyle = col; ov.fillText(s, x + (i ? ws[0] : 0), 0); });
+  ov.restore();
 }
 function texts(t) { return TEL.filter(x => typeof x.text === 'string' && t >= x.t0 + .3 && t < x.t1).map(x => ({ id: x.text, text: x.text, x0: 60, y0: x.y - x.size * .7, x1: W - 60, y1: x.y + x.size * .7 })); }
 EV.sort((a, b) => a.t - b.t);
