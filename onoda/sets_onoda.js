@@ -90,6 +90,7 @@ export function island() {
   for (let i = 0; i < 16; i++) { const a = -1.3 + i * .17 + R() * .1, d = 120 + R() * 110, r = 45 + R() * 50; const h = M(new THREE.SphereGeometry(r, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), hillM[i % 3], g, Math.sin(a) * d, -r * .35, -Math.cos(a) * d); h.scale.set(1.3, .75 + R() * .35, 1); h.castShadow = false; }
   const clear = [[0, 0, 5.2], [LAY.tally[0], LAY.tally[1], 1.4], [LAY.village[0], LAY.village[1], 13], [LAY.tent[0], LAY.tent[1], 4.5], [-5.5, 4.5, 1.6]];
   const free = (x, z, pad = 0) => !clear.some(([cx, cz, r]) => Math.hypot(x - cx, z - cz) < r + pad);
+  const onTrail = (x, z) => z > 1.5 && z < LAY.shore + 3 && Math.abs(x - 1.2 + (z - 6) * .12) < 2.0;
   // rainforest trees: tall pale trunks under umbrella crowns
   const NT = 260, trunk = new THREE.InstancedMesh(new THREE.CylinderGeometry(.16, .3, 1, 9), std({ map: barkTex('#8A7A62', [1, 3]) }), NT);
   const crown = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 2), std({ color: '#FFFFFF', roughness: .9 }), NT * 3);
@@ -123,8 +124,8 @@ export function island() {
   const bush = (geo, n, place) => { const im = new THREE.InstancedMesh(geo, windMat({ color: '#FFFFFF' }, .06), n); let c = 0, tries = 0;
     while (c < n && tries < n * 20) { tries++; const r = place(); if (!r) continue; const [x, z, s] = r; put(im, c, x, 0, z, R() * 6.28, s, s, s); im.setColorAt(c, new THREE.Color(lc[c % lc.length])); c++; }
     im.count = c; im.instanceMatrix.needsUpdate = true; im.instanceColor.needsUpdate = true; im.castShadow = true; im.receiveShadow = true; im.frustumCulled = false; g.add(im); return im; };
-  const nearRing = () => { const a = R() * 6.28, d = 4.8 + Math.pow(R(), 1.6) * 22, x = Math.sin(a) * d, z = Math.cos(a) * d; return free(x, z, .3) && z < LAY.shore - 1 && !(Math.abs(x - 1.2 + (z - 6) * .12) < 1.2 && z > 3) ? [x, z, .8 + R() * .8] : null; };
-  const wide = () => { const x = -70 + R() * 140, z = -70 + R() * (LAY.shore - 2 + 70); return free(x, z, .3) ? [x, z, .9 + R() * 1.2] : null; };
+  const nearRing = () => { const a = R() * 6.28, d = 4.8 + Math.pow(R(), 1.6) * 22, x = Math.sin(a) * d, z = Math.cos(a) * d; return free(x, z, .3) && z < LAY.shore - 1 && !onTrail(x, z) ? [x, z, .8 + R() * .8] : null; };
+  const wide = () => { const x = -70 + R() * 140, z = -70 + R() * (LAY.shore - 2 + 70); return free(x, z, .3) && !onTrail(x, z) ? [x, z, .9 + R() * 1.2] : null; };
   PG.forEach((pg, i) => { bush(pg, 700, nearRing); bush(pg, 900, wide); });
   bush(FG, 1600, nearRing); bush(FG, 1200, wide);
   // hanging vines
@@ -145,7 +146,7 @@ export function island() {
   for (let i = 0; i < 3; i++) M(new THREE.CylinderGeometry(.04, .05, .6, 6), std({ color: '#3A2A1E' }), pit, 0, .08, 0).rotation.set(Math.PI / 2, i * 1.05, 0);
   const tree = G(); tree.position.set(LAY.tally[0], 0, LAY.tally[1]); g.add(tree); g.userData.tally = tree;
   M(new THREE.CylinderGeometry(.42, .55, 9, 18), std({ map: barkTex('#6A5038', [2, 4]) }), tree, 0, 4.5, 0);
-  const band = M(new THREE.CylinderGeometry(.425, .44, 1.0, 32, 1, true, -1.05, 2.1), std({ map: tallyTex() }), tree, 0, 1.35, 0); band.material.map.wrapS = THREE.ClampToEdgeWrapping; band.material.map.repeat.set(1, 1);
+  const band = M(new THREE.CylinderGeometry(.532, .548, 1.0, 32, 1, true, -1.05, 2.1), std({ map: tallyTex() }), tree, 0, 1.35, 0); band.material.map.wrapS = THREE.ClampToEdgeWrapping; band.material.map.repeat.set(1, 1);
   band.rotation.y = .1;   // the carved face looks toward the camp
   for (let i = 0; i < 5; i++) { const a = i * 1.3 + .65; const r = M(new THREE.CylinderGeometry(.05, .14, 1.6, 6), std({ color: '#6A5038' }), tree, Math.sin(a) * .5, .25, Math.cos(a) * .5); r.rotation.set(Math.cos(a) * .9, 0, -Math.sin(a) * .9); }
   // ---------------- the village at the jungle's edge: a nipa hut on stilts, a rice paddy ----------------

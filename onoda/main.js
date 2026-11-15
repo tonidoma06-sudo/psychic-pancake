@@ -44,11 +44,11 @@ post.composer.insertPass(zb, 1);
 const sun = new THREE.DirectionalLight('#FFF4E0', 3); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -.0004; sun.shadow.normalBias = .03;
 scene.add(sun, sun.target); const hemi = new THREE.HemisphereLight('#BFDFFF', '#4A6A2A', 1); scene.add(hemi);
 const sky = skyDome('#2A78E0', '#E8E2D6', V(-.4, .5, .6), '#FFF6D8'); scene.add(sky);
-const bulb = new THREE.PointLight('#FFB060', 0, 14, 1.4); scene.add(bulb);
+const bulb = new THREE.PointLight('#FFB060', 0, 9, 1.6); scene.add(bulb);
 const DAY = { pos: [-20, 40, 18], col: '#FFF1DA', int: 3.2, hs: '#C8E8FF', hg: '#4A7A30', hemi: 1.05, fog: ['#BFDCCB', 60, 420], sky: ['#1E70E0', '#DDEFF0', [-.4, .5, .6], '#FFF6D8'], env: .35, r: 14, warm: .1 };
 const SHADE = { ...DAY, int: 2.6, hs: '#B8E0C0', hg: '#3A5A22', hemi: 1.15, fog: ['#9CC8A8', 30, 260], warm: .08 };   // under the canopy
-const DUSK = { pos: [40, 6, -30], col: '#FF9A5A', int: 2.4, hs: '#7A6AB0', hg: '#3A2A30', hemi: .7, fog: ['#B07A80', 25, 240], sky: ['#3A3478', '#F09A6A', [.7, .1, -.6], '#FFC080'], env: .25, r: 22, warm: .32 };
-const NIGHT = { pos: [-20, 30, -20], col: '#8AA6E8', int: .55, hs: '#3A4A80', hg: '#141A2A', hemi: .5, fog: ['#1A2440', 12, 90], sky: ['#070C22', '#1E2A58', [-.3, .6, -.4], '#C8D4FF'], env: .12, r: 10, warm: .05, bulb: 26 };
+const DUSK = { pos: [40, 5, -34], col: '#FF8A4A', int: 1.7, hs: '#6A5AA0', hg: '#2A1E28', hemi: .5, fog: ['#8A5A6A', 20, 200], sky: ['#2A2868', '#E8885A', [.7, .08, -.6], '#FFB070'], env: .18, r: 22, warm: .42 };
+const NIGHT = { pos: [-20, 30, -20], col: '#8AA6E8', int: .6, hs: '#3A4A80', hg: '#141A2A', hemi: .55, fog: ['#1A2440', 12, 90], sky: ['#070C22', '#1E2A58', [-.3, .6, -.4], '#C8D4FF'], env: .12, r: 10, warm: .05, bulb: 5 };
 const SHOP = { pos: [3, 6, 5], col: '#FFE8C8', int: 1.6, hs: '#FFF2DC', hg: '#7A5A3A', hemi: .95, env: .5, r: 6, bg: '#2A2420', warm: .2, bulb: 9 };
 const SEA = { pos: [-30, 50, 40], col: '#FFF4E4', int: 3.0, hs: '#C8E4FF', hg: '#3A7AA0', hemi: 1.0, fog: ['#CFE4EE', 120, 900], sky: ['#1A6AD8', '#E4F0F4', [-.4, .5, .6], '#FFF6D8'], env: .35, r: 30, warm: .08 };
 function light(o, at) {
@@ -133,7 +133,7 @@ function rifleIn(p, r = RIF, grip = .3, mode = 'port') {
   _M4.makeBasis(_X, d, _Z); r.quaternion.setFromRotationMatrix(_M4);
 }
 // slung over the right shoulder, muzzle up
-function rifleSlung(p, r = RIF) { r.visible = true; p.spine.add(r); r.position.set(-.15, -.1, -.13); r.rotation.set(-.1, 0, .4); }
+function rifleSlung(p, r = RIF) { r.visible = true; p.spine.add(r); r.position.set(-.1, -.06, -.25); r.rotation.set(-.08, 0, .36); }
 // a prop held up between both hands, facing a point
 function between(p, o, look, dy = .02) { o.visible = true; scene.add(o); o.position.copy(handOf(p)).add(handOf(p, 1)).multiplyScalar(.5).add(V(0, dy, 0)); o.lookAt(look); }
 function inHand(p, o, left = 0, look = null) { o.visible = true; scene.add(o); o.position.copy(handOf(p, left)).add(V(0, .06, 0)); if (look) o.lookAt(look); }
@@ -167,7 +167,7 @@ const HIDEP = V(-1.0, 0, -.6);
 const VILP = V(LAY.village[0] - 12, 0, LAY.village[1] + 10);
 const SUZW = t => { const z = lerp(15.5, 9.5, seg(t, S6b - .6, C7)); return V(1.2 - (z - 6) * .12, 0, z); };
 const SUZF = FIREP.clone().add(V(-.1, 0, -.95)), ONO7 = FIREP.clone().add(V(-2.2, 0, -2.6));
-const MEETO = V(.7, 0, -.3), MEETT = V(-.55, 0, .45);
+const MEETO = V(.5, 0, -.2), MEETT = V(-.45, 0, .35);
 const PLANEX = t => lerp(-90, 90, seg(t, S3b - .8, S3b + 2.2));
 
 const SHOTS = [
@@ -176,7 +176,7 @@ const SHOTS = [
     cam: (t, u) => hand(camAt(HOOKP.clone().add(V(lerp(.35, .22, eo(u)), lerp(.95, 1.0, u), lerp(2.2, 1.45, eo(u)))), HOOKP.clone().add(V(0, .98, 0)), lerp(48, 42, u), lerp(2.2, 1.45, eo(u)), 6), t, 1.3) },
   // 1b · …for 29 years: the tally tree; arc from the carved marks to him, saluting
   { t0: S1b, t1: C2, set: 'isle', lt: SHADE, at: TALLYP, act: t => act1(t),
-    cam: (t, u) => { const k = eio(seg(t, S1b + .15, tEnded)); return hand(camAt(TL(lerp(.05, -.3, k), lerp(1.38, 1.3, k), lerp(1.15, 3.4, k)), TL(lerp(.02, -.42, k), lerp(1.35, 1.2, k), lerp(0, .45, k)), lerp(42, 44, k), lerp(.75, 3.0, k), lerp(6, 4, k)), t, .8); } },
+    cam: (t, u) => { const k = eio(seg(t, S1b + .15, tEnded)); return hand(camAt(TL(lerp(.05, -.3, k), lerp(1.38, 1.3, k), lerp(1.95, 3.4, k)), TL(lerp(.02, -.42, k), lerp(1.35, 1.2, k), lerp(0, .45, k)), lerp(42, 44, k), lerp(1.4, 3.0, k), lerp(6, 4, k)), t, .8); } },
   // 2a · 1944: low over the water, the landing boat at the shore, the island's mountains behind
   { t0: C2, t1: S2b, set: 'isle', lt: DAY, at: V(2, 0, 28), act: t => act2(t),
     cam: (t, u) => hand(camAt(V(lerp(5.0, 4.4, u), lerp(1.25, 1.5, u), lerp(41, 39, u)), V(1.4, lerp(2.4, 2.1, u), 24), 50, 11, 2), t, 1.2) },
@@ -204,7 +204,7 @@ const SHOTS = [
     cam: (t, u) => hand(camAt(V(lerp(30.4, 30.9, u), lerp(1.62, 1.55, u), lerp(.6, .2, u)), V(LAY.village[0], lerp(1.6, 1.9, u), LAY.village[1] - 3.5), lerp(40, 36, u), 14, 2), t, .5) },
   // 6a · 1974: the tally tree is full; an older Onoda carves one more
   { t0: C6, t1: S6b, set: 'isle', lt: SHADE, at: TALLYP, act: t => act6(t),
-    cam: (t, u) => hand(camAt(TL(lerp(.6, .45, u), lerp(1.36, 1.32, u), lerp(1.9, 1.55, eo(u))), TL(-.18, 1.28, .3), 44, 1.6, 5), t, .7) },
+    cam: (t, u) => hand(camAt(TL(lerp(.6, .45, u), lerp(1.36, 1.32, u), lerp(1.95, 1.6, eo(u))), TL(-.3, 1.28, .3), 44, 1.7, 5), t, .7) },
   // 6b · A backpacker goes looking for Onoda, a panda and the Abominable Snowman: walking the trail toward the lens
   { t0: S6b, t1: C7, set: 'isle', lt: SHADE, at: V(1, 0, 12), act: t => act6(t),
     cam: (t, u) => { const p = SUZW(t); return hand(camAt(p.clone().add(V(.35, 1.05, -2.3)), p.clone().add(V(0, 1.15, 0)), 46, 2.33, 4), t, 1.4); } },
@@ -219,10 +219,10 @@ const SHOTS = [
     cam: (t, u) => hand(camAt(V(SHP.x + lerp(.7, .35, u), lerp(1.45, 1.38, u), SHP.z + lerp(2.6, 1.15, eio(u))), V(SHP.x + .02, 1.3, SHP.z - 1.15), lerp(46, 42, u), lerp(3.7, 2.3, eio(u)), 5), t, .6) },
   // 8b · …and flies him in: the airliner over the sea, toward the island
   { t0: S8b, t1: C9, set: 'isle', lt: SEA, at: V(0, 0, 80), act: t => act8(t), fpv: .5,
-    cam: (t, u) => { const z = lerp(150, 120, u); return camAt(V(lerp(-14, -9, u), 22, z + 18), V(0, 28, z - 4), 50, 22, 0, lerp(.12, .05, u)); } },
+    cam: (t, u) => { const z = lerp(150, 110, u) - 6; return camAt(V(lerp(-13, -9, u), 21, z + 20), V(0, 26, z), 46, 24, 0, lerp(.12, .05, u)); } },
   // 9a · Order given. After 29 years…: the clearing; the old commander reads the order; Onoda salutes
   { t0: C9, t1: S9b, set: 'isle', lt: SHADE, at: V(0, 0, 0), act: t => act9(t),
-    cam: (t, u) => hand(camAt(V(lerp(-1.9, -1.6, u), lerp(1.2, 1.25, u), lerp(1.9, 1.5, eo(u))), V(.15, 1.15, .05), 44, 2.4, 4), t, .6) },
+    cam: (t, u) => hand(camAt(V(lerp(1.62, 1.38, u), lerp(1.26, 1.22, u), lerp(2.78, 2.48, eo(u))), V(.02, 1.12, .07), 46, 2.9, 4), t, .6) },
   // 9b · he surrenders…: he bows and offers up his rifle
   { t0: S9b, t1: S9c, set: 'isle', lt: SHADE, at: V(0, 0, 0), act: t => act9(t),
     after: 1, cam: (t, u) => { const h = headOf(OLD); return hand(camAt(h.clone().add(V(lerp(-.7, -.5, u), lerp(-.18, -.22, u), lerp(1.25, 1.05, eo(u)))), h.clone().add(V(0, -.25, 0)), 42, 1.3, 6), t, .5); } },
@@ -332,7 +332,7 @@ function act6(t) {
 }
 function act7(t) {
   reset(); FIRE.visible = true; LOG.visible = true; FIRE.userData.flicker(t);
-  fireK = .85 + Math.sin(t * 17) * .1 + Math.sin(t * 31) * .05; bulb.position.copy(FIREP).add(V(0, .6, 0)); bulb.intensity = 26 * fireK; bulb.color.set('#FFA050');
+  fireK = .85 + Math.sin(t * 17) * .1 + Math.sin(t * 31) * .05; bulb.position.copy(FIREP).add(V(0, .6, 0)); bulb.intensity = 5.5 * fireK; bulb.color.set('#FFA050');
   put(SUZ, SUZF, face(SUZF, FIREP) + (t > tFinds + .1 ? -1.0 : 0));
   const turned = t > tFinds + .1;
   apply(SUZ, turned ? (t > t4 - .1 ? TP.wave : P.sitFire) : P.sitFire, { t, seed: 4, face: turned ? (t > t4 - .1 ? 'laugh' : 'shock') : 'happy', look: turned ? headOf(OLD) : FIREP.clone().add(V(0, .4, 0)) });
@@ -458,7 +458,7 @@ function frame(sh, t) {
   const tt = sh.loop ? 0 : t, u = sh.loop ? 0 : seg(t, sh.t0, sh.t1);
   for (const [k, s] of Object.entries(SET)) s.visible = k === sh.set;
   light(sh.lt, sh.at);
-  WIND.value = tt; SET.isle.userData.hutWin.material.color.set(sh.lt === DUSK ? '#FFC870' : '#3A2A1A');
+  WIND.value = tt; SET.isle.userData.hutWin.material.color.set(sh.lt === DUSK ? '#FFD890' : '#3A2A1A');
   let c = sh.after ? null : sh.cam(tt, u); if (c) CAMP.copy(c.pos);
   sh.act(tt);
   if (!c) { c = sh.cam(tt, u); CAMP.copy(c.pos); }
