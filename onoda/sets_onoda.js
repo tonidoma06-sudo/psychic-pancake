@@ -121,13 +121,21 @@ export function island() {
   const PG = [plantGeo(R, 7, .9, .42, .55, .7), plantGeo(R, 9, 1.3, .55, .7, .55), plantGeo(R, 5, 1.7, .7, .6, .45)];
   const FG = plantGeo(R, 14, .75, .16, .9, .95);
   const lc = ['#3E8E34', '#4E9E3A', '#2F7A2C', '#5AAA44', '#3A8A3E', '#6AB84A'];
-  const bush = (geo, n, place) => { const im = new THREE.InstancedMesh(geo, windMat({ color: '#FFFFFF' }, .06), n); let c = 0, tries = 0;
-    while (c < n && tries < n * 20) { tries++; const r = place(); if (!r) continue; const [x, z, s] = r; put(im, c, x, 0, z, R() * 6.28, s, s, s); im.setColorAt(c, new THREE.Color(lc[c % lc.length])); c++; }
+  const shrubs = [];   // [mesh, index, x, z, reach]: kept for the per-shot trim below
+  const bush = (geo, n, place, len) => { const im = new THREE.InstancedMesh(geo, windMat({ color: '#FFFFFF' }, .06), n); let c = 0, tries = 0;
+    while (c < n && tries < n * 20) { tries++; const r = place(); if (!r) continue; const [x, z, s] = r; put(im, c, x, 0, z, R() * 6.28, s, s, s); im.setColorAt(c, new THREE.Color(lc[c % lc.length])); shrubs.push([im, c, x, z, s * len * .85]); c++; }
     im.count = c; im.instanceMatrix.needsUpdate = true; im.instanceColor.needsUpdate = true; im.castShadow = true; im.receiveShadow = true; im.frustumCulled = false; g.add(im); return im; };
   const nearRing = () => { const a = R() * 6.28, d = 4.8 + Math.pow(R(), 1.6) * 22, x = Math.sin(a) * d, z = Math.cos(a) * d; return free(x, z, .3) && z < LAY.shore - 1 && !onTrail(x, z) ? [x, z, .8 + R() * .8] : null; };
   const wide = () => { const x = -70 + R() * 140, z = -70 + R() * (LAY.shore - 2 + 70); return free(x, z, .3) && !onTrail(x, z) ? [x, z, .9 + R() * 1.2] : null; };
-  PG.forEach((pg, i) => { bush(pg, 700, nearRing); bush(pg, 900, wide); });
-  bush(FG, 1600, nearRing); bush(FG, 1200, wide);
+  PG.forEach((pg, i) => { const len = [.9, 1.3, 1.7][i]; bush(pg, 700, nearRing, len); bush(pg, 900, wide, len); });
+  bush(FG, 1600, nearRing, .75); bush(FG, 1200, wide, .75);
+  // the 1945 patrol shot starts its camera at the jungle's edge: the plants it would push through are hidden for that shot only
+  // (setTrim; the placement above, and so every other shot, is unchanged)
+  const capD = (x, z, [ax, az, bx, bz]) => { const dx = bx - ax, dz = bz - az, k = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / (dx * dx + dz * dz))); return Math.hypot(x - ax - dx * k, z - az - dz * k); };
+  const CAP = [-2.6, -4.9, .3, -3.4], ZERO = new THREE.Matrix4().makeScale(0, 0, 0);
+  const trim = shrubs.filter(([, , x, z, reach]) => capD(x, z, CAP) < .45 + reach).map(([im, i]) => { const m = new THREE.Matrix4(); im.getMatrixAt(i, m); return [im, i, m]; });
+  let trimmed = false;
+  g.userData.setTrim = on => { if (on === trimmed) return; trimmed = on; const ims = new Set(); for (const [im, i, m] of trim) { im.setMatrixAt(i, on ? ZERO : m); ims.add(im); } ims.forEach(im => im.instanceMatrix.needsUpdate = true); };
   // hanging vines
   const vine = new THREE.InstancedMesh(new THREE.CylinderGeometry(.018, .018, 1, 5), std({ color: '#3A5A22' }), 140); let vi = 0;
   for (let i = 0; i < 400 && vi < 140; i++) { const x = -26 + R() * 52, z = -30 + R() * 40; if (!free(x, z, 1)) continue; const l = 3 + R() * 6; put(vine, vi++, x, 13 - l / 2, z, 0, 1, l, 1); }

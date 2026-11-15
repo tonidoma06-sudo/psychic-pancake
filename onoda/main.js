@@ -119,7 +119,7 @@ function reset() {
   CAST.forEach(p => p.P.visible = false); show(); LEAF.visible = false; FIRE.visible = false; LOG.visible = false; BOAT.visible = true;
   for (const r of [RIF, RIF2]) { scene.add(r); r.scale.setScalar(1); r.userData.glint.material.opacity = 0; }
   for (const o of [LF1, NEWS, LET, PHO, ORD, BOOK]) { scene.add(o); o.scale.setScalar(1); }
-  fireK = 0;
+  fireK = 0; SET.isle.userData.setTrim(false);
 }
 // the rifle in two hands: grip in the right hand, the barrel running through the left; its sights up, its side to the viewer
 const _Y = V(0, 1, 0), _X = V(), _Z = V(), _M4 = new THREE.Matrix4();
@@ -168,7 +168,7 @@ const VILP = V(LAY.village[0] - 12, 0, LAY.village[1] + 10);
 const SUZW = t => { const z = lerp(15.5, 9.5, seg(t, S6b - .6, C7)); return V(1.2 - (z - 6) * .12, 0, z); };
 const SUZF = FIREP.clone().add(V(-.1, 0, -.95)), ONO7 = FIREP.clone().add(V(-2.2, 0, -2.6));
 const MEETO = V(.4, 0, -.15), MEETT = V(-.35, 0, .28);
-const PLANEX = t => lerp(-90, 90, seg(t, S3b - .8, S3b + 2.2));
+const PLANEX = t => -20 + 36 * (t - S3b) / (S3c - S3b);   // slow enough to stay in the narrow frame for the whole shot, then on out of sight
 
 const SHOTS = [
   // 1a · the hook: crouched among giant leaves, rifle up, eyes darting; push in
@@ -279,6 +279,7 @@ function leafRain(t) {
 function act3(t) {
   reset();
   if (t < S3b) {   // on patrol under the trees
+    SET.isle.userData.setTrim(true);
     const p = PATROL(t); put(ONODA, p, face(V(-4.5, 0, -6.2), V(1.5, 0, -3.2)));
     apply(ONODA, walk(P.attn, t * 7.5, 1.1), { t, seed: 1, face: 'angry', look: CAMP }); rifleSlung(ONODA);
     return;
