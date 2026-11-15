@@ -162,7 +162,7 @@ const SHOTS = [
     cam: (t, u) => hand(camAt(E(lerp(-1.5, -1.1, u), lerp(1.2, 1.4, u), lerp(9.6, 8.4, eo(u))), E(.1, lerp(2.6, 2.3, u), 0), 46, 8.6, 2), t) },
   // 2b · Pepsi's boss gets the Soviet leader to try a Pepsi, on camera
   { t0: S2b, t1: C3, set: 'expo', lt: SUMMER, at: EXO, act: t => act2(t),
-    cam: (t, u) => hand(camAt(E(lerp(1.0, .9, u), lerp(1.6, 1.56, u), lerp(-1.7, -1.5, eo(u))), E(-.3, 1.08, .95), 40, 2.85, 5), t) },
+    cam: (t, u) => hand(camAt(E(lerp(1.22, 1.12, u), lerp(1.62, 1.58, u), lerp(-1.6, -1.4, eo(u))), E(-.3, 1.08, .95), 40, 2.85, 5), t) },
   // 3a · 1972: the official in his office, a bottle of cola hugged to his chest
   { t0: C3, t1: S3b, set: 'office', lt: OFFICE, at: OFO, act: t => act3(t),
     cam: (t, u) => hand(camAt(O(lerp(.9, .8, u), lerp(1.62, 1.58, u), lerp(1.25, 1.0, eo(u))), O(-.18, 1.06, -2.2), 40, 3.5, 5), t) },
