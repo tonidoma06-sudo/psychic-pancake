@@ -47,7 +47,7 @@ const sky = skyDome('#2A78E0', '#E8E2D6', V(-.4, .5, .6), '#FFF6D8'); scene.add(
 const bulb = new THREE.PointLight('#FFB060', 0, 9, 1.6); scene.add(bulb);
 const DAY = { pos: [-20, 40, 18], col: '#FFF1DA', int: 3.2, hs: '#C8E8FF', hg: '#4A7A30', hemi: 1.05, fog: ['#BFDCCB', 60, 420], sky: ['#1E70E0', '#DDEFF0', [-.4, .5, .6], '#FFF6D8'], env: .35, r: 14, warm: .1 };
 const SHADE = { ...DAY, int: 2.6, hs: '#B8E0C0', hg: '#3A5A22', hemi: 1.15, fog: ['#9CC8A8', 30, 260], warm: .08 };   // under the canopy
-const DUSK = { pos: [40, 5, -34], col: '#FF8A4A', int: 1.7, hs: '#6A5AA0', hg: '#2A1E28', hemi: .5, fog: ['#8A5A6A', 20, 200], sky: ['#2A2868', '#E8885A', [.7, .08, -.6], '#FFB070'], env: .18, r: 22, warm: .42 };
+const DUSK = { pos: [40, 5, -14], col: '#FF8A4A', int: 1.7, hs: '#6A5AA0', hg: '#2A1E28', hemi: .5, fog: ['#8A5A6A', 20, 200], sky: ['#2A2868', '#E8885A', [.95, .07, -.3], '#FFB070'], env: .18, r: 22, warm: .42 };
 const NIGHT = { pos: [-20, 30, -20], col: '#8AA6E8', int: .6, hs: '#3A4A80', hg: '#141A2A', hemi: .55, fog: ['#1A2440', 12, 90], sky: ['#070C22', '#1E2A58', [-.3, .6, -.4], '#C8D4FF'], env: .12, r: 10, warm: .05, bulb: 5 };
 const SHOP = { pos: [3, 6, 5], col: '#FFE8C8', int: 1.6, hs: '#FFF2DC', hg: '#7A5A3A', hemi: .95, env: .5, r: 6, bg: '#2A2420', warm: .2, bulb: 9 };
 const SEA = { pos: [-30, 50, 40], col: '#FFF4E4', int: 3.0, hs: '#C8E4FF', hg: '#3A7AA0', hemi: 1.0, fog: ['#CFE4EE', 120, 900], sky: ['#1A6AD8', '#E4F0F4', [-.4, .5, .6], '#FFF6D8'], env: .35, r: 30, warm: .08 };
@@ -133,7 +133,7 @@ function rifleIn(p, r = RIF, grip = .3, mode = 'port') {
   _M4.makeBasis(_X, d, _Z); r.quaternion.setFromRotationMatrix(_M4);
 }
 // slung over the right shoulder, muzzle up
-function rifleSlung(p, r = RIF) { r.visible = true; p.spine.add(r); r.position.set(-.1, -.06, -.25); r.rotation.set(-.08, 0, .36); }
+function rifleSlung(p, r = RIF) { r.visible = true; p.spine.add(r); r.position.set(-.17, -.22, -.23); r.rotation.set(-.1, 0, .13); }
 // a prop held up between both hands, facing a point
 function between(p, o, look, dy = .02) { o.visible = true; scene.add(o); o.position.copy(handOf(p)).add(handOf(p, 1)).multiplyScalar(.5).add(V(0, dy, 0)); o.lookAt(look); }
 function inHand(p, o, left = 0, look = null) { o.visible = true; scene.add(o); o.position.copy(handOf(p, left)).add(V(0, .06, 0)); if (look) o.lookAt(look); }
@@ -167,7 +167,7 @@ const HIDEP = V(-1.0, 0, -.6);
 const VILP = V(LAY.village[0] - 12, 0, LAY.village[1] + 10);
 const SUZW = t => { const z = lerp(15.5, 9.5, seg(t, S6b - .6, C7)); return V(1.2 - (z - 6) * .12, 0, z); };
 const SUZF = FIREP.clone().add(V(-.1, 0, -.95)), ONO7 = FIREP.clone().add(V(-2.2, 0, -2.6));
-const MEETO = V(.5, 0, -.2), MEETT = V(-.45, 0, .35);
+const MEETO = V(.4, 0, -.15), MEETT = V(-.35, 0, .28);
 const PLANEX = t => lerp(-90, 90, seg(t, S3b - .8, S3b + 2.2));
 
 const SHOTS = [
@@ -201,10 +201,10 @@ const SHOTS = [
     cam: (t, u) => hand(camAt(HIDEP.clone().add(V(lerp(.45, .3, u), lerp(1.12, 1.18, u), lerp(2.5, 2.05, eio(u)))), HIDEP.clone().add(V(0, 1.12, 0)), 44, lerp(2.5, 2.05, eio(u)), 5), t, .7) },
   // 5 · He fights on… his raids kill about 30 villagers: dusk; from the treeline, a farm and its lit window; a slow push
   { t0: C5, t1: C6, set: 'isle', lt: DUSK, at: VILP, act: t => act5(t), dissolveOut: .35,
-    cam: (t, u) => hand(camAt(V(lerp(30.4, 30.9, u), lerp(1.62, 1.55, u), lerp(.6, .2, u)), V(LAY.village[0], lerp(1.6, 1.9, u), LAY.village[1] - 3.5), lerp(40, 36, u), 14, 2), t, .5) },
+    cam: (t, u) => hand(camAt(V(lerp(29.8, 30.3, u), lerp(1.72, 1.64, u), lerp(1.2, .8, u)), V(LAY.village[0], lerp(1.0, 1.25, u), LAY.village[1] - 3.5), lerp(42, 38, u), 14, 2), t, .5) },
   // 6a · 1974: the tally tree is full; an older Onoda carves one more
   { t0: C6, t1: S6b, set: 'isle', lt: SHADE, at: TALLYP, act: t => act6(t),
-    cam: (t, u) => hand(camAt(TL(lerp(.6, .45, u), lerp(1.36, 1.32, u), lerp(1.95, 1.6, eo(u))), TL(-.3, 1.28, .3), 44, 1.7, 5), t, .7) },
+    cam: (t, u) => hand(camAt(TL(lerp(.5, .35, u), lerp(1.36, 1.32, u), lerp(2.0, 1.7, eo(u))), TL(-.42, 1.26, .3), 44, 1.8, 5), t, .7) },
   // 6b · A backpacker goes looking for Onoda, a panda and the Abominable Snowman: walking the trail toward the lens
   { t0: S6b, t1: C7, set: 'isle', lt: SHADE, at: V(1, 0, 12), act: t => act6(t),
     cam: (t, u) => { const p = SUZW(t); return hand(camAt(p.clone().add(V(.35, 1.05, -2.3)), p.clone().add(V(0, 1.15, 0)), 46, 2.33, 4), t, 1.4); } },
@@ -222,7 +222,7 @@ const SHOTS = [
     cam: (t, u) => { const z = lerp(150, 110, u) - 6; return camAt(V(lerp(-13, -9, u), 21, z + 20), V(0, 26, z), 46, 24, 0, lerp(.12, .05, u)); } },
   // 9a · Order given. After 29 years…: the clearing; the old commander reads the order; Onoda salutes
   { t0: C9, t1: S9b, set: 'isle', lt: SHADE, at: V(0, 0, 0), act: t => act9(t),
-    cam: (t, u) => hand(camAt(V(lerp(1.62, 1.38, u), lerp(1.26, 1.22, u), lerp(2.78, 2.48, eo(u))), V(.02, 1.12, .07), 46, 2.9, 4), t, .6) },
+    cam: (t, u) => hand(camAt(V(lerp(1.62, 1.45, u), lerp(1.25, 1.22, u), lerp(2.84, 2.55, eo(u))), V(.03, 1.12, .07), 46, 3.0, 4), t, .6) },
   // 9b · he surrenders…: he bows and offers up his rifle
   { t0: S9b, t1: S9c, set: 'isle', lt: SHADE, at: V(0, 0, 0), act: t => act9(t),
     after: 1, cam: (t, u) => { const h = headOf(OLD); return hand(camAt(h.clone().add(V(lerp(-.7, -.5, u), lerp(-.18, -.22, u), lerp(1.25, 1.05, eo(u)))), h.clone().add(V(0, -.25, 0)), 42, 1.3, 6), t, .5); } },
@@ -360,7 +360,7 @@ function act9(t) {
   // the commander reads the order aloud
   const reading = t < S9b + .4;
   apply(OLDT, reading ? P.read : TP.offer, { t, seed: 3, face: reading ? 'calm' : 'smile', look: reading ? handOf(OLDT).add(V(0, .05, .1)) : headOf(OLD), talk: t > tOrder9 - .05 && t < S9b ? .4 + .4 * Math.sin(t * 22) : 0, eyes: reading ? [0, -.6] : [0, 0] });
-  if (reading) between(OLDT, ORD, headOf(OLDT), .06); else { ORD.visible = false; }
+  if (reading) between(OLDT, ORD, t < S9b ? CAMP : headOf(OLDT), .06); else { ORD.visible = false; }
   if (t < S9b) {   // at the salute
     apply(OLD, TP.salute, { t, seed: 2, face: t > t29b ? 'worried' : 'deadpan', look: headOf(OLDT) }); rifleSlung(OLD);
   } else if (t < S9c) {   // the bow, rifle offered on both palms

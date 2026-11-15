@@ -88,7 +88,7 @@ export function island() {
   // the mountains of the interior, in haze
   const hillM = [std({ color: '#2F7A34' }), std({ color: '#3A8A3C' }), std({ color: '#2A6A30' })];
   for (let i = 0; i < 16; i++) { const a = -1.3 + i * .17 + R() * .1, d = 120 + R() * 110, r = 45 + R() * 50; const h = M(new THREE.SphereGeometry(r, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), hillM[i % 3], g, Math.sin(a) * d, -r * .35, -Math.cos(a) * d); h.scale.set(1.3, .75 + R() * .35, 1); h.castShadow = false; }
-  const clear = [[0, 0, 5.2], [LAY.tally[0], LAY.tally[1], 1.4], [LAY.village[0], LAY.village[1], 13], [LAY.tent[0], LAY.tent[1], 4.5], [-5.5, 4.5, 1.6]];
+  const clear = [[0, 0, 5.2], [LAY.tally[0], LAY.tally[1], 1.4], [LAY.village[0], LAY.village[1], 13], [LAY.tent[0], LAY.tent[1], 4.5], [-5.5, 4.5, 1.6], [LAY.village[0] - 12, LAY.village[1] + 9.5, 3.2], [LAY.village[0] - 6, LAY.village[1] + 3.5, 4]];
   const free = (x, z, pad = 0) => !clear.some(([cx, cz, r]) => Math.hypot(x - cx, z - cz) < r + pad);
   const onTrail = (x, z) => z > 1.5 && z < LAY.shore + 3 && Math.abs(x - 1.2 + (z - 6) * .12) < 2.0;
   // rainforest trees: tall pale trunks under umbrella crowns
