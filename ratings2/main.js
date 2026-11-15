@@ -161,25 +161,25 @@ const SHOTS = [
     cam: (t, u) => { const k = eio(u); return camAt(SP(lerp(30, 18, k), lerp(-14, -6, k), lerp(26, 12, k)), SP(lerp(-20, -38, k), 0, lerp(10, 12, k)), 50, 40, .5, lerp(.04, 0, k)); } },
   // 4b · Three rounds, live on TV.: the TV camera, its red light on
   { t0: S4b, t1: S4c, set: 'stadium', lt: STADIUM, at: STG, act: t => act4(t),
-    cam: (t, u) => { const c = STAD.userData.tvcam.getWorldPosition(V()); return hand(camAt(c.clone().add(V(lerp(2.2, 1.8, u), 1.9, lerp(1.1, .8, u))), c.clone().add(V(-3, 2.4, -1.6)), 46, 2.4, 3), t); } },
+    cam: (t, u) => hand(camAt(SP(lerp(-11, -12.5, u), lerp(-1.5, -.5, u), 5.5), SP(-44, 0, 12.5), 44, 32, .5), t, .5) },
   // 4c · The winner's card turns gold, and gold outranks every number.: the gold card trophy
   { t0: S4c, t1: C5, set: 'stadium', lt: STADIUM, at: STG, act: t => act4(t),
     cam: (t, u) => { const c = STAD.userData.trophy.getWorldPosition(V()).add(V(0, 1.8, 0)); return hand(camAt(c.clone().add(V(lerp(4.0, 2.8, eo(u)), lerp(-.6, -.3, u), lerp(1.4, .9, u))), c, 40, 3.4, 5), t, .6); } },
   // 5a · Kai has won twice.: Kai on stage, arms up; the screen: 2× CHAMPION
   { t0: C5, t1: S5b, set: 'stadium', lt: STADIUM, at: STG, act: t => act5(t),
-    cam: (t, u) => hand(camAt(STG.clone().add(V(lerp(5.2, 4.6, u), lerp(.9, 1.0, u), lerp(2.4, 2.0, u))), STG.clone().add(V(0, 3.3, .6)), 52, 4.2, 3), t) },
+    cam: (t, u) => hand(camAt(STG.clone().add(V(lerp(5.8, 5.2, u), lerp(.6, .7, u), lerp(-2.4, -2.0, u))), STG.clone().add(V(.4, 3.2, -1.0)), 56, 4.8, 3), t) },
   // 5b · Theo signs up to close the gap.
   { t0: S5b, t1: S5c, set: 'stadium', lt: STADIUM, at: DESK, act: t => act5(t),
     cam: (t, u) => hand(camAt(DESK.clone().add(V(lerp(2.4, 2.1, u), lerp(1.5, 1.52, u), lerp(1.4, 1.2, eo(u)))), DESK.clone().add(V(0, 1.4, .45)), 42, 2.3, 5), t) },
   // 5c · The crowd laughs at his number.: the stands crack up; the screen shows THEO · 52
   { t0: S5c, t1: C6, set: 'stadium', lt: STADIUM, at: SP(0, 24), act: t => act5(t),
-    cam: (t, u) => hand(camAt(SP(lerp(-1.5, -2.5, u), 26.5, lerp(2.6, 2.8, u)), SP(-5.5, 33, 3.6), 44, 7, 1.2), t, 1.2) },
+    cam: (t, u) => hand(camAt(SP(lerp(-14, -14.6, u), 6.4, lerp(1.45, 1.55, u)), SP(-44, 0, 10), 50, 3, 1.0), t, 1.0) },
   // 6a · Round one, the race. Kai first.: tracking alongside the leaders; he breaks the tape
   { t0: C6, t1: S6b, set: 'stadium', lt: STADIUM, at: SP(0, 21), act: t => act6(t),
     cam: (t, u) => { const x = Math.min(RX(t), 3); return hand(camAt(SP(x + 2.6, 15.6, 1.5), SP(x - .3, 20.8, 1.3), 44, 5.5, 3), t, 1.4); } },
   // 6b · Theo dead last.: he staggers in, way behind
   { t0: S6b, t1: C7, set: 'stadium', lt: STADIUM, at: SP(0, 21), act: t => act6(t),
-    cam: (t, u) => hand(camAt(SP(lerp(-6.5, -5.5, u), 16.2, 1.45), SP(lerp(-10.5, -9, u), 22.2, 1.35), 42, 5.8, 4), t, 1.1) },
+    after: 1, cam: (t, u) => { const x = lerp(-13.5, -10.2, seg(t, S6b, C7)); return hand(camAt(SP(x + 2.2, 19.6, 1.45), SP(x - .3, 23.4, 1.45), 42, 4.0, 4), t, 1.1); } },
   // 7a · Round two, the puzzle.: the desks on the infield
   { t0: C7, t1: S7b, set: 'stadium', lt: STADIUM, at: SP(-1, -2), act: t => act7(t),
     cam: (t, u) => hand(camAt(SP(lerp(-11, -8.5, u), 5.5, lerp(3.4, 3.0, u)), SP(-1, -2, .9), 44, 11, 1.5), t) },
@@ -266,7 +266,7 @@ function act5(t) {
     card(THEO, { s: .7 }); card(CLERK); return;
   }
   // front-row fans laughing and pointing at the screen
-  FAN.forEach((p, i) => { const v = SP(-3.5 - i * 1.1, 33.2 + (i % 2) * .5, 3.2 + (i % 2) * .5); put(p, v, face(v, SP(-44, 0, 0)) + .5); apply(p, i === 1 ? TP.point : TP.cheer, { t, seed: 50 + i, face: 'laugh', look: SP(-44, 0, 12) }); card(p); });
+  FAN.forEach((p, i) => { const v = SP(-16.4 - i * .55, 5.55 + (i - 1) * .75); put(p, v, face(v, SP(-44, 0, 0)) + (i - 1) * .35); apply(p, i === 1 ? TP.point : TP.cheer, { t, seed: 50 + i, face: 'laugh', look: SP(-44, 0, 12) }); card(p); });
 }
 function act6(t) {
   reset(); STAD.userData.cheer(t, 1);
