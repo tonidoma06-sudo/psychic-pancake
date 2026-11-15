@@ -167,7 +167,7 @@ const SHOTS = [
     cam: (t, u) => { const c = STAD.userData.trophy.getWorldPosition(V()).add(V(0, 1.8, 0)); return hand(camAt(c.clone().add(V(lerp(4.0, 2.8, eo(u)), lerp(-.6, -.3, u), lerp(1.4, .9, u))), c, 40, 3.4, 5), t, .6); } },
   // 5a · Kai has won twice.: Kai on stage, arms up; the screen: 2× CHAMPION
   { t0: C5, t1: S5b, set: 'stadium', lt: STADIUM, at: STG, act: t => act5(t),
-    cam: (t, u) => hand(camAt(STG.clone().add(V(lerp(5.8, 5.2, u), lerp(.6, .7, u), lerp(-2.4, -2.0, u))), STG.clone().add(V(.4, 3.2, -1.0)), 56, 4.8, 3), t) },
+    cam: (t, u) => hand(camAt(STG.clone().add(V(lerp(8.6, 8.0, eo(u)), lerp(.55, .6, u), -.6)), STG.clone().add(V(-10, 6.9, -.2)), 56, 7.3, 3), t) },
   // 5b · Theo signs up to close the gap.
   { t0: S5b, t1: S5c, set: 'stadium', lt: STADIUM, at: DESK, act: t => act5(t),
     cam: (t, u) => hand(camAt(DESK.clone().add(V(lerp(2.4, 2.1, u), lerp(1.5, 1.52, u), lerp(1.4, 1.2, eo(u)))), DESK.clone().add(V(0, 1.4, .45)), 42, 2.3, 5), t) },
@@ -188,7 +188,7 @@ const SHOTS = [
     cam: (t, u) => hand(camAt(SP(SD.desks[2][0] + lerp(.3, .2, u), SD.desks[2][1] + lerp(2.3, 1.9, eo(u)), 1.78), SP(SD.desks[2][0], SD.desks[2][1] - .6, 1.75), 42, 2.3, 5), t) },
   // 7c · Second place.: the screen
   { t0: S7c, t1: C8, set: 'stadium', lt: STADIUM, at: STG, act: t => act7(t),
-    cam: (t, u) => hand(camAt(SP(-22 + u * 1.5, 0, 6), SP(-44, 0, 13), 46, 22, .5), t, .5) },
+    cam: (t, u) => hand(camAt(SP(-16 + u * 1.5, 0, 5.5), SP(-44, 0, 13), 46, 28, .5), t, .5) },
   // 8a · Then the final is announced.: the host at the podium
   { t0: C8, t1: S8b, set: 'stadium', lt: STADIUM, at: STG, act: t => act8(t),
     cam: (t, u) => { const p = STAD.userData.podium.getWorldPosition(V()); return hand(camAt(p.clone().add(V(lerp(3.2, 2.7, u), 1.4, lerp(1.2, 1.0, u))), p.clone().add(V(-.1, 1.7, .5)), 42, 3.1, 4), t); } },
@@ -197,7 +197,7 @@ const SHOTS = [
     cam: (t, u) => hand(camAt(SP(lerp(-2, -6, eo(u)), lerp(14, 16, u), lerp(2.5, 3.5, u)), SP(lerp(12, -40, eio(seg(t, tEvery8 - .6, tSwitched))), lerp(-6, 0, u), lerp(5, 11, u)), 52, 20, .5), t) },
   // 9a · Theo's partner? Kai.: the screen spins the names… THEO + KAI
   { t0: C9, t1: S9b, set: 'stadium', lt: STADIUM, at: SP(0, 0), act: t => act9(t),
-    cam: (t, u) => t < tKai9 + .25 ? hand(camAt(SP(-26, 0, 5.5), SP(-44, 0, 12.5), 40, 18, .5), t, .5) : hand(camAt(SP(.9, 3.4, 1.5), SP(.1, 0, 1.75), 46, 3.4, 4), t) },
+    cam: (t, u) => t < tKai9 + .25 ? hand(camAt(SP(-18, 0, 5.0), SP(-44, 0, 12.5), 40, 26, .5), t, .5) : hand(camAt(SP(.9, 3.4, 1.5), SP(.1, 0, 1.75), 46, 3.4, 4), t) },
   // 9b · The filters drop.: every card in the place glitches
   { t0: S9b, t1: S9c, set: 'stadium', lt: STADIUM, at: SP(0, 0), act: t => act9(t),
     cam: (t, u) => hand(camAt(SP(lerp(1.2, 1.0, u), lerp(4.0, 3.6, u), 1.7), SP(.1, 0, 2.0), 50, 3.8, 3), t) },
@@ -259,7 +259,7 @@ function act4(t) {
 }
 function act5(t) {
   reset(); STAD.userData.cheer(t, t >= S5c ? 1 : .5);
-  if (t < S5b) { put(KAI, STG.clone().add(V(1.2, 0, 1.0)), Math.PI / 2); apply(KAI, TP.cheer, { t, seed: 6, face: 'smug', look: CAMP }); kaiCard({ s: .8 }); return; }
+  if (t < S5b) { put(KAI, STG.clone().add(V(1.2, 0, -.4)), Math.PI / 2); apply(KAI, TP.cheer, { t, seed: 6, face: 'smug', look: CAMP }); kaiCard({ s: .8 }); return; }
   if (t < S5c) {   // Theo signs; the clerk reads his 52
     put(THEO, DESK.clone().add(V(0, 0, .75)), Math.PI); apply(THEO, { ...TP.stand, sp: [18, 0, 0], hd: [14, 0, 0], aR: [-60, 6, 0, 56] }, { t, seed: 1, face: 'proud', look: DESK.clone().add(V(.3, .8, 0)), eyes: [0, -.6] }); onHand(THEO, PEN, 0, [0, -.04, .05], [.5, 0, 0]);
     put(CLERK, DESK.clone().add(V(-.4, 0, -.55)), 0); apply(CLERK, TP.stand, { t, seed: 32, face: t > tSigns + .2 ? 'smug' : 'calm', look: headOf(THEO).add(V(0, .6, 0)) });
@@ -329,16 +329,16 @@ function drawScreen(st) {
   const T = (txt, y, size, col = '#FFFFFF', x = w / 2) => { g.font = `900 ${size}px Montserrat`; g.fillStyle = col; g.fillText(txt, x, y); };
   const pill = (x, y, n, r = 80) => { g.fillStyle = tier(n); g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.fillStyle = '#16131A'; g.font = `900 ${r}px Montserrat`; g.fillText(String(n), x, y + 6); };
   if (!st || st.mode === 'logo') { g.fillStyle = '#FFC83A'; g.beginPath(); g.roundRect(240, 160, 800, 400, 60); g.fill(); g.fillStyle = '#16131A'; g.beginPath(); g.roundRect(260, 180, 760, 360, 50); g.fill(); T('THE', 280, 90, '#FFC83A'); T('RANKING', 420, 170, '#FFFFFF'); }
-  else if (st.mode === 'rounds') { T('3 ROUNDS', 170, 120, '#FFC83A'); ['RACE', 'PUZZLE', 'FINAL'].forEach((r, i) => { const x = 260 + i * 380; g.fillStyle = '#2E3248'; g.beginPath(); g.roundRect(x - 160, 300, 320, 220, 30); g.fill(); T(String(i + 1), 370, 90, '#FFC83A', x); T(r, 470, 56, '#FFFFFF', x); }); g.fillStyle = '#E8423A'; g.beginPath(); g.arc(1150, 80, 22, 0, 7); g.fill(); T('LIVE', 80, 44, '#E8423A', 1060); }
-  else if (st.mode === 'champ') { pill(330, 360, 94, 150); T('KAI', 280, 150, '#FFC83A', 840); T('2× CHAMPION', 440, 80, '#FFFFFF', 840); }
-  else if (st.mode === 'laugh') { pill(380, 360, 52, 150); T('THEO', 290, 150, '#FFFFFF', 860); T('JOINED', 450, 80, '#FF9A2A', 860); T('HA HA HA', 640, 60, '#C8CCE0'); }
-  else if (st.mode === 'race') { T('ROUND 1 · RACE', 90, 70, '#FFC83A'); [['KAI', 94], ['RUNNER', 88], ['RUNNER', 86], ['RUNNER', 83], ['RUNNER', 79], ['THEO', 52]].forEach(([n, v], i) => { const y = 190 + i * 88, a = st.k * 6 - i; if (a <= 0) return; g.globalAlpha = Math.min(1, a); T(`${i + 1}.`, y, 60, '#C8CCE0', 260); g.textAlign = 'left'; g.font = '900 60px Montserrat'; g.fillStyle = n === 'THEO' ? '#FF9A2A' : n === 'KAI' ? '#FFC83A' : '#FFFFFF'; g.fillText(n, 340, y); g.textAlign = 'center'; g.globalAlpha = 1; }); }
-  else if (st.mode === 'puzzle') { T('ROUND 2 · PUZZLE', 90, 70, '#FFC83A'); T('THEO · IQ', 260, 80, '#FFFFFF'); T(String(st.iq), 430, 220, '#4ADB6A'); if (st.second) { g.fillStyle = '#C8CCE0'; g.beginPath(); g.roundRect(390, 560, 500, 110, 30); g.fill(); T('2ND PLACE', 617, 70, '#16131A'); } }
-  else if (st.mode === 'final') { T('THE FINAL', 150, 130, '#FFC83A'); if (st.a) T('PARTNERS: RANDOM', 340, 80, '#FFFFFF'); if (st.b) { g.fillStyle = '#E8423A'; g.beginPath(); g.roundRect(240, 450, 800, 130, 30); g.fill(); T('ALL FILTERS: OFF', 517, 76, '#FFFFFF'); } }
-  else if (st.mode === 'slot') { T('PARTNERS', 110, 80, '#FFC83A'); const names = ['MIA', 'RUNNER', 'KAI', 'THEO', 'HOST', 'ZOE', 'MAX'];
+  else if (st.mode === 'rounds') { g.fillStyle = '#E8423A'; g.beginPath(); g.arc(548, 66, 22, 0, 7); g.fill(); T('LIVE', 70, 58, '#E8423A', 664); T('3 ROUNDS', 185, 100, '#FFC83A'); ['RACE', 'PUZZLE', 'FINAL'].forEach((r, i) => { const x = 420 + i * 220; g.fillStyle = '#2E3248'; g.beginPath(); g.roundRect(x - 100, 280, 200, 200, 26); g.fill(); T(String(i + 1), 350, 84, '#FFC83A', x); T(r, 440, 40, '#FFFFFF', x); }); }
+  else if (st.mode === 'champ') { pill(640, 215, 94, 130); T('KAI', 425, 130, '#FFC83A'); T('2× CHAMPION', 575, 64, '#FFFFFF'); }
+  else if (st.mode === 'laugh') { pill(640, 200, 52, 120); T('THEO', 390, 120, '#FFFFFF'); T('JOINED', 505, 70, '#FF9A2A'); T('HA HA HA', 625, 56, '#C8CCE0'); }
+  else if (st.mode === 'race') { T('ROUND 1 · RACE', 90, 58, '#FFC83A'); [['KAI', 94], ['RUNNER', 88], ['RUNNER', 86], ['RUNNER', 83], ['RUNNER', 79], ['THEO', 52]].forEach(([n, v], i) => { const y = 190 + i * 88, a = st.k * 6 - i; if (a <= 0) return; g.globalAlpha = Math.min(1, a); T(`${i + 1}.`, y, 60, '#C8CCE0', 440); g.textAlign = 'left'; g.font = '900 60px Montserrat'; g.fillStyle = n === 'THEO' ? '#FF9A2A' : n === 'KAI' ? '#FFC83A' : '#FFFFFF'; g.fillText(n, 500, y); g.textAlign = 'center'; g.globalAlpha = 1; }); }
+  else if (st.mode === 'puzzle') { T('ROUND 2 · PUZZLE', 90, 54, '#FFC83A'); T('THEO · IQ', 260, 80, '#FFFFFF'); T(String(st.iq), 430, 220, '#4ADB6A'); if (st.second) { g.fillStyle = '#C8CCE0'; g.beginPath(); g.roundRect(390, 560, 500, 110, 30); g.fill(); T('2ND PLACE', 617, 70, '#16131A'); } }
+  else if (st.mode === 'final') { T('THE FINAL', 150, 112, '#FFC83A'); if (st.a) { T('PARTNERS:', 300, 70, '#FFFFFF'); T('RANDOM', 385, 70, '#FFFFFF'); } if (st.b) { g.fillStyle = '#E8423A'; g.beginPath(); g.roundRect(330, 470, 620, 120, 30); g.fill(); T('ALL FILTERS: OFF', 532, 58, '#FFFFFF'); } }
+  else if (st.mode === 'slot') { T('PARTNERS', 90, 64, '#FFC83A'); const names = ['MIA', 'RUNNER', 'KAI', 'THEO', 'HOST', 'ZOE', 'MAX'];
     const a = st.land ? 'THEO' : names[st.n % names.length], b = st.land ? 'KAI' : names[(st.n * 3 + 2) % names.length];
-    T(a, 340, 140, '#FFFFFF', 340); T('+', 340, 140, '#FFC83A'); T(b, 340, 140, '#FFFFFF', 940); if (st.land) { g.strokeStyle = '#FFC83A'; g.lineWidth = 12; g.beginPath(); g.roundRect(120, 240, 1040, 200, 40); g.stroke(); }
-    if (st.off) { g.fillStyle = '#E8423A'; g.beginPath(); g.roundRect(240, 520, 800, 120, 30); g.fill(); T('FILTERS OFF', 582, 76, '#FFFFFF'); } }
+    T(a, 235, 116, '#FFFFFF'); T('+', 345, 84, '#FFC83A'); T(b, 455, 116, '#FFFFFF'); if (st.land) { g.strokeStyle = '#FFC83A'; g.lineWidth = 12; g.beginPath(); g.roundRect(330, 160, 620, 370, 40); g.stroke(); }
+    if (st.off) { g.fillStyle = '#E8423A'; g.beginPath(); g.roundRect(340, 565, 600, 110, 30); g.fill(); T('FILTERS OFF', 622, 66, '#FFFFFF'); } }
   S.tex.needsUpdate = true;
 }
 
