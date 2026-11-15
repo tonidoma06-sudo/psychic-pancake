@@ -31,7 +31,7 @@ SCRIPT = [
 ]
 # the voiceover (the creator's ElevenLabs read, one take of all lines): where each line sits in the raw file
 TAKE = os.environ.get('TAKE', 'voice/vo.wav')
-TAKE_SPLITS = []                   # mid-pause between lines (s), measured from the recording
+TAKE_SPLITS = [2.65, 8.935, 14.885, 18.615, 22.915, 30.045, 38.72, 48.205, 56.01, 60.61]   # mid-pause between lines (s), measured from the recording
 TEMPO = float(os.environ.get('TEMPO', 1.2))   # sped up (pitch unchanged), like the other Shorts
 GAPS = {f'L{i}': .15 for i in range(2, 12)}   # pause before each line
 MAXP = .2                          # longest pause kept inside a line (the "…" beats)

@@ -234,6 +234,9 @@ for e in EV:
     elif s_ == 'hit': addv(kick(1.3), t, .7)
     elif s_ == 'sparkle': addv(sparkle(), t, .5)
     elif s_ == 'sting': addv(bell(88, 1.0), t, .4)
+    elif s_ == 'spin':
+        k = 0.0
+        while k < d - .03: addv(xylo(90 + int(k * 37) % 5, .06), t + k, .22); k += .07
 
 # ---------------- voice ----------------
 VB = np.zeros(S.N)

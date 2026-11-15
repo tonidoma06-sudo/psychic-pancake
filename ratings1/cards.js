@@ -99,7 +99,7 @@ export function heart() {
     if (s.crack > 0) { g.strokeStyle = '#16131A'; g.lineWidth = 12; g.lineCap = 'round'; g.beginPath(); const pts = [[256, 150], [230, 210], [276, 260], [236, 320], [262, 380]]; const n = Math.max(1, Math.round(clamp(s.crack) * (pts.length - 1)));
       g.moveTo(...pts[0]); for (let i = 1; i <= n; i++) g.lineTo(...pts[i]); g.stroke(); }
     g.fillStyle = '#FFFFFF'; g.font = '900 120px Montserrat'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineWidth = 16; g.strokeStyle = '#16131A';
-    const txt = Math.round(s.pct * (s.fill ?? 1)) + '%'; g.strokeText(txt, 256, 262); g.fillText(txt, 256, 262);
+    const txt = s.txt ?? (Math.round(s.pct * (s.fill ?? 1)) + '%'); g.font = `900 ${txt.length > 3 ? 104 : 120}px Montserrat`; g.strokeText(txt, 256, 262); g.fillText(txt, 256, 262);
     g.restore(); C.t.needsUpdate = true;
   };
   return C.m;

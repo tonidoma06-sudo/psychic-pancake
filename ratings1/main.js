@@ -18,7 +18,8 @@ const B = 60 / TMJ.bpm, DUR = TMJ.dur, LOOP = DUR - B;
 const LN = Object.fromEntries(TMJ.lines.map(l => [l.id, l]));
 const nrm = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 const w = (lid, word, k = 0) => { const ws = LN[lid].words.filter(x => nrm(x.w).startsWith(nrm(word))); return (ws[k] || ws[ws.length - 1] || { t0: LN[lid].t0 }).t0; };
-const cut = id => LN[id].cut;
+const cut = id => { const i = TMJ.lines.findIndex(l => l.id === id), pv = TMJ.lines[i - 1], l = LN[id];   // never cut away while the last line is still being said
+  return pv ? Math.max(l.cut, Math.min(pv.t1 + .06, l.t0 - .02)) : l.cut; };
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x)), seg = (t, a, b) => clamp((t - a) / (b - a)), lerp = (a, b, u) => a + (b - a) * u;
 const eo = u => 1 - Math.pow(1 - u, 3), eio = u => u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2, back = (u, s = 1.7) => { u = clamp(u) - 1; return 1 + u * u * ((s + 1) * u + s); };
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
@@ -288,8 +289,10 @@ function act10(t) {
   const lookin = t > tLook - .2, burst = t > tPercent + .25;
   apply(THEO, burst ? { ...TP.sitLaugh, y: -.06 } : { ...TP.sit, y: -.06 }, { t, seed: 1, face: burst ? 'laugh' : t > tZero ? 'shock' : 'smile', look: lookin ? headOf(MIA) : CAMP });
   apply(MIA, burst ? { ...TP.sitLaugh, y: -.06 } : { ...TP.sit, y: -.06 }, { t, seed: 4, face: burst ? 'laugh' : t > tZero ? 'shock' : 'smile', look: lookin ? headOf(THEO) : CAMP });
-  const hs = seg(t, tAppears - .1, tAppears + .3), fill = seg(t, tZero - .6, tZero);
-  if (hs > 0) { HEART.visible = true; HEART.userData.cs = { st: { pct: 0, fill, crack: seg(t, tZero + .05, tZero + .35), show: hs }, at: headOf(THEO).lerp(headOf(MIA), .5).add(V(0, .42, .1)), s: 1 }; }
+  const hs = seg(t, tAppears - .1, tAppears + .3);
+  // the number spins like a slot machine… and lands on 0 on "zero"
+  const spin = t < tZero - .02 ? (Math.floor(hash(Math.floor(t * 14)) * 99) + 1) + '%' : '0%';
+  if (hs > 0) { HEART.visible = true; HEART.userData.cs = { st: { pct: t < tZero ? 60 : 0, fill: t < tZero ? .5 + .5 * Math.sin(t * 9) ** 2 : 1, crack: seg(t, tZero + .05, tZero + .35), show: hs, txt: spin }, at: headOf(THEO).lerp(headOf(MIA), .5).add(V(0, .42, .1)), s: 1 }; }
   card(THEO, { s: .45, mini: 1 }); card(MIA, { s: .45, mini: 1 });
 }
 function act11(t) {
@@ -315,7 +318,7 @@ ev(C6, 'whoosh'); ev(t99, 'shine');
 ev(C7 - .05, 'whoosh'); ev(t88, 'pop'); ev(t36, 'ruler'); ev(tJoke, 'laugh');
 ev(C8, 'rain', { d: C9 - C8 + .5 }); ev(t61, 'down'); ev(t52b, 'down'); ev(t44, 'down'); ev(tThousands, 'rush', { d: 1.4 });
 ev(tStops, 'steps1'); [tLaughs, tJokes, tUp9, tOne9].forEach(x => ev(x + .05, 'up'));
-ev(C10, 'heart', { d: C11 - C10 }); ev(tAppears, 'pop');
+ev(C10, 'heart', { d: C11 - C10 }); ev(tAppears, 'pop'); ev(tAppears + .15, 'spin', { d: tZero - tAppears - .15 });
 ev(tZero, 'crack'); ev(tPercent + .25, 'laugh'); ev(S11b, 'whoosh'); ev(t97, 'sparkle'); ev(S11c, 'hit'); ev(tPart, 'sting');
 
 // ---------------- the overlay: telops + 1–3 word captions ----------------
