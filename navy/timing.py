@@ -18,19 +18,19 @@ LEAD = 0.20              # the scene cut lands this long (at most a beat) before
 # caption words as shown on screen, with a syllable weight for timing (spoken form)
 SCRIPT = [
   ('L1', 'The Soviet Union once paid Pepsi… with 17 submarines!', {'17': 3}),
-  ('L2', '1959. Pepsi\'s boss gets the Soviet leader to try a Pepsi, on camera.', {'1959.': 5}),
+  ('L2', '1959. Pepsi\'s overseas boss gets the Soviet leader to try a Pepsi, on camera.', {'1959.': 5}),
   ('L3', '1972. The Soviets want Pepsi, but their money is useless outside the USSR.', {'1972.': 5, 'USSR.': 4}),
-  ('L4', 'So they pay… in vodka! Pepsi starts selling Stolichnaya all over America.', {}),
+  ('L4', 'So they pay… in vodka! Pepsi starts selling Stolichnaya all over America.', {'Stolichnaya': 6}),
   ('L5', '1989. The Soviets want even more Pepsi. This time, they pay… in warships!', {'1989.': 5}),
   ('L6', '17 old submarines, a cruiser, a frigate and a destroyer!', {'17': 3}),
   ('L7', 'Pepsi\'s boss jokes to the White House: "We\'re disarming the Soviet Union faster than you are!"', {}),
   ('L8', 'The world\'s sixth biggest navy? Not even close. The ships are rusty junk, sold straight off for scrap.', {}),
   ('L9', 'Then Pepsi signs a 3 billion dollar deal… and the Soviet Union collapses. The deal sinks with it.', {'3': 1}),
 ]
-# the voiceover (the creator's recording, one read of all 9 lines): where each line sits in the raw file
+# the voiceover (the creator's ElevenLabs read, voice "Mike", one take of all 9 lines): where each line sits in the raw file
 TAKE = os.environ.get('TAKE', 'voice/vo.wav')
-TAKE_SPLITS = []                   # mid-pause between lines (s), measured from the recording
-TEMPO = float(os.environ.get('TEMPO', 1.0))
+TAKE_SPLITS = [4.625, 11.13, 17.35, 23.07, 29.92, 34.61, 39.64, 46.5]   # mid-pause between lines (s), measured from the recording
+TEMPO = float(os.environ.get('TEMPO', 1.2))   # sped up (pitch unchanged), like the other Shorts
 GAPS = {'L2': .14, 'L3': .14, 'L4': .14, 'L5': .16, 'L6': .14, 'L7': .16, 'L8': .16, 'L9': .16}   # pause before each line
 MAXP = .2                          # longest pause kept inside a line (the "…" beats)
 
@@ -62,26 +62,48 @@ def voiced_segments(x, sr, gap=0.14):
         else: merged.append(s)
     return merged
 
+def dp_split(wa, wb):
+    """Split list A (weights wa) into len(wb) contiguous blocks whose weight shares best match wb's shares → block start indices."""
+    n, k = len(wa), len(wb); SA, SB = sum(wa), sum(wb); INF = 1e18
+    best = [[INF] * (n + 1) for _ in range(k + 1)]; arg = [[0] * (n + 1) for _ in range(k + 1)]; best[0][0] = 0
+    for j in range(1, k + 1):
+        for e in range(j, n - (k - j) + 1):
+            for st in range(j - 1, e):
+                if best[j - 1][st] >= INF: continue
+                c = best[j - 1][st] + (sum(wa[st:e]) / SA - wb[j - 1] / SB) ** 2
+                if c < best[j][e]: best[j][e] = c; arg[j][e] = st
+    cuts = [n]; e = n
+    for j in range(k, 0, -1): e = arg[j][e]; cuts.append(e)
+    return cuts[::-1]
+
 def place_words(text, over, segs):
-    """Spread the caption words over the voiced segments, phrase by phrase where the pauses allow."""
+    """Spread the caption words over the voiced parts: phrases (split at punctuation) are paired with runs of voiced parts
+    first; a phrase spoken across several parts is then split between them word by word (by syllables)."""
     ws = words_of(text)
     groups, cur = [], []
     for w in ws:
         cur.append(w)
         if re.search(r'[,.…!?:]$', w): groups.append(cur); cur = []
     if cur: groups.append(cur)
-    t0, t1 = segs[0][0], segs[-1][1]
-    if len(groups) == len(segs):
-        spans = [(a, b) for a, b in segs]
-    else:                                    # one span per group, proportional to syllables over the whole line
-        tot = sum(sum(syl(w, over) for w in g) for g in groups); spans = []; acc = t0
-        for g in groups:
-            d = (t1 - t0) * sum(syl(w, over) for w in g) / tot; spans.append((acc, acc + d)); acc += d
+    sw = lambda g: sum(syl(w, over) for w in g)
+    pairs = []                                   # (words, [voiced parts])
+    if len(groups) >= len(segs):                 # more phrases than parts: merge neighbouring phrases
+        cuts = dp_split([sw(g) for g in groups], [b - a for a, b in segs]) if len(segs) > 1 else [0, len(groups)]
+        pairs = [(sum(groups[cuts[j]:cuts[j + 1]], []), [segs[j]]) for j in range(len(segs))]
+    else:                                        # more parts than phrases: give each phrase a run of parts
+        cuts = dp_split([b - a for a, b in segs], [sw(g) for g in groups]) if len(groups) > 1 else [0, len(segs)]
+        pairs = [(groups[j], segs[cuts[j]:cuts[j + 1]]) for j in range(len(groups))]
     out = []
-    for g, (a, b) in zip(groups, spans):
-        tot = sum(syl(w, over) for w in g); acc = a
-        for w in g:
-            d = (b - a) * syl(w, over) / tot; out.append({'w': w, 't0': round(acc, 3), 't1': round(acc + d, 3)}); acc += d
+    for words, parts in pairs:
+        if len(parts) > len(words): parts = [[parts[0][0], parts[-1][1]]]
+        if len(parts) > 1:
+            wc = dp_split([syl(w, over) for w in words], [b - a for a, b in parts])
+            runs = [(words[wc[j]:wc[j + 1]], parts[j]) for j in range(len(parts))]
+        else: runs = [(words, parts[0])]
+        for rw, (a, b) in runs:
+            tot = sum(syl(w, over) for w in rw); acc = a
+            for w in rw:
+                d = (b - a) * syl(w, over) / tot; out.append({'w': w, 't0': round(acc, 3), 't1': round(acc + d, 3)}); acc += d
     return out
 
 def snap_cut(t, prev_cut, prev_end=-9, v0=9e9):

@@ -6,4 +6,3 @@ __pycache__/
 voice/user.wav
 !style/styleframe.jpg
 voice/scratch_full.wav
-voice/vo.*

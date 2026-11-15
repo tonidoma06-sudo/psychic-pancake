@@ -104,6 +104,7 @@ const t17b = w('L6', '17'), tSubs6 = w('L6', 'submarines'), tCruiser = w('L6', '
 const tJokes = w('L7', 'jokes'), tWhite = w('L7', 'white'), tWere = w('L7', 'were'), tDisarm = w('L7', 'disarming'), tFaster = w('L7', 'faster'), tYou = w('L7', 'you');
 const tSixth = w('L8', 'sixth'), tNavy = w('L8', 'navy'), tNot = w('L8', 'not'), tClose = w('L8', 'close'), tShips = w('L8', 'ships'), tRusty = w('L8', 'rusty'), tJunk = w('L8', 'junk'), tSold = w('L8', 'sold'), tScrap = w('L8', 'scrap');
 const tSigns = w('L9', 'signs'), t3 = w('L9', '3'), tBillion = w('L9', 'billion'), tDeal9 = w('L9', 'deal'), tAnd9 = w('L9', 'and'), tColl = w('L9', 'collapses'), tThe9 = w('L9', 'the', 2), tSinks = w('L9', 'sinks');
+const C3x = Math.max(C3, Math.min(t1972 - .08, tCamera + .6)), C7x = C7 + .3;   // the press photo and the receipt hold a beat into the next line
 const S1b = tWith - .06, S2b = tBoss2 - .08, S3b = tMoney - .08, S4b = tPepsi4 - .08, S5b = tThis - .08, S6b = tCruiser - .1, S7b = tWhite - .1, S7c = tFaster - .06, S8b = tShips - .08, S8c = tSold - .08, S9b = tAnd9 - .05, S9c = tThe9 - .08;
 
 // ---------------- helpers ----------------
@@ -156,15 +157,15 @@ const SHOTS = [
     cam: (t, u) => hand(camAt(HK.clone().add(V(lerp(.5, .42, u), lerp(1.45, 1.4, u), lerp(-4.4, -3.8, eo(u)))), HK.clone().add(V(.42, 1.1, -.1)), 40, 4.0, 5), t) },
   // 1b · …with 17 submarines!: a sub bursts up behind them; pull back and up to the whole row
   { t0: S1b, t1: C2, set: 'harbor', lt: WINTER, at: V(30, 0, 8), act: t => act1(t),
-    cam: (t, u) => { const k = eio(seg(t, tSubs1 + .25, C2)); return hand(camAt(V(lerp(62.9, 80, k), lerp(1.9, 14, k), lerp(-6.4, -12, k)), V(lerp(62.6, 30, k), lerp(2.2, -1, k), lerp(8, 16, k)), lerp(54, 48, k), lerp(9, 40, k), lerp(2.5, .5, k)), t, 1.2 - k); } },
+    cam: (t, u) => { const k = eio(seg(t, tSubs1 - .1, C2)); return hand(camAt(V(lerp(62.9, 80, k), lerp(1.9, 14, k), lerp(-6.4, -12, k)), V(lerp(62.6, 30, k), lerp(2.2, -1, k), lerp(8, 16, k)), lerp(54, 48, k), lerp(9, 40, k), lerp(2.5, .5, k)), t, 1.2 - k); } },
   // 2a · 1959: the cola booth at the exhibition in Moscow, the gold dome behind
   { t0: C2, t1: S2b, set: 'expo', lt: SUMMER, at: EXO, act: t => act2(t),
     cam: (t, u) => hand(camAt(E(lerp(-1.5, -1.1, u), lerp(1.2, 1.4, u), lerp(9.6, 8.4, eo(u))), E(.1, lerp(2.6, 2.3, u), 0), 46, 8.6, 2), t) },
   // 2b · Pepsi's boss gets the Soviet leader to try a Pepsi, on camera
-  { t0: S2b, t1: C3, set: 'expo', lt: SUMMER, at: EXO, act: t => act2(t),
+  { t0: S2b, t1: C3x, set: 'expo', lt: SUMMER, at: EXO, act: t => act2(t),
     cam: (t, u) => hand(camAt(E(lerp(1.22, 1.12, u), lerp(1.62, 1.58, u), lerp(-1.6, -1.4, eo(u))), E(-.3, 1.08, .95), 40, 2.85, 5), t) },
   // 3a · 1972: the official in his office, a bottle of cola hugged to his chest
-  { t0: C3, t1: S3b, set: 'office', lt: OFFICE, at: OFO, act: t => act3(t),
+  { t0: C3x, t1: S3b, set: 'office', lt: OFFICE, at: OFO, act: t => act3(t),
     cam: (t, u) => hand(camAt(O(lerp(.9, .8, u), lerp(1.62, 1.58, u), lerp(1.25, 1.0, eo(u))), O(-.18, 1.06, -2.2), 40, 3.5, 5), t) },
   // 3b · …but their money is useless outside the USSR: a rouble note wilts in Kendall's hand
   { t0: S3b, t1: C4, set: 'office', lt: OFFICE, at: OFO, act: t => act3(t),
@@ -185,12 +186,12 @@ const SHOTS = [
   { t0: C6, t1: S6b, set: 'harbor', lt: WINTER, at: V(0, 0, 14), act: t => act6(t), fpv: .3,
     cam: (t, u) => { const x = lerp(52, -6, eio(u)); return camAt(V(x, lerp(9, 7, u), -6), V(x - 22, -1, 18), 50, 30, .5, -.04); } },
   // 6b · a cruiser, a frigate and a destroyer: whip-pan across the basin to each one
-  { t0: S6b, t1: C7, set: 'harbor', lt: WINTER, at: V(8, 0, 60), act: t => act6(t),
+  { t0: S6b, t1: C7x, set: 'harbor', lt: WINTER, at: V(8, 0, 60), act: t => act6(t),
     cam: (t, u) => { const tg = [[tCruiser, SHIPS.cruiser], [tFrigate, SHIPS.frigate], [tDestroyer, SHIPS.destroyer]]; let x = tg[0][1][0];
       for (let i = 1; i < 3; i++) x = lerp(x, tg[i][1][0], eio(seg(t, tg[i][0] - .2, tg[i][0] + .1)));
       return hand(camAt(V(x + 9, 9, 34), V(x, 6, 66), 46, 34, .5), t, .8); } },
   // 7a · Pepsi's boss jokes to the White House: Kendall in a captain's cap on top of a sub's sail, on a brick phone
-  { t0: C7, t1: S7b, set: 'harbor', lt: WINTER, at: SAIL8, act: t => act7(t),
+  { t0: C7x, t1: S7b, set: 'harbor', lt: WINTER, at: SAIL8, act: t => act7(t),
     cam: (t, u) => hand(camAt(SAIL8.clone().add(SAILCAM.clone().multiplyScalar(lerp(1.15, 1.0, eo(u)))), SAIL8.clone().add(V(0, .95, 0)), 42, 3.1, 4), t) },
   // 7b · "We're disarming the Soviet Union…": in the White House the adviser listens, then chokes on his coffee
   { t0: S7b, t1: S7c, set: 'wh', lt: WH, at: WHO, act: t => act7(t),
@@ -230,9 +231,9 @@ function act1(t) {
   apply(KEN89, given ? (turn > .5 ? TP.cheer : P.hold) : P.attn, { t, seed: 1, face: turn > .5 ? 'shock' : given ? 'worried' : 'happy', look: turn > .5 ? V(HOOK.sub[0], 3, HOOK.sub[1]) : given ? handOf(KEN89).add(V(0, .1, 0)) : headOf(ADM) });
   if (given && turn < .5) onHand(KEN89, KEY, 0, [0, .05, .04], [0, 0, .3]); else if (!given) onHand(ADM, KEY, 0, [0, .05, .05], [0, 0, -.2]);
   // the hook sub: under the water, then bursting up at "submarines"
-  const k = seg(t, tSubs1 - .35, tSubs1 + .6), rise = eo(k);
+  const k = seg(t, tSubs1 - .6, tSubs1 + .3), rise = eo(k);
   HOOKSUB.visible = k > 0; HOOKSUB.position.set(HOOK.sub[0], lerp(SEA_Y - 5, SEA_Y + .5, rise) + Math.sin(k * Math.PI) * .7, HOOK.sub[1]); HOOKSUB.rotation.set(lerp(-.25, 0, rise), Math.PI / 2, 0);
-  spray(t, tSubs1 - .1, V(HOOK.sub[0], SEA_Y, HOOK.sub[1]), 9);
+  spray(t, tSubs1 - .3, V(HOOK.sub[0], SEA_Y, HOOK.sub[1]), 9);
 }
 function spray(t, t0, c, sz) {
   const s = t - t0; if (s < 0 || s > 2.2) return; SPRAY.visible = true; FOAM.visible = true;
@@ -370,13 +371,13 @@ function act9(t) {
 }
 
 // ---------------- sound events (the score reads these) ----------------
-ev(0, 'harbor', { d: C2 }); ev(.05, 'boom'); ev(tPaid, 'clink'); ev(tSubs1 - .25, 'surface'); ev(tSubs1 - .05, 'splash'); ev(t17a, 'counter', { d: .7 });
+ev(0, 'harbor', { d: C2 }); ev(.05, 'boom'); ev(tPaid, 'clink'); ev(tSubs1 - .55, 'surface'); ev(tSubs1 - .3, 'splash'); ev(t17a, 'counter', { d: .7 });
 ev(C2 - .05, 'whoosh'); ev(C2, 'crowd', { d: C3 - C2 }); ev(t1959, 'pop'); ev(tTry, 'pour'); ev(tPepsi2, 'slurp'); ev(tCamera, 'flash'); ev(tCamera + .14, 'flash'); ev(tCamera + .05, 'shutter');
-ev(C3 - .05, 'whoosh'); ev(C3, 'clock', { d: C4 - C3 }); ev(t1972, 'pop'); ev(tMoney, 'slap'); ev(tUseless + .05, 'deflate'); ev(tUseless, 'stamp');
+ev(C3x - .05, 'whoosh'); ev(C3x, 'clock', { d: C4 - C3x }); ev(t1972, 'pop'); ev(tMoney, 'slap'); ev(tUseless + .05, 'deflate'); ev(tUseless, 'stamp');
 ev(tPay4 - .05, 'snap'); ev(tVodka - .4, 'slide'); ev(tVodka, 'clink'); ev(S4b - .05, 'whoosh'); ev(S4b + .1, 'register'); for (let i = 0; i < 6; i++) ev(lerp(S4b + .2, tAmerica, i / 5), 'tick');
 ev(C5 - .05, 'whoosh'); ev(t1989, 'pop'); ev(tWant5 - .1, 'glug', { d: tMore - tWant5 + .3 }); ev(tMore + .15, 'slam'); ev(tWarships - .05, 'thunk'); ev(tWarships, 'stamp');
-ev(C6 - .05, 'whoosh'); ev(C6, 'harbor', { d: C7 - C6 }); [t17b, tCruiser, tFrigate, tDestroyer].forEach(x => ev(x, 'register')); ev(tCruiser - .2, 'whip'); ev(tFrigate - .2, 'whip'); ev(tDestroyer - .2, 'whip'); ev(tDestroyer + .4, 'ding');
-ev(C7, 'harbor', { d: S7b - C7 }); ev(C7 + .05, 'dial'); ev(S7b, 'cut'); ev(tDisarm + .12, 'spit'); ev(S7c, 'cut'); ev(S7c + .05, 'laugh');
+ev(C6 - .05, 'whoosh'); ev(C6, 'harbor', { d: C7 - C6 }); [t17b, tCruiser, tFrigate, tDestroyer].forEach(x => ev(x, 'register')); ev(tCruiser - .2, 'whip'); ev(tFrigate - .2, 'whip'); ev(tDestroyer - .2, 'whip'); ev(tDestroyer + .22, 'ding');
+ev(C7x, 'harbor', { d: S7b - C7x }); ev(C7x + .05, 'dial'); ev(S7b, 'cut'); ev(tDisarm + .12, 'spit'); ev(S7c, 'cut'); ev(S7c + .05, 'laugh');
 ev(C8 - .05, 'whoosh'); ev(C8, 'harbor', { d: C9 - C8 }); ev(tSixth, 'pop'); ev(tNot, 'buzz'); ev(tRusty - .05, 'creak'); ev(tRusty + .2, 'clang'); ev(tJunk, 'boing'); ev(tJunk + .7, 'splash'); ev(S8c, 'sizzle', { d: C9 - S8c }); ev(tScrap, 'stamp');
 ev(C9 - .05, 'whoosh'); ev(C9, 'clock', { d: S9b - C9 }); ev(tSigns + .1, 'scribble'); ev(t3, 'counter', { d: .6 }); ev(tBillion + .1, 'ding'); ev(S9b, 'rumble', { d: S9c - S9b + .3 }); ev(tColl + .1, 'crash');
 ev(S9c, 'harbor', { d: LOOP - S9c }); ev(tSinks, 'bubbles', { d: 1.6 }); ev(tSinks + .3, 'sting');
@@ -398,7 +399,7 @@ const TEL = [
   { t0: tNot - .05, t1: S8b + .1, text: 'MYTH', y: 520, size: 170, col: '#E8423A', rot: 8, stamp: 1 },
   { t0: tScrap - .05, t1: C9, text: 'SOLD FOR SCRAP', y: 1480, size: 104, col: '#E8423A', rot: -6, stamp: 1 },
   { t0: t3 - .05, t1: S9b + .1, text: t => '$' + (Math.round(3000 * eo(seg(t, t3 - .05, tBillion + .2))) * 1e6).toLocaleString('en-US'), y: 300, size: 100, col: '#4ADB6A', rot: -4, plate: '#1B1213' },
-  { t0: tColl - .05, t1: S9c + .1, text: '1991: USSR COLLAPSES', y: 300, size: 78, col: '#FFFFFF', rot: 3, plate: '#8A2A22' },
+  { t0: tColl - .05, t1: S9c + .1, text: '1991: USSR COLLAPSES', y: 300, size: 68, col: '#FFFFFF', rot: 3, plate: '#8A2A22' },
   { t0: tSinks - .05, t1: LOOP, text: 'DEAL SUNK', y: 1480, size: 140, col: '#E8423A', rot: -6, stamp: 1 },
 ];
 function drawTelop(x, t) {
@@ -416,8 +417,8 @@ function drawTelop(x, t) {
 // the receipt: a till slip that prints the payment line by line as the narrator lists it
 const RC = [['SUBMARINE', '×17', t17b], ['CRUISER', '×1', tCruiser], ['FRIGATE', '×1', tFrigate], ['DESTROYER', '×1', tDestroyer]];
 function drawReceipt(t) {
-  if (t < C6 - .05 || t >= C7) return;
-  const p = seg(t, C6 - .05, C6 + .25), wd = 760, rows = RC.filter(r => t >= r[2] - .08).length, tot = t >= tDestroyer + .35, ht = 250 + rows * 92 + (tot ? 110 : 0);
+  if (t < C6 - .05 || t >= C7x) return;
+  const p = seg(t, C6 - .05, C6 + .25), wd = 760, rows = RC.filter(r => t >= r[2] - .08).length, tot = t >= tDestroyer + .22, ht = 250 + rows * 92 + (tot ? 110 : 0);
   ov.save(); ov.translate(540, 200 + (1 - eo(p)) * -500); ov.rotate(-.025);
   ov.fillStyle = 'rgba(0,0,0,.35)'; ov.fillRect(-wd / 2 + 14, 14, wd, ht);
   ov.fillStyle = '#FBF8EE'; ov.beginPath(); ov.moveTo(-wd / 2, 0); ov.lineTo(wd / 2, 0); ov.lineTo(wd / 2, ht); for (let x = wd / 2; x > -wd / 2; x -= 38) { ov.lineTo(x - 19, ht + 18); ov.lineTo(x - 38, ht); } ov.closePath(); ov.fill();
@@ -426,13 +427,13 @@ function drawReceipt(t) {
   ov.setLineDash([14, 10]); ov.strokeStyle = '#8A8480'; ov.lineWidth = 4; ov.beginPath(); ov.moveTo(-wd / 2 + 40, 160); ov.lineTo(wd / 2 - 40, 160); ov.stroke(); ov.setLineDash([]);
   RC.forEach(([name, n, t0], i) => { if (t < t0 - .08) return; const k = back(seg(t, t0 - .08, t0 + .12), 2.4), y = 220 + i * 92;
     ov.save(); ov.translate(0, y); ov.scale(k, k); ov.fillStyle = '#1B1213'; ov.font = '900 64px Montserrat'; ov.textAlign = 'left'; ov.fillText(name, -wd / 2 + 50, 0); ov.textAlign = 'right'; ov.fillStyle = '#C8283A'; ov.fillText(n, wd / 2 - 50, 0); ov.restore(); });
-  if (tot) { const y = 220 + rows * 92 + 10, k = back(seg(t, tDestroyer + .35, tDestroyer + .55), 2.4); ov.strokeStyle = '#1B1213'; ov.lineWidth = 5; ov.beginPath(); ov.moveTo(-wd / 2 + 40, y - 40); ov.lineTo(wd / 2 - 40, y - 40); ov.stroke();
+  if (tot) { const y = 220 + rows * 92 + 10, k = back(seg(t, tDestroyer + .22, tDestroyer + .42), 2.4); ov.strokeStyle = '#1B1213'; ov.lineWidth = 5; ov.beginPath(); ov.moveTo(-wd / 2 + 40, y - 40); ov.lineTo(wd / 2 - 40, y - 40); ov.stroke();
     ov.save(); ov.translate(0, y + 20); ov.scale(k, k); ov.font = '900 64px Montserrat'; ov.textAlign = 'left'; ov.fillStyle = '#1B1213'; ov.fillText('TOTAL', -wd / 2 + 50, 0); ov.textAlign = 'right'; ov.fillStyle = '#2E7A3A'; ov.fillText('20 SHIPS', wd / 2 - 50, 0); ov.restore(); }
   ov.restore();
 }
 // the press photo: at "camera" the frame freezes into a black-and-white print that drops onto the screen
 function drawPhoto(t) {
-  if (t < tCamera + .04 || t >= C3) return;
+  if (t < tCamera + .04 || t >= C3x) return;
   const k = eo(seg(t, tCamera + .04, tCamera + .4)), s = lerp(1.0, .8, k), rot = lerp(0, -5, k) * Math.PI / 180;
   ov.save(); ov.globalAlpha = .5 * k; ov.fillStyle = '#000'; ov.fillRect(0, 0, W, H); ov.restore();
   ov.save(); ov.translate(W / 2, H / 2 - 120 * k); ov.rotate(rot); ov.scale(s, s);
@@ -449,7 +450,7 @@ chunks.forEach((c, i) => { const n = chunks[i + 1]; c.text = c.words.map(x => x.
 const CAPY = 1180;
 function drawCaption(t) {
   const c = chunks.find(c => t >= c.a && t < c.b); if (!c) return;
-  const pop = back(seg(t, c.a, c.a + .12), 2.2), s = lerp(.6, 1, pop), y = (t >= C6 - .05 && t < C7) ? 1320 : (t >= tCamera + .04 && t < C3) ? 1720 : CAPY;
+  const pop = back(seg(t, c.a, c.a + .12), 2.2), s = lerp(.6, 1, pop), y = (t >= C6 - .05 && t < C7x) ? 1320 : (t >= tCamera + .04 && t < C3x) ? 1720 : CAPY;
   ov.save(); ov.translate(W / 2, y); ov.scale(s, s); ov.font = '900 104px Montserrat'; ov.textAlign = 'center'; ov.textBaseline = 'middle'; ov.lineJoin = 'round';
   ov.shadowColor = 'rgba(0,0,0,.45)'; ov.shadowBlur = 22; ov.shadowOffsetY = 8; ov.lineWidth = 26; ov.strokeStyle = '#000'; ov.strokeText(c.text, 0, 0, 1000);
   ov.shadowColor = 'transparent'; ov.fillStyle = '#FFFFFF'; ov.fillText(c.text, 0, 0, 1000); ov.restore();
@@ -477,7 +478,7 @@ function render(t) {
   const sh = shotAt(t);
   ov.clearRect(0, 0, W, H);
   // the press photo: render the flash frame first and keep it
-  if (t >= tCamera + .04 && t < C3) { frame(shotAt(tCamera + .03), tCamera + .03); sctx.filter = 'grayscale(1) contrast(1.15) brightness(1.05)'; sctx.clearRect(0, 0, W, H); sctx.drawImage(renderer.domElement, 0, 0); sctx.filter = 'none'; }
+  if (t >= tCamera + .04 && t < C3x) { frame(shotAt(tCamera + .03), tCamera + .03); sctx.filter = 'grayscale(1) contrast(1.15) brightness(1.05)'; sctx.clearRect(0, 0, W, H); sctx.drawImage(renderer.domElement, 0, 0); sctx.filter = 'none'; }
   frame(sh, t);
   if (QS.get('poster')) { ov.clearRect(0, 0, W, H); [['THE USSR PAID PEPSI', 170, -4, '#FFFFFF', 96], ['IN SUBMARINES', 310, -4, '#FFD23F', 130]].forEach(([text, y, rot, col, size]) => drawTelop({ t0: -9, text, y, size, col, rot }, t)); return; }
   if (QS.get('clean')) return;
