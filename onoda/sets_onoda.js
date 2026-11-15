@@ -148,7 +148,7 @@ export function island() {
   M(new THREE.CylinderGeometry(.42, .55, 9, 18), std({ map: barkTex('#6A5038', [2, 4]) }), tree, 0, 4.5, 0);
   const band = M(new THREE.CylinderGeometry(.532, .548, 1.0, 32, 1, true, -1.05, 2.1), std({ map: tallyTex() }), tree, 0, 1.35, 0); band.material.map.wrapS = THREE.ClampToEdgeWrapping; band.material.map.repeat.set(1, 1);
   band.rotation.y = .1;   // the carved face looks toward the camp
-  for (let i = 0; i < 5; i++) { const a = i * 1.3 + .65; const r = M(new THREE.CylinderGeometry(.05, .14, 1.6, 6), std({ color: '#6A5038' }), tree, Math.sin(a) * .5, .25, Math.cos(a) * .5); r.rotation.set(Math.cos(a) * .9, 0, -Math.sin(a) * .9); }
+  for (let i = 0; i < 5; i++) { const a = i * 1.3 + .65; const r = M(new THREE.CylinderGeometry(.04, .13, 1.2, 6), std({ color: '#6A5038' }), tree, Math.sin(a) * .62, .1, Math.cos(a) * .62); r.rotation.set(Math.cos(a) * 1.35, 0, -Math.sin(a) * 1.35); }
   // ---------------- the village at the jungle's edge: a nipa hut on stilts, a rice paddy ----------------
   const vil = G(); vil.position.set(LAY.village[0], 0, LAY.village[1]); g.add(vil); g.userData.village = vil;
   const hut = G(); hut.position.set(0, 0, -4); hut.rotation.y = -.3; vil.add(hut);

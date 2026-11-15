@@ -216,7 +216,7 @@ const SHOTS = [
     after: 1, cam: (t, u) => { const h = headOf(OLD); return hand(camAt(h.clone().add(V(lerp(.75, .6, u), -.12, lerp(1.25, 1.05, eo(u)))), h.clone().add(V(0, -.14, 0)), 42, 1.3, 6), t, .7); } },
   // 8a · Japan finds his old commander… now a bookseller: the shop, push in over the counter
   { t0: C8, t1: S8b, set: 'shop', lt: SHOP, at: SHP, act: t => act8(t),
-    cam: (t, u) => hand(camAt(V(SHP.x + lerp(.7, .35, u), lerp(1.45, 1.38, u), SHP.z + lerp(2.6, 1.15, eio(u))), V(SHP.x + .02, 1.3, SHP.z - 1.15), lerp(46, 42, u), lerp(3.7, 2.3, eio(u)), 5), t, .6) },
+    cam: (t, u) => hand(camAt(V(SHP.x + lerp(.6, .3, u), lerp(1.52, 1.45, u), SHP.z + lerp(2.6, 1.15, eio(u))), V(SHP.x + .02, 1.1, SHP.z - 1.15), lerp(46, 42, u), lerp(3.7, 2.3, eio(u)), 5), t, .6) },
   // 8b · …and flies him in: the airliner over the sea, toward the island
   { t0: S8b, t1: C9, set: 'isle', lt: SEA, at: V(0, 0, 80), act: t => act8(t), fpv: .5,
     cam: (t, u) => { const z = lerp(150, 110, u) - 6; return camAt(V(lerp(-13, -9, u), 21, z + 20), V(0, 26, z), 46, 24, 0, lerp(.12, .05, u)); } },
@@ -257,7 +257,7 @@ function act2(t) {
   const ry = t < S2c ? lerp(Math.PI, face(SANDP, V(3.3, 0, 25.0)), eo(seg(t, S2b + .3, S2b + .7))) : face(SANDP, TANP);
   put(ONODA, p, ry);
   const salute = t > tNever - .2;
-  apply(ONODA, salute ? mix(P.attn, TP.salute, eo(seg(t, tNever - .2, tNever + .1))) : k < 1 && k > 0 ? walk(P.attn, t * 9, 1) : P.attn, { t, seed: 1, face: t > S2c ? (t > tSurr ? 'proud' : 'shock') : 'happy', look: t > S2c ? headOf(TANI) : CAMP });
+  apply(ONODA, salute ? mix(P.attn, TP.salute, eo(seg(t, tNever - .2, tNever + .1))) : k < 1 && k > 0 ? walk(P.attn, t * 9, 1) : P.attn, { t, seed: 1, face: t > S2c ? (t > tSurr ? 'proud' : 'shock') : 'happy', look: t > S2c ? TANP.clone().add(V(0, 1.25, 0)) : CAMP });
   rifleSlung(ONODA);
   put(TANI, TANP, face(TANP, SANDP));
   const jab = t > S2c ? Math.max(0, Math.sin((t - S2c) * 16)) * .5 * (t < tSurr + .3 ? 1 : 0) : 0;
@@ -290,7 +290,7 @@ function act3(t) {
   if (t < S3c) { apply(ONODA, mix(P.attn, TP.cheer, .3), { t, seed: 1, face: 'shock', look: V(0, 30, -6) }); rifleSlung(ONODA); return; }
   // he plucks a sheet out of the air, reads it (deadpan → smug), and flicks it away on "fake"
   const tf = tFake0 - .08;
-  if (t < tf) { apply(ONODA, P.read, { t, seed: 1, face: t < tHes + .25 ? 'deadpan' : 'smug', look: handOf(ONODA).add(V(0, .1, 0)), eyes: [0, -.6] }); between(ONODA, LF1, CAMP, .06); }
+  if (t < tf) { apply(ONODA, P.read, { t, seed: 1, face: t < tHes + .25 ? 'deadpan' : 'smug', look: READP.clone().add(V(.05, .95, .45)), eyes: [0, -.6] }); between(ONODA, LF1, CAMP, .06); }
   else { apply(ONODA, mix(P.read, P.throwR, eo(seg(t, tf, tf + .15))), { t, seed: 1, face: 'smug', look: READP.clone().add(V(.3, 1.2, 2.2)) }); const from = headOf(ONODA).add(V(0, -.2, .1)); toss(LF1, from, t, tf, V(-.8, .2, -.6)); }
   rifleSlung(ONODA);
 }
@@ -335,20 +335,20 @@ function act7(t) {
   fireK = .85 + Math.sin(t * 17) * .1 + Math.sin(t * 31) * .05; bulb.position.copy(FIREP).add(V(0, .6, 0)); bulb.intensity = 5.5 * fireK; bulb.color.set('#FFA050');
   put(SUZ, SUZF, face(SUZF, FIREP) + (t > tFinds + .1 ? -1.0 : 0));
   const turned = t > tFinds + .1;
-  apply(SUZ, turned ? (t > t4 - .1 ? TP.wave : P.sitFire) : P.sitFire, { t, seed: 4, face: turned ? (t > t4 - .1 ? 'laugh' : 'shock') : 'happy', look: turned ? headOf(OLD) : FIREP.clone().add(V(0, .4, 0)) });
+  apply(SUZ, turned ? (t > t4 - .1 ? TP.wave : P.sitFire) : P.sitFire, { t, seed: 4, face: turned ? (t > t4 - .1 ? 'laugh' : 'shock') : 'happy', look: turned ? ONO7.clone().add(V(0, 1.25, 0)) : FIREP.clone().add(V(0, .4, 0)) });
   SUZ.root.position.y = -.28;
   // Onoda steps out of the dark, rifle levelled; then lowers it and folds his arms
   const k = seg(t, C7 - .1, tOno7 + .3), p = ONO7.clone().add(V(lerp(-.9, 0, eo(k)), 0, lerp(-.6, 0, eo(k))));
   put(OLD, p, face(p, SUZF));
   if (t < S7b) { apply(OLD, k < 1 ? walk(P.aimPt, t * 8, .7) : P.aimPt, { t, seed: 2, face: 'angry', look: headOf(SUZ) }); rifleIn(OLD); }
-  else { const shake = Math.sin((t - S7b) * 9) * 14 * (t < tWont + .6 ? 1 : .3); OLD.P.rotation.y = .68; OLD.P.updateMatrixWorld(true); apply(OLD, { ...TP.cross, hd: [-6, shake, 0] }, { t, seed: 2, face: 'angry', look: headOf(OLD).add(V(.75, 0, 1.25)) }); rifleSlung(OLD); }
+  else { const shake = Math.sin((t - S7b) * 9) * 14 * (t < tWont + .6 ? 1 : .3); OLD.P.rotation.y = .68; OLD.P.updateMatrixWorld(true); apply(OLD, { ...TP.cross, hd: [-6, shake, 0] }, { t, seed: 2, face: 'angry', look: p.clone().add(V(.75, 1.25, 1.25)) }); rifleSlung(OLD); }
 }
 function act8(t) {
   reset();
   if (t < S8b) {   // the old Major, now a bookseller, reading behind his counter
     const p = V(SHP.x, 0, SHP.z - 1.15); put(OLDT, p, 0);
     const up = t > tBooks - .25;
-    apply(OLDT, P.read, { t, seed: 3, face: up ? 'shock' : 'calm', look: up ? CAMP : handOf(OLDT).add(V(0, .05, .1)), eyes: up ? [0, 0] : [0, -.7] });
+    apply(OLDT, P.read, { t, seed: 3, face: up ? 'shock' : 'calm', look: up ? CAMP : V(SHP.x, 1.05, SHP.z - .75), eyes: up ? [0, 0] : [0, -.7] });
     between(OLDT, BOOK, headOf(OLDT), .02); if (up) { BOOK.position.y -= .12 * seg(t, tBooks - .25, tBooks); }
     return;
   }
@@ -359,7 +359,7 @@ function act9(t) {
   put(OLDT, MEETT, face(MEETT, MEETO)); put(OLD, MEETO, face(MEETO, MEETT));
   // the commander reads the order aloud
   const reading = t < S9b + .4;
-  apply(OLDT, reading ? P.read : TP.offer, { t, seed: 3, face: reading ? 'calm' : 'smile', look: reading ? handOf(OLDT).add(V(0, .05, .1)) : headOf(OLD), talk: t > tOrder9 - .05 && t < S9b ? .4 + .4 * Math.sin(t * 22) : 0, eyes: reading ? [0, -.6] : [0, 0] });
+  apply(OLDT, reading ? P.read : TP.offer, { t, seed: 3, face: reading ? 'calm' : 'smile', look: reading ? V(-.18, 1.0, .16) : MEETO.clone().add(V(0, 1.2, 0)), talk: t > tOrder9 - .05 && t < S9b ? .4 + .4 * Math.sin(t * 22) : 0, eyes: reading ? [0, -.6] : [0, 0] });
   if (reading) between(OLDT, ORD, t < S9b ? CAMP : headOf(OLDT), .06); else { ORD.visible = false; }
   if (t < S9b) {   // at the salute
     apply(OLD, TP.salute, { t, seed: 2, face: t > t29b ? 'worried' : 'deadpan', look: headOf(OLDT) }); rifleSlung(OLD);
@@ -367,7 +367,7 @@ function act9(t) {
     const k = eo(seg(t, S9b, S9b + .4)); apply(OLD, mix(P.attn, P.bow, k), { t, seed: 2, face: 'worried', look: headOf(OLDT), eyes: [0, -.4] });
     if (k > .3) rifleIn(OLD, RIF, .5, 'present'); else rifleSlung(OLD);
   } else {   // straightening, presenting it to us: it still works
-    apply(OLD, { ...P.bow, sp: [6, 0, 0], hd: [-4, 0, 0] }, { t, seed: 2, face: t > tRifle ? 'proud' : 'smile', look: headOf(OLD).add(V(-.55, 0, .9)) });
+    apply(OLD, { ...P.bow, sp: [6, 0, 0], hd: [-4, 0, 0] }, { t, seed: 2, face: t > tRifle ? 'proud' : 'smile', look: MEETO.clone().add(V(-.55, 1.15, .9)) });
     rifleIn(OLD, RIF, .5, 'present');
     const gl = Math.exp(-Math.pow((t - tWorks - .1) / .12, 2)); RIF.userData.glint.material.opacity = gl; RIF.userData.glint.scale.setScalar(1 + gl * 3);
   }
@@ -395,19 +395,19 @@ const TEL = [
   { t0: tNever - .05, t1: C3, text: 'NEVER SURRENDER', y: 520, size: 112, col: '#E8423A', rot: -7, stamp: 1 },
   { t0: t1945 - .05, t1: S3b + .1, text: '1945', y: 300, size: 170, col: '#FFD23F', rot: -5 },
   { t0: tEnds - .05, t1: S3b + .1, text: 'WAR OVER', y: 500, size: 110, col: '#FFFFFF', rot: 4, plate: '#2E7A4A' },
-  { t0: tFake0 - .05, t1: C4, text: 'FAKE!', y: 560, size: 170, col: '#E8423A', rot: -9, stamp: 1 },
-  { t0: tF1 - .05, t1: C5, text: 'FAKE', y: 360, size: 130, col: '#E8423A', rot: -10, stamp: 1, x: 330 },
-  { t0: tF2 - .05, t1: C5, text: 'FAKE', y: 560, size: 130, col: '#E8423A', rot: 8, stamp: 1, x: 750 },
-  { t0: tF3 - .05, t1: C5, text: 'FAKE', y: 760, size: 150, col: '#E8423A', rot: -5, stamp: 1 },
+  { t0: tFake0 - .05, t1: C4, text: 'FAKE!', y: 1480, size: 170, col: '#E8423A', rot: -9, stamp: 1 },
+  { t0: tF1 - .05, t1: C5, text: 'FAKE', y: 1010, size: 120, col: '#E8423A', rot: -10, stamp: 1, x: 270 },
+  { t0: tF2 - .05, t1: C5, text: 'FAKE', y: 1010, size: 120, col: '#E8423A', rot: 8, stamp: 1, x: 810 },
+  { t0: tF3 - .05, t1: C5, text: 'FAKE', y: 1470, size: 160, col: '#E8423A', rot: -5, stamp: 1 },
   { t0: t30 - .05, t1: C6, text: '~30 VILLAGERS KILLED', y: 330, size: 74, col: '#FFFFFF', rot: 0, plate: '#2A2A30', calm: 1 },
   { t0: t1974 - .05, t1: S6b + .2, text: '1974', y: 300, size: 170, col: '#FFD23F', rot: -5, sub: 'STILL FIGHTING' },
-  { t0: t4 - .05, t1: S7b + .1, text: '4 DAYS', y: 300, size: 140, col: '#FFFFFF', rot: 4, plate: '#C8642A' },
+  { t0: t4 - .05, t1: S7b + .1, text: '4 DAYS', y: 620, size: 140, col: '#FFFFFF', rot: 4, plate: '#C8642A' },
   { t0: S7b + .1, t1: C8, text: 'NO ORDERS = NO SURRENDER', y: 300, size: 70, col: '#FFFFFF', rot: -3, plate: '#8A2A22' },
   { t0: tCmdr - .1, t1: S8b, text: 'MAJ. TANIGUCHI', y: 1440, size: 86, col: '#FFFFFF', rot: -3, plate: '#5A6A34', sub: 'HIS OLD COMMANDER' },
   { t0: tBooks - .05, t1: S8b, text: 'NOW: BOOKSELLER', y: 300, size: 100, col: '#FFD23F', rot: 4, plate: '#1B1213' },
   { t0: tOrder9 - .05, t1: S9b + .1, text: 'MARCH 9, 1974', y: 300, size: 110, col: '#FFFFFF', rot: -3, plate: '#2E5A7A' },
-  { t0: tSurr9 - .05, t1: S9c + .1, text: 'SURRENDERED', y: 520, size: 120, col: '#FFFFFF', rot: -6, stamp: 1 },
-  { t0: tWorks - .05, t1: LOOP, text: 'STILL WORKS', y: 520, size: 130, col: '#4ADB6A', rot: -6, stamp: 1, sub: '+ 500 ROUNDS' },
+  { t0: tSurr9 - .05, t1: S9c + .1, text: 'SURRENDERED', y: 1480, size: 120, col: '#FFFFFF', rot: -6, stamp: 1 },
+  { t0: tWorks - .05, t1: LOOP, text: 'STILL WORKS', y: 1460, size: 130, col: '#4ADB6A', rot: -6, stamp: 1, sub: '+ 500 ROUNDS' },
 ];
 function drawTelop(x, t) {
   const p = seg(t, x.t0, x.t0 + .25), sc = x.calm ? lerp(.92, 1, eo(p)) : x.stamp ? lerp(2.2, 1, eo(p)) : back(p, 2.6), wob = x.calm ? 1 : 1 + .02 * Math.sin((t - x.t0) * 8);
@@ -427,7 +427,7 @@ function drawList(t) {
   const on = (t >= tGoes - .1 && t < C7) || (t >= C7 && t < S7b), small = t >= C7, p = seg(t, tGoes - .1, tGoes + .2);
   if (!on) return;
   ov.save(); ov.translate(540, small ? 300 : 430); const s = (small ? .78 : 1) * (small ? 1 : back(p, 2.2)); ov.scale(s, s); ov.rotate(-.03);
-  const wd = 820, ht = 420; ov.fillStyle = 'rgba(0,0,0,.5)'; ov.beginPath(); ov.roundRect(-wd / 2 + 12, -ht / 2 + 16, wd, ht, 22); ov.fill();
+  const wd = 900, ht = 420; ov.fillStyle = 'rgba(0,0,0,.5)'; ov.beginPath(); ov.roundRect(-wd / 2 + 12, -ht / 2 + 16, wd, ht, 22); ov.fill();
   ov.fillStyle = '#FBF6E6'; ov.beginPath(); ov.roundRect(-wd / 2, -ht / 2, wd, ht, 22); ov.fill(); ov.strokeStyle = '#1B1213'; ov.lineWidth = 8; ov.stroke();
   ov.strokeStyle = 'rgba(80,120,200,.35)'; ov.lineWidth = 3; for (let y = -ht / 2 + 110; y < ht / 2; y += 96) { ov.beginPath(); ov.moveTo(-wd / 2 + 20, y + 52); ov.lineTo(wd / 2 - 20, y + 52); ov.stroke(); }
   ov.fillStyle = '#C8283A'; ov.font = '900 54px Montserrat'; ov.textAlign = 'left'; ov.textBaseline = 'middle'; ov.fillText('TO FIND:', -wd / 2 + 40, -ht / 2 + 56);
@@ -435,8 +435,8 @@ function drawList(t) {
     ov.save(); ov.translate(-wd / 2 + 70, y); ov.scale(k, k);
     ov.strokeStyle = '#1B1213'; ov.lineWidth = 6; ov.strokeRect(-26, -26, 52, 52);
     const ticked = i === 0 && t > tOno7 - .05; if (ticked) { const kk = seg(t, tOno7 - .05, tOno7 + .15); ov.strokeStyle = '#2E9A3A'; ov.lineWidth = 14; ov.lineCap = 'round'; ov.beginPath(); ov.moveTo(-20, 0); ov.lineTo(-20 + 16 * Math.min(1, kk * 2), 18 * Math.min(1, kk * 2)); if (kk > .5) ov.lineTo(-4 + 40 * (kk - .5) * 2, 18 - 52 * (kk - .5) * 2); ov.stroke(); }
-    ov.fillStyle = '#1B1213'; ov.font = `700 ${i === 2 ? 56 : 64}px Fredoka`; ov.fillText(txt, 54, 4);
-    if (t > tIn6 - .05) { const n = back(seg(t, tIn6 - .05 + i * .12, tIn6 + .15 + i * .12), 3); if (n > 0) { ov.save(); ov.translate(wd - 150, 0); ov.scale(n, n); ov.fillStyle = '#C8283A'; ov.beginPath(); ov.arc(0, 0, 34, 0, 7); ov.fill(); ov.fillStyle = '#FFFFFF'; ov.font = '900 44px Montserrat'; ov.textAlign = 'center'; ov.fillText(String(i + 1), 0, 3); ov.restore(); } }
+    ov.fillStyle = '#1B1213'; ov.font = `700 ${i === 2 ? 50 : 64}px Fredoka`; ov.fillText(txt, 54, 4);
+    if (t > tIn6 - .05) { const n = back(seg(t, tIn6 - .05 + i * .12, tIn6 + .15 + i * .12), 3); if (n > 0) { ov.save(); ov.translate(wd - 125, 0); ov.scale(n, n); ov.fillStyle = '#C8283A'; ov.beginPath(); ov.arc(0, 0, 34, 0, 7); ov.fill(); ov.fillStyle = '#FFFFFF'; ov.font = '900 44px Montserrat'; ov.textAlign = 'center'; ov.fillText(String(i + 1), 0, 3); ov.restore(); } }
     ov.restore(); });
   ov.restore();
 }
@@ -483,5 +483,4 @@ function texts(t) { if (t >= LOOP) return []; return TEL.filter(x => typeof x.te
 EV.sort((a, b) => a.t - b.t);
 window.DUR = +(B0 - A0).toFixed(3); window.EV = EV; window.render = t => render(t + A0); window.TEXTS = t => texts(t + A0);
 render(A0);
-window.DBG = t => { render(t); const f = v => v.toArray().map(x => +x.toFixed(2)); return { onoda: f(headOf(ONODA)), tani: f(headOf(TANI)), old: f(headOf(OLD)), cam: f(camera.position), look: CAMP.toArray() }; };
 window.READY = true;
