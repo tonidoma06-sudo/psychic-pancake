@@ -16,5 +16,6 @@ for v in voice no-voice; do
   echo "muxed ratings-longform_$v.mp4 (gain $G dB from $I LUFS)"
 done
 /root/lemo-opuscar/.venv/bin/python subs.py
+cd /root/lemo-opuscar && node core/render/still.mjs $D 1 --size 1920x1080 --q "thumb=1" --prefix thumb_ --out $D/out >/dev/null 2>&1 && cp $D/out/thumb_1.jpg $D/thumbnail.jpg && cd $D
 ls -la $D/ratings-longform_*.mp4
 echo "finished $(date -u +%H:%M)"

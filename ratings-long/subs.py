@@ -17,5 +17,5 @@ for i, c in enumerate(E):
     out.append(f"{i + 1}\n{ts(c[0]['t0'])} --> {ts(t1)}\n{' '.join(x['w'] for x in c)}\n")
 n = len(out)
 open(os.path.join(D, 'ratings-longform.srt'), 'w').write('\n'.join(out))
-ch = ['0:00 Cold open'] + [f"{int(c['t1'] // 60)}:{int(c['t1'] % 60):02d} {CHAPTERS[c['ch']][0].title()}: {CHAPTERS[c['ch']][1].title()}" for c in T['chapters']]
+ch = ['0:00 Cold open'] + [f"{int(c['t0'] // 60)}:{int(c['t0'] % 60):02d} {CHAPTERS[c['ch']][0].title()}: {CHAPTERS[c['ch']][1].title()}" for c in T['chapters']]
 open(os.path.join(D, 'chapters.txt'), 'w').write('\n'.join(ch) + '\n'); print('\n'.join(ch)); print(n, 'subtitles')

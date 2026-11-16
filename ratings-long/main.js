@@ -1151,7 +1151,21 @@ function frame(sh, t) {
 const A0 = +(QS.get('a') ?? 0), B0 = +(QS.get('b') ?? DUR);
 const shotAt = t => { const i = SHOTS.findIndex(s => t >= s.t0 && t < s.t1); return SHOTS[i < 0 ? SHOTS.length - 1 : i]; };
 const hookShot = t => { const i = S.findIndex(s => t >= s.t0 && t < s.t1); return S[Math.max(0, i)]; };
+function actThumb(t) {
+  reset();
+  put(THEO, THB, -.35); put(MIA, MIB, .35);
+  apply(THEO, { ...TP.sitLaugh, y: -.06 }, { t, seed: 1, face: 'laugh', look: headOf(MIA) }); apply(MIA, { ...TP.sitLaugh, y: -.06 }, { t, seed: 4, face: 'laugh', look: headOf(THEO) });
+  const kp = BEN.clone().add(V(-1.7, 0, .9)); put(KAI, kp, .5); apply(KAI, TP.cross, { t, seed: 6, face: 'shock', look: headOf(MIA) });
+  HEART.visible = true; HEART.userData.cs = { st: { pct: 0, fill: 1, glow: 1, show: 1 }, at: headOf(THEO).lerp(headOf(MIA), .5).add(V(0, .45, .1)), s: 1.15 };
+  card(THEO, { s: .5, mini: 1 }); card(MIA, { s: .5, mini: 1 }); kaiCard({ s: .5, mini: 1 });
+}
+const THUMB = { t0: 0, t1: 1, set: 'city', lt: SUNNY, at: BEN, act: actThumb,
+  cam: () => camAt(BEN.clone().add(V(-1.15, 1.25, 2.5)), BEN.clone().add(V(-.75, 1.42, 0)), 36, 2.6, 5) };
 function render(t) {
+  if (QS.get('thumb')) { ov.clearRect(0, 0, W, H); frame(THUMB, 2.1);
+    const g = ov.createLinearGradient(0, 0, 900, 0); g.addColorStop(0, 'rgba(10,12,22,.82)'); g.addColorStop(1, 'rgba(10,12,22,0)'); ov.fillStyle = g; ov.fillRect(0, 0, 1000, H);
+    [['SHE CHOSE', 300, '#FFFFFF', 120], ['THE', 430, '#FFFFFF', 120], ['0%', 690, '#FF6FA0', 330]].forEach(([text, y, col, size]) => { ov.save(); ov.translate(470, y); ov.rotate(-.05); ov.font = `900 ${size}px Montserrat`; ov.textAlign = 'center'; ov.textBaseline = 'middle'; ov.lineJoin = 'round'; ov.lineWidth = size * .16; ov.strokeStyle = '#000'; ov.strokeText(text, 0, 0); ov.fillStyle = col; ov.fillText(text, 0, 0); ov.restore(); });
+    return; }
   const sh = shotAt(t);
   ov.clearRect(0, 0, W, H);
   if (sh.card !== undefined) { drawChapter(sh.card, t); return; }
