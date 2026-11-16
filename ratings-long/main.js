@@ -919,7 +919,7 @@ function actOld(t) {
 // ---------------- the giant screen ----------------
 function screenState(t) {
   if (t < C.L4) return { mode: 'mh', v: HOOK.mh };
-  if (t < C.L27) return t > tLive26 - .2 ? { mode: 'rounds' } : { mode: 'logo' };
+  if (t < C.L27) return t > tThree26 - .2 ? { mode: 'rounds' } : { mode: 'logo' };
   if (t < C.L28) return { mode: 'rounds' };
   if (t < C.L29) return t > tClerk28 ? { mode: 'laugh' } : { mode: 'rounds' };
   if (t < C.L30) return { mode: 'race', k: seg(t, tSweat29 - .6, tLast29 + .3) };
