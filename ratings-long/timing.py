@@ -16,6 +16,9 @@ BPM = 120; B = 60 / BPM
 LEAD = .20                                   # the scene cut lands this long (at most a beat) before the line is heard
 GAP, CH_GAP, MAXP = .30, 2.9, .34            # pause between lines, before a chapter (the card), longest pause kept inside a line
 TEMPO = float(os.environ.get('TEMPO', 1.08)) # a touch faster than the read (pitch unchanged)
+# line starts checked by ear/eye in the take, where the pauses alone are ambiguous (seconds in the raw file, before the speed-up):
+# "9. 6. 4." belongs to the freeze, "Second place." to its own line, "The screen spins." to the partner reveal
+FORCE = {'L31': 173.13, 'L33': 183.33, 'L34': 186.71, 'L37': 204.43}
 
 def syl(w, over):
     if w in over: return over[w]
@@ -131,11 +134,14 @@ def split_lines(segs):
     voiced = sum(e - s for s, e in segs); exp_ = [voiced * k / sum(sy) for k in sy]
     gap = [0] + [segs[i][0] - segs[i - 1][1] for i in range(1, n)]
     vs = np.concatenate([[0], np.cumsum([e - s for s, e in segs])])
+    fx = {i: int(np.argmin([abs(s0 - FORCE[l[0]] / TEMPO) for s0, _ in segs])) for i, l in enumerate(LINES) if l[0] in FORCE}
     INF = 1e18; best = np.full((L + 1, n + 1), INF); arg = np.zeros((L + 1, n + 1), int); best[0][0] = 0
     for k in range(1, L + 1):
         for b in range(k, n - (L - k) + 1):
+            if k in fx and b != fx[k]: continue          # the next line must start where it was checked
             for a in range(max(k - 1, b - 40), b):
                 if best[k - 1][a] >= INF: continue
+                if (k - 1) in fx and a != fx[k - 1]: continue
                 v = vs[b] - vs[a]
                 c = best[k - 1][a] + ((v - exp_[k - 1]) / exp_[k - 1]) ** 2 - (1.2 * min(gap[a], .9) if a > 0 else 0)
                 if c < best[k][b]: best[k][b] = c; arg[k][b] = a

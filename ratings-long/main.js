@@ -434,12 +434,9 @@ sh({ t0: tPartners32 - .1, set: 'stadium', lt: STADIUM, at: SO, act: t => actHos
 // The screen spins. Theo's partner?
 sh({ t0: C.L33, set: 'stadium', lt: STADIUM, at: SO, act: t => actPair(t),
   cam: (t, u) => hand(camAt(SP(-18, 0, 5.0), SP(-44, 0, 12.5), 38, 26, .5), t, .5) });
-// Kai.: the two of them on the infield
+// Kai. The filters drop.: the two of them on the infield; every card in the place glitches
 sh({ t0: tKai33 - .05, set: 'stadium', lt: STADIUM, at: SO, act: t => actPair(t),
-  cam: (t, u) => hand(camAt(SP(.9, 3.6, 1.5), SP(.1, 0, 1.7), 42, 3.6, 4), t) });
-// The filters drop.: every card in the place glitches
-sh({ t0: C.L34, set: 'stadium', lt: STADIUM, at: SO, act: t => actPair(t),
-  cam: (t, u) => hand(camAt(SP(lerp(1.3, 1.1, u), lerp(4.2, 3.8, u), 1.7), SP(.1, 0, 1.95), 46, 4.0, 3), t) });
+  cam: (t, u) => hand(camAt(SP(lerp(1.0, 1.2, u), lerp(3.7, 4.1, u), lerp(1.5, 1.65, u)), SP(.1, 0, lerp(1.7, 1.9, u)), lerp(42, 46, u), 3.8, 4), t) });
 // Every card in the stadium flickers.: the stands, every pill flickering
 sh({ t0: tEvery34 - .1, set: 'stadium', lt: STADIUM, at: SO, act: t => actPair(t),
   cam: (t, u) => hand(camAt(SP(lerp(-6, -2, u), 10, 4), SP(lerp(-10, -6, u), 40, 6), 40, 30, .6), t, .8) });
