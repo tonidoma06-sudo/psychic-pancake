@@ -245,6 +245,7 @@ const TVC = () => STAD.userData.tvcam.getWorldPosition(V());
 const STG = SP(SD.stage[0], SD.stage[1], 1.2), DESK = SP(SD.desk[0], SD.desk[1]), JT = () => STAD.userData.judges.getWorldPosition(V());
 const SCR = SP(-44, 0, 12);
 const RX = t => lerp(-26, 6, seg(t, C.L29 - .4, tTheo29 + .4));                         // the leaders down the home straight
+const THX29 = t => t < tTheo29 - .1 ? -40 : t < tLot29 - .1 ? lerp(-21.5, -20.4, seg(t, tTheo29 - .1, tLot29 - .1)) : lerp(-20.4, -19.6, seg(t, tLot29 - .1, C.L30));   // Theo, way back
 
 // the wall: climbers face it (ry = π); WP(x, y) = feet at height y, x along the wall
 const WALLX = SD.wall[0], WALLZ = SD.wall[1];
@@ -338,7 +339,7 @@ sh({ t0: tMia15 + .25, set: 'city', lt: SUNNY, at: V(ST.cross, 0, 3), act: t => 
   cam: (t, u) => { const m = MIAX(t); return hand(camAt(m.clone().add(V(lerp(.9, .7, u), lerp(1.65, 1.7, u), lerp(-3.4, -3.0, eo(u)))), m.clone().add(V(.15, 1.75, 0)), 40, 3.3, 4), t); } });
 // That's a 36-point gap.: both of them, the road between
 sh({ t0: C.L16, set: 'city', lt: SUNNY, at: V(ST.cross, 0, 0), act: t => actLove(t), after: 1,
-  cam: (t, u) => { const a = headOf(THEO), b = headOf(MIA); return hand(camAt(a.clone().add(V(lerp(-.9, -.75, u), lerp(.5, .45, u), lerp(-2.1, -1.8, u))), a.clone().lerp(b, .62).add(V(0, .3, 0)), 40, 6, 2), t); } });
+  cam: (t, u) => { const a = headOf(THEO), b = headOf(MIA); return hand(camAt(a.clone().add(V(lerp(-.75, -.6, u), lerp(.45, .4, u), lerp(-3.8, -3.5, u))), a.clone().lerp(b, .7).add(V(0, .25, 0)), 22, 11, 1.5), t); } });
 // that's not a crush. That's a joke.: two passers-by crack up
 sh({ t0: tCity16 - .1, set: 'city', lt: SUNNY, at: P3(ST.cross - 4, -5), act: t => actLove(t),
   cam: (t, u) => hand(camAt(P3(ST.cross - 3.6 + lerp(.3, 0, u), -2.0).add(V(0, 1.7, 0)), P3(ST.cross - 4.2, -5.4).add(V(0, 1.45, 0)), 42, 3.4, 4), t) });
@@ -399,16 +400,16 @@ sh({ t0: tClerk28 - .1, set: 'stadium', lt: STADIUM, at: DESK, act: t => actSign
   cam: (t, u) => { const h = headOf(CLERK); return hand(camAt(h.clone().add(V(lerp(1.6, 1.4, u), .1, lerp(1.4, 1.2, u))), h.clone().add(V(.35, .2, .3)), 38, 2.0, 5), t); } });
 // and the whole stadium laughs.: the stands crack up; the screen shows THEO · 52
 sh({ t0: tWhole28 - .1, set: 'stadium', lt: STADIUM, at: SP(-16, 6), act: t => actSign(t),
-  cam: (t, u) => hand(camAt(SP(lerp(-14, -14.6, u), 6.4, lerp(1.45, 1.55, u)), SP(-44, 0, 10), 46, 3, 1.0), t, 1.0) });
+  cam: (t, u) => hand(camAt(SP(lerp(-13.6, -14.2, u), 6.6, lerp(1.6, 1.7, u)), SP(-44, 0, 8), 46, 3, 1.0), t, 1.0) });
 // Round one, the race. Kai wins without breaking a sweat.: tracking alongside the leaders
 sh({ t0: C.L29, set: 'stadium', lt: STADIUM, at: SP(0, 21), act: t => actRace(t),
   cam: (t, u) => { const x = Math.min(RX(t), 3); return hand(camAt(SP(x + 2.6, 15.6, 1.5), SP(x - .3, 20.8, 1.3), 42, 5.5, 3), t, 1.4); } });
 // Theo comes in dead last.
 sh({ t0: tTheo29 - .1, set: 'stadium', lt: STADIUM, at: SP(0, 21), act: t => actRace(t), after: 1,
-  cam: (t, u) => { const x = lerp(-13.5, -11.2, seg(t, tTheo29 - .1, tLot29)); return hand(camAt(SP(x + 2.2, 19.6, 1.45), SP(x - .3, 23.4, 1.45), 40, 4.0, 4), t, 1.1); } });
+  cam: (t, u) => { const x = THX29(t); return hand(camAt(SP(x + 2.4, 20.0, 1.45), SP(x - .2, 23.6, 1.3), 40, 4.3, 4), t, 1.1); } });
 // By a lot.: from the finish line, a long lens back up the straight
 sh({ t0: tLot29 - .1, set: 'stadium', lt: STADIUM, at: SP(-10, 21), act: t => actRace(t),
-  cam: (t, u) => hand(camAt(SP(4.5, 22.6, 1.5), SP(-30, 23.4, 1.2), 9, 34, .4), t, .3) });
+  cam: (t, u) => hand(camAt(SP(4.5, 22.4, 1.5), SP(-20, 23.5, 1.0), 11, 24.5, .4), t, .3) });
 // Round two, the puzzle. And something strange happens.: the desks on the infield
 sh({ t0: C.L30, set: 'stadium', lt: STADIUM, at: SP(-1, -2), act: t => actPuzzle(t),
   cam: (t, u) => hand(camAt(SP(lerp(-11, -8.5, u), 5.5, lerp(3.4, 3.0, u)), SP(-1, -2, .9), 42, 11, 1.5), t) });
@@ -423,7 +424,7 @@ sh({ t0: C.L31, set: 'stadium', lt: STADIUM, at: STG, act: t => actPuzzle(t),
   cam: (t, u) => hand(camAt(SP(-16 + u * 1.2, 0, 5.5), SP(-44, 0, 12.5), 42, 28, .5), t, .5) });
 // For the first time all day, nobody's laughing.: the front row, quiet (Mia among them)
 sh({ t0: tFor31 - .1, set: 'stadium', lt: STADIUM, at: SP(-16, 6), act: t => actQuiet(t),
-  cam: (t, u) => hand(camAt(SP(lerp(-15.2, -15.6, u), 3.1, lerp(1.5, 1.55, u)), SP(-17.5, 5.6, 1.45), 40, 2.8, 4), t, .6) });
+  cam: (t, u) => hand(camAt(SP(lerp(-19.9, -19.6, u), lerp(4.3, 4.5, u), 1.6), SP(-16.9, 5.6, 1.5), 40, 3, 4), t, .6) });
 // Then the final is announced.: the host at the podium
 sh({ t0: C.L32, set: 'stadium', lt: STADIUM, at: STG, act: t => actHost(t),
   cam: (t, u) => { const p = STAD.userData.podium.getWorldPosition(V()); return hand(camAt(p.clone().add(V(lerp(3.2, 2.7, u), 1.4, lerp(1.2, 1.0, u))), p.clone().add(V(-.1, 1.7, .5)), 40, 3.1, 4), t); } });
@@ -467,10 +468,10 @@ sh({ t0: C.L37, set: 'stadium', lt: STADIUM, at: SP(WALLX, WALLZ), act: t => act
   cam: (t, u) => { const h = headOf(KAI); return shake(hand(camAt(h.clone().add(V(lerp(-1.4, -1.25, u), .1, lerp(.05, .02, u))), h.clone().add(V(-.04, .14, 0)), 40, 1.4, 5), t, .6), t, t > tFreezes ? 1 : 0); } });
 // He can't go up.: his eyes up the wall, the others already sitting on top
 sh({ t0: tCantUp - .1, set: 'stadium', lt: STADIUM, at: SP(WALLX, WALLZ), act: t => actWall(t), after: 1,
-  cam: (t, u) => { const h = headOf(KAI); return hand(camAt(h.clone().add(V(.15, -.1, .55)), WP(KX + .3, lerp(8.9, 9.2, u)).add(V(0, 0, .3)), 52, 4.6, 3, .05), t, .8); } });
+  cam: (t, u) => { const h = headOf(KAI); return hand(camAt(h.clone().add(V(1.1, lerp(-.9, -.8, u), 4.6)), WP(KX + .2, 6.9), 46, 5, 3, .03), t, .8); } });
 // He can't go down.: and down, the long drop
 sh({ t0: tCantDown - .1, set: 'stadium', lt: STADIUM, at: SP(WALLX, WALLZ), act: t => actWall(t), after: 1,
-  cam: (t, u) => { const h = headOf(KAI); return hand(camAt(h.clone().add(V(.25, .25, .65)), WP(KX + .2, 0).add(V(0, 0, lerp(2.2, 2.6, u))), 56, 4.6, 2, -.06), t, 1.2); } });
+  cam: (t, u) => { const h = headOf(KAI); return hand(camAt(h.clone().add(V(.55, lerp(1.2, 1.3, u), 1.25)), h.clone().add(V(.15, -2.6, .7)), 54, 2, 2, -.05), t, 1.2); } });
 // Theo could climb right past him and win.: from the side, the top of the wall above them
 sh({ t0: C.L38, set: 'stadium', lt: STADIUM, at: SP(WALLX, WALLZ), act: t => actWall(t),
   cam: (t, u) => hand(camAt(SP(WALLX + lerp(4.6, 4.3, u), WALLZ + 3.6, lerp(5.0, 5.4, u)), SP(WALLX + .2, WALLZ + .4, lerp(6.0, 6.4, u)), 46, 6, 2), t) });
@@ -488,13 +489,13 @@ sh({ t0: C.L40, set: 'stadium', lt: STADIUM, at: SP(WALLX, WALLZ), act: t => act
   cam: (t, u) => { const h = headOf(THEO); return hand(camAt(h.clone().add(V(lerp(-.8, -.72, u), .06, lerp(.62, .55, u))), h.clone().add(V(0, .08, 0)), 34, 1.0, 6), t, .5); } });
 // "Look at the next hold.": the hold above Kai's hand
 sh({ t0: tLook40 - .1, set: 'stadium', lt: STADIUM, at: SP(WALLX, WALLZ), act: t => actWall(t), after: 1,
-  cam: (t, u) => { const hp = KAI.aL.hand.getWorldPosition(V()); return hand(camAt(hp.clone().add(V(lerp(.75, .6, u), lerp(-.25, -.2, u), .55)), hp.clone().add(V(0, .12, -.15)), 36, .9, 7), t, .5); } });
+  cam: (t, u) => { const hp = KAI.aL.hand.getWorldPosition(V()); return hand(camAt(hp.clone().add(V(lerp(-.62, -.52, u), lerp(-.05, 0, u), .5)), hp.clone().add(V(.05, .14, -.2)), 36, .8, 7), t, .5); } });
 // "I'm not going anywhere.": Kai listening; the number starting to move
 sh({ t0: tIm40 - .1, set: 'stadium', lt: STADIUM, at: SP(WALLX, WALLZ), act: t => actWall(t), after: 1,
   cam: (t, u) => { const h = headOf(KAI); return hand(camAt(h.clone().add(V(lerp(.82, .74, u), .08, lerp(.6, .55, u))), h.clone().add(V(0, .12, 0)), 36, 1.0, 6), t, .5); } });
 // And the whole stadium watches the number come back.: the front row, the giant screen
 sh({ t0: C.L41, set: 'stadium', lt: STADIUM, at: SP(-16, 6), act: t => actWatch(t),
-  cam: (t, u) => hand(camAt(SP(lerp(-14, -14.6, u), 6.4, lerp(1.45, 1.55, u)), SP(-44, 0, 10), 46, 3, 1.0), t, 1.0) });
+  cam: (t, u) => hand(camAt(SP(lerp(-13.6, -14.2, u), 6.6, lerp(1.6, 1.7, u)), SP(-44, 0, 8), 46, 3, 1.0), t, 1.0) });
 // 10. 25. 40.: Kai, close; the number climbing
 sh({ t0: t10 - .1, set: 'stadium', lt: STADIUM, at: SP(WALLX, WALLZ), act: t => actWall(t), after: 1,
   cam: (t, u) => { const h = headOf(KAI); return hand(camAt(h.clone().add(V(lerp(-1.4, -1.25, u), .12, lerp(.05, .02, u))), h.clone().add(V(-.04, .16, 0)), 40, 1.4, 5), t, .6); } });
@@ -522,7 +523,7 @@ sh({ t0: C.L45, set: 'stadium', lt: STADIUM, at: STG, act: t => actResult(t), af
   cam: (t, u) => { const h = headOf(THEO), c0 = cardOf(THEO, .8), k = eio(u); return hand(camAt(h.clone().add(V(lerp(1.8, 2.4, k), lerp(.7, .5, k), lerp(.05, .35, k))), c0.clone().add(V(0, -.2, 0)).lerp(h.clone().add(V(0, .45, 0)), k), 34, 2.0, 5), t, .5); } });
 // And for the first time, 50,000 people read the small grey number.: the front row, the screen: POTENTIAL 99
 sh({ t0: tAnd45 - .1, set: 'stadium', lt: STADIUM, at: SP(-16, 6), act: t => actResult(t),
-  cam: (t, u) => hand(camAt(SP(lerp(-14, -14.8, u), 6.4, lerp(1.45, 1.6, u)), SP(-44, 0, 10.5), 46, 3, 1.0), t, 1.0) });
+  cam: (t, u) => hand(camAt(SP(lerp(-13.6, -14.4, u), 6.6, lerp(1.6, 1.75, u)), SP(-44, 0, 8.5), 46, 3, 1.0), t, 1.0) });
 // ===== 5 · the point =====
 // That night, Mia walks right past the 97 and stands next to the zero.
 sh({ t0: C.L46, set: 'city', lt: NIGHT, at: P3(4, -5.4), act: t => actNight(t),
@@ -538,7 +539,7 @@ sh({ t0: C.L48, set: 'city', lt: SUNNY, at: PRV, act: t => actKaiAfter(t),
   cam: (t, u) => hand(camAt(PRV.clone().add(V(lerp(-1.4, -1.1, u), lerp(1.7, 1.75, u), lerp(4.6, 4.1, eo(u)))), PRV.clone().add(V(-.4, 1.95, -.4)), 44, 4.3, 3), t) });
 // His mental health is right there on his card for everyone to see.: down the street, card on show
 sh({ t0: tMental48 - .1, set: 'city', lt: SUNNY, at: P3(10, -5.3), act: t => actKaiAfter(t), after: 1,
-  cam: (t, u) => { const p = KWALK(t); return hand(camAt(p.clone().add(V(-3.4, 1.55, 2.2)), p.clone().add(V(.2, 1.7, 0)), 42, 4.0, 4), t, .7); } });
+  cam: (t, u) => { const p = KWALK(t); return hand(camAt(p.clone().add(V(-2.8, 1.6, 2.7)), p.clone().add(V(-.3, 1.65, -.3)), 42, 3.9, 4), t, .7); } });
 // It's 71 now.: his card, close
 sh({ t0: t71 - .25, set: 'city', lt: SUNNY, at: P3(8, -5.3), act: t => actKaiAfter(t), after: 1,
   cam: (t, u) => { const c0 = cardOf(KAI); return hand(camAt(c0.clone().add(V(lerp(-.5, -.3, u), lerp(-.3, -.27, u), lerp(1.8, 1.55, u))), c0.clone().add(V(-.1, -.27, 0)), 30, 1.6, 6), t, .5); } });
@@ -788,10 +789,11 @@ function actSign(t) {
 function actRace(t) {
   reset(); STAD.userData.cheer(t, 1);
   const x = RX(t), lanes = SD.lanes;
-  put(KAI, SP(x, lanes[2]), Math.PI / 2); apply(KAI, walk({ ...TP.stand, sp: [12, 0, 0], aL: [-30, 12, 0, 90], aR: [-30, 12, 0, 90] }, t * 14, 1.6), { t, seed: 6, face: t > tSweat29 - .3 ? 'smug' : 'calm', look: CAMP }); KAI.P.position.y = SO.y + Math.abs(Math.sin(t * 14)) * .07;
+  const gone = t >= tLot29 - .1;   // the leaders are long past the line
+  put(KAI, SP(gone ? 40 : x, lanes[2]), Math.PI / 2); apply(KAI, walk({ ...TP.stand, sp: [12, 0, 0], aL: [-30, 12, 0, 90], aR: [-30, 12, 0, 90] }, t * 14, 1.6), { t, seed: 6, face: t > tSweat29 - .3 ? 'smug' : 'calm', look: CAMP }); KAI.P.position.y = SO.y + Math.abs(Math.sin(t * 14)) * .07;
   kaiCard({ s: .6 });
-  RUN.forEach((p, i) => { const rx = x - 1.4 - i * .9 - Math.sin(t * 3 + i) * .2; put(p, SP(rx, lanes[[0, 1, 3, 4][i]]), Math.PI / 2); apply(p, walk({ ...TP.stand, sp: [12, 0, 0], aL: [-30, 12, 0, 90], aR: [-30, 12, 0, 90] }, t * 14 + i, 1.5), { t, seed: 40 + i, face: 'angry', look: CAMP }); card(p, { s: .9 }); });
-  const tx = t < tTheo29 - .1 ? -40 : t < tLot29 - .1 ? lerp(-31, -29.6, seg(t, tTheo29 - .1, tLot29 - .1)) : lerp(-29.6, -28.6, seg(t, tLot29 - .1, C.L30)), tp = SP(tx, lanes[4] + .2);
+  RUN.forEach((p, i) => { const rx = gone ? 40 : x - 1.4 - i * .9 - Math.sin(t * 3 + i) * .2; put(p, SP(rx, lanes[[0, 1, 3, 4][i]]), Math.PI / 2); apply(p, walk({ ...TP.stand, sp: [12, 0, 0], aL: [-30, 12, 0, 90], aR: [-30, 12, 0, 90] }, t * 14 + i, 1.5), { t, seed: 40 + i, face: 'angry', look: CAMP }); card(p, { s: .9 }); });
+  const tp = SP(THX29(t), lanes[4] + .2);
   put(THEO, tp, Math.PI / 2 - .1); apply(THEO, walk({ ...TP.stand, sp: [24, 0, 0], hd: [8, 0, 0], aL: [-10, 18, 0, 30], aR: [-10, 18, 0, 30] }, t * 9, 1.0), { t, seed: 1, face: 'worried', look: CAMP }); card(THEO, { s: .7, mini: 1 });
   TAPE.visible = true; TAPE.position.copy(SP(SD.finish, 21, 1.15)); TAPE.rotation.set(0, 0, 0);
   if (x > SD.finish - .3) { TAPE.position.x = SO.x + SD.finish + Math.min(.8, (x - SD.finish) * .3); TAPE.scale.z = .4; } else TAPE.scale.z = 1;
@@ -900,7 +902,7 @@ function actKaiAfter(t) {
   const p = KWALK(t); crowd(t, 10, 1, p.x - 2, p); clearAround(p, 1.4, 1.2, 10);
   put(KAI, p, -Math.PI / 2 + .25); apply(KAI, t > t71 - .25 ? TP.stand : walk(TP.stand, t * 6.5, .85), { t, seed: 6, face: 'smile', look: CAMP });
   // two passers-by notice his number, and smile
-  [[LAU[0], P3(p.x - 1.6, -6.4)], [HIGH, P3(p.x - 2.4, -4.6)]].forEach(([q, w0], i) => { put(q, w0, face(w0, p)); apply(q, i ? TP.wave : TP.stand, { t, seed: 15 + i * 3, face: 'smile', look: cardOf(KAI) }); card(q); });
+  [[LAU[0], P3(p.x - 1.5, -6.7)], [HIGH, P3(p.x - 2.3, -7.0)]].forEach(([q, w0], i) => { put(q, w0, face(w0, p)); apply(q, i ? TP.wave : TP.stand, { t, seed: 15 + i * 3, face: 'smile', look: cardOf(KAI) }); card(q); });
   card(KAI, { v, s: t > t71 - .25 ? 1 : .7, hl: 'mh', pop: t > t71 - .05 && t < t71 + .9 ? [{ k: 'mh', d: 59, a: (t - t71 + .05) / .9 }] : [] });
 }
 function actOld(t) {
@@ -1025,16 +1027,14 @@ const TEL = [
   { t0: tSecond31 - .05, t1: tFor31 - .1, text: '2ND PLACE', y: 140, size: 130, col: '#FFC83A', rot: -5, stamp: 1 },
   { t0: tSwitched32 - .05, t1: C.L33, text: 'ALL FILTERS: OFF', y: 130, size: 92, col: '#FFFFFF', rot: -3, plate: '#C8283A' },
   { t0: tKai33 - .05, t1: C.L34, text: 'THEO + KAI', y: 130, size: 120, col: '#FFD23F', rot: -5, plate: '#16131A' },
-  { t0: t12_35 - .05, t1: tThats35 - .1, text: 'MENTAL HEALTH: 12', y: 130, size: 96, col: '#FFFFFF', rot: -4, plate: '#C8283A' },
   { t0: C.L36 + .05, t1: tHalfway36 - .1, text: 'ROUND 3: THE WALL', y: 130, size: 92, col: '#FFFFFF', rot: -3, plate: '#C8283A' },
   { t0: t50k36 - .05, t1: C.L37, text: '50,000 WATCHING', y: 130, size: 96, col: '#FFFFFF', rot: -4, plate: '#16131A' },
   { t0: tLast42 - .05, t1: C.L43, text: 'DEAD LAST', y: 140, size: 130, col: '#E8423A', rot: -6, stamp: 1 },
-  { t0: t40_44 - .05, t1: tTheos44 - .1, text: 'EQ +40', y: 130, size: 130, col: '#4ADB6A', rot: -5, plate: '#16131A' },
+  { t0: t40_44 - .05, t1: tTheos44 - .1, text: 'EQ +40', x: 1570, y: 300, size: 110, col: '#4ADB6A', rot: -5, plate: '#16131A' },
   { t0: tSmall45 - .05, t1: CHS[4].t0, text: 'POTENTIAL: 99', y: 130, size: 110, col: '#FFC83A', rot: -5, plate: '#16131A' },
   { t0: C.L46 + .05, t1: t97_46 - .3, text: 'THAT NIGHT', y: 130, size: 88, col: '#FFFFFF', rot: -2, plate: '#2A3A7A' },
   { t0: tCompat47 - .05, t1: tThey47 - .1, text: 'COMPATIBILITY = HOW ALIKE', y: 130, size: 80, col: '#FFFFFF', rot: -3, plate: '#C84A7A' },
   { t0: tCancelled48 - .05, t1: tMental48 - .1, text: 'PRIVACY PLAN: CANCELLED', y: 140, size: 96, col: '#E8423A', rot: -5, stamp: 1 },
-  { t0: t71 - .05, t1: C.L49, text: 'MENTAL HEALTH: 71', y: 130, size: 100, col: '#C8E04A', rot: -4, plate: '#16131A' },
   { t0: C.L49 + .05, t1: C.L50, text: '50 YEARS LATER', y: 130, size: 100, col: '#FFFFFF', rot: -3, plate: '#16131A' },
   { t0: t100 - .05, t1: C.L51, text: 'BOTH: 100', y: 130, size: 120, col: '#4ADB6A', rot: -5, plate: '#16131A' },
   { t0: tTell52 - .05, t1: END + 1, text: 'TELL ME IN THE COMMENTS ↓', x: 1440, y: 900, size: 54, col: '#16131A', rot: -2, plate: '#FFC83A' },
@@ -1086,7 +1086,7 @@ function drawRewind(t) {
   for (let i = 0; i < 9; i++) { const y = (hash(i + Math.floor(t * 24)) * H + t * 900 * (1 + i % 3)) % H; ov.fillStyle = `rgba(255,255,255,${.08 + hash(i * 3 + Math.floor(t * 30)) * .14})`; ov.fillRect(0, y, W, 3 + hash(i * 7) * 14); }
   ov.save(); ov.translate(140, 110); ov.globalAlpha = .9; ov.fillStyle = '#FFFFFF'; for (const dx of [0, 46]) { ov.beginPath(); ov.moveTo(dx + 44, -32); ov.lineTo(dx, 0); ov.lineTo(dx + 44, 32); ov.closePath(); ov.fill(); }
   ov.font = '900 54px Montserrat'; ov.textAlign = 'left'; ov.textBaseline = 'middle'; ov.fillText('REWIND', 110, 4); ov.restore();
-  ov.save(); ov.font = '800 40px Montserrat'; ov.fillStyle = '#FFFFFF'; ov.textAlign = 'right'; ov.globalAlpha = .85; ov.fillText(`${Math.floor(lerp(3, 0, k))} WEEKS EARLIER`, W - 80, 110); ov.restore();
+  ov.save(); ov.font = '800 40px Montserrat'; ov.fillStyle = '#FFFFFF'; ov.textAlign = 'right'; ov.globalAlpha = .85; const tc = Math.max(0, lerp(REW.a, 0, eio(k))); ov.fillText(`◀◀ 00:${String(Math.floor(tc)).padStart(2, '0')}:${String(Math.floor((tc % 1) * 24)).padStart(2, '0')}`, W - 80, 110); ov.restore();
 }
 // the end card: which one would you hide?
 const ROWS = ['STRENGTH', 'ATHLETICISM', 'HEALTH', 'IQ', 'EQ', 'MENTAL HEALTH', 'POTENTIAL'];
