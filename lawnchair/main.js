@@ -193,7 +193,7 @@ sh({ t0: C7, set: 'sky', lt: HIGH, at: SKYP, act: t => actPlanes(t),
   cam: (t, u) => hand(camAt(SKYP.clone().add(V(lerp(1.8, 1.5, u), lerp(.9, 1.0, u), lerp(3.8, 3.4, u))), SKYP.clone().add(V(-.6, 2.4, -4)), 50, 4, 2), t, .7) });
 // 7b · Two pilots radioed the tower:: the flight deck
 sh({ t0: tTwo - .1, set: 'cockpit', lt: HIGH, at: CPO, act: t => actCockpit(t),
-  cam: (t, u) => { const c = CPIT.localToWorld(V(lerp(.05, .1, u), 1.22, -.78)), l = CPIT.localToWorld(V(.3, 1.1, .1)); return hand(camAt(c, l, 52, 1.0, 4), t, .5); } });
+  cam: (t, u) => { const c = CPIT.localToWorld(V(lerp(-.1, -.05, u), 1.3, -.95)), l = CPIT.localToWorld(V(.42, 1.12, .1)); return hand(camAt(c, l, 62, 1.2, 4), t, .5); } });
 // 7c · there's a man in a lawn chair up here.: through the windscreen
 sh({ t0: tTheres - .1, set: 'cockpit', lt: HIGH, at: CPO, act: t => actCockpit(t),
   cam: (t, u) => { const c = CPIT.localToWorld(V(-.1, 1.85, .5)), l = SKYP.clone().add(V(0, 2.6, 0)); return hand(camAt(c, l, lerp(30, 24, eo(u)), c.distanceTo(l), .6), t, .4); } });
@@ -295,7 +295,7 @@ function actFreeze(t) {
 function actPlanes(t) {
   reset();
   flyer(t, SKYP, { face: t > tLAX ? 'shock' : 'happy', look: PLANE.position, pose: { aR: t > tLAX ? [-20, 150, 0, 30] : [-30, 20, 0, 50] } });
-  place(PLANE, SKYP.clone().add(V(lerp(-170, 160, seg(t, C7 - .2, tTwo + .3)), -5, -62)), [0, 0, .02], 1);
+  place(PLANE, SKYP.clone().add(V(lerp(-75, 55, seg(t, C7 - .2, tTwo + .3)), -4, -62)), [0, 0, .02], 1);
 }
 function actCockpit(t) {
   reset();
