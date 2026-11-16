@@ -1,0 +1,13 @@
+{
+  "id": "P005",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "It's November, I'm shut until spring and nothing is coming in, so €600 now plus €15 every month while I'm closed is money going out for nothing. My regulars and the hotels already call me on WhatsApp, and I can't see this paying back the 600 before summer.",
+  "objection": "I pay 600 up front and then 15 a month forever, even in the months I don't work, and I have no proof it brings me even one extra transfer. And if I stop the 15, does the site just go dark even if the domain is in my name?",
+  "would_change_my_mind": "Pay half in spring and half after the first season, or show me a couple of transfer guys on this coast who got real extra bookings from it, plus a clear written promise I can take the site and domain elsewhere if I stop paying.",
+  "price_too_cheap": 150,
+  "price_cheap": 300,
+  "price_expensive": 500,
+  "price_too_expensive": 800
+}

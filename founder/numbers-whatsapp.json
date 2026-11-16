@@ -1,0 +1,76 @@
+{
+  "business": "Almissa Digital: WhatsApp booking assistant for taxi/transfer/tour operators (SCENARIO B, untested by panel)",
+  "unit": "client-month",
+  "price": 60,
+  "variable": [
+    {
+      "label": "WhatsApp API number via BSP partner, e.g. 360dialog Regular ~\u20ac25/number (third-party sources)",
+      "cost": 25
+    },
+    {
+      "label": "Meta template message fees, ~100 utility msgs x ~$0.02 (indicative)",
+      "cost": 2
+    },
+    {
+      "label": "AI model usage per client (estimate)",
+      "cost": 5
+    },
+    {
+      "label": "Hosting share (estimate)",
+      "cost": 1
+    },
+    {
+      "label": "Payment fees ~3% (estimate)",
+      "cost": 1.8
+    }
+  ],
+  "fixed_monthly": [
+    {
+      "label": "Pau\u0161alni obrt contributions 2026 (MIO + HZZO, fiksaj.hr / mojafirma.hr)",
+      "cost": 290.98
+    },
+    {
+      "label": "Software: AI subscription, WhatsApp API provider, domain/hosting (estimate)",
+      "cost": 80
+    },
+    {
+      "label": "Phone and fuel for in-person visits (estimate)",
+      "cost": 60
+    }
+  ],
+  "startup": [
+    {
+      "label": "Printed QR stands and laminated cards, first 50 (estimate)",
+      "cost": 150
+    },
+    {
+      "label": "Flyers for host visits (estimate)",
+      "cost": 100
+    },
+    {
+      "label": "Facebook / Instagram ads, pre-season (estimate)",
+      "cost": 300
+    },
+    {
+      "label": "Obrt registration and accountant setup (estimate)",
+      "cost": 150
+    }
+  ],
+  "days_per_month": 1,
+  "capacity_per_day": 25,
+  "plan_per_day": 8,
+  "ramp_per_day": [
+    0,
+    1,
+    2,
+    4,
+    6,
+    8,
+    8,
+    8,
+    6,
+    3,
+    2,
+    2
+  ]
+}

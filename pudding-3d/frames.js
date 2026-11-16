@@ -1,0 +1,27 @@
+// frames.js · look test for the Eiffel Short: ?f=street | salon | close
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { makePost } from '/core/three/post.js';
+import { makeCast, POSES, apply } from './person2.js';
+import { LOOKS } from './looks.js';
+const W = 1080, H = 1920, f = new URLSearchParams(location.search).get('f') || 'street';
+await document.fonts.load('700 60px Fredoka');
+const renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true }); renderer.setPixelRatio(1); renderer.setSize(W, H);
+renderer.toneMapping = THREE.NeutralToneMapping; renderer.toneMappingExposure = 1.05; renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.getElementById('stage').appendChild(renderer.domElement);
+const scene = new THREE.Scene(); const pm = new THREE.PMREMGenerator(renderer); scene.environment = pm.fromScene(new RoomEnvironment(), .04).texture; scene.environmentIntensity = .5;
+const camera = new THREE.PerspectiveCamera(40, W / H, .05, 1200);
+const post = makePost(renderer, scene, camera, W, H, { ssaa: 1, ao: true, aoRadius: .5, aoThickness: 1, aoScale: 1.6, aoAmt: .75 });
+post.bloom.strength = .3; post.bloom.threshold = .95; post.bloom.radius = .6; const vg = post.vig.uniforms; vg.amt.value = .3; vg.sat.value = 1.1; vg.contrast.value = .15; vg.warm.value = .25;
+const sun = new THREE.DirectionalLight('#FFE9C8', 3); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -.0003; sun.shadow.normalBias = .02; scene.add(sun, sun.target);
+const hemi = new THREE.HemisphereLight('#CFE0FF', '#B89A7A', .7); scene.add(hemi);
+const shadowBox = r => { const c = sun.shadow.camera; c.left = -r; c.right = r; c.top = r; c.bottom = -r; c.near = 1; c.far = 120; c.updateProjectionMatrix(); };
+const Q = new URLSearchParams(location.search);
+scene.background = new THREE.Color('#3A3F4A'); sun.position.set(-3, 4, 6); sun.target.position.set(0, 1, 0); sun.intensity = 2.4; shadowBox(4);
+const fill = new THREE.DirectionalLight('#CFE0FF', .8); fill.position.set(4, 2, 3); scene.add(fill);
+const who = (Q.get('who') || 'david,cashier,vol1,vol2,vol3,attendant').split(','), sp = .62, yaw = +(Q.get('yaw') || .25);
+who.forEach((w, i) => { const c = makeCast(LOOKS[w]); c.P.position.set((i - (who.length - 1) / 2) * sp, 0, 0); c.P.rotation.y = yaw; scene.add(c.P); apply(c, POSES.stand, { t: i * .7, face: i % 2 ? 'happy' : 'smug' }); });
+const cy = +(Q.get('cy') || 1.1), d = +(Q.get('d') || 4.4);
+camera.position.set(0, cy + .1, d); camera.lookAt(0, cy, 0); camera.fov = 30; camera.updateProjectionMatrix(); post.dof.focus = d; post.dof.aper = 1;
+scene.updateMatrixWorld(true); post.composer.render();
+window.DUR = 1; window.render = () => post.composer.render(); window.READY = true;

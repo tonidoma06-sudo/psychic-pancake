@@ -1,0 +1,11 @@
+SOLD! The Day Rome Was Auctioned · 3D YouTube Short (1080×1920)
+
+Picture: modelled, lit and animated in code with three.js (MIT). Post (depth of field, ambient occlusion, bloom, grade):
+core/three/post.js from the Lemo-Opuscar library (github.com/lemomo-ai/lemo-opuscar, MIT). Characters, costumes, sets and
+props are built from primitives for this film; historical people appear as generic stand-ins with no real likeness.
+
+Font: Fredoka — Milena Brandão / Google Fonts, SIL Open Font License 1.1 (fonts/OFL-Fredoka.txt; files from the @fontsource npm package).
+
+Music and sound effects: synthesized in code (music.py; synth_lib.py from the Lemo-Opuscar library, MIT). No samples.
+
+Scratch voice (placeholder, replaced by the creator's own recording): Kokoro-82M v1.0 (hexgrad, Apache-2.0) via kokoro-onnx, voice am_michael.

@@ -1,0 +1,13 @@
+{
+  "id": "P015",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "I have one apartment next to my house, so if a guest has a question I just walk over or answer on my phone, and ChatGPT already translates for me for free. €120 is real money when I earn about €8,000 a year, and Booking and Airbnb already send the Wi-Fi and check-in messages automatically.",
+  "objection": "With one unit the guests don't ask me that many questions, and the platforms already do the automatic messages for free, so I don't see what I'm paying for that I can't do myself with ChatGPT.",
+  "would_change_my_mind": "If it cost around €40 for the whole season, or if a neighbour with one apartment showed me it really cut their messages in August, I'd try it with the refund guarantee.",
+  "price_too_cheap": 2,
+  "price_cheap": 5,
+  "price_expensive": 10,
+  "price_too_expensive": 18
+}

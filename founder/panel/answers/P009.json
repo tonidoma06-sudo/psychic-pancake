@@ -1,0 +1,13 @@
+{
+  "id": "P009",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "My Booking and Airbnb scheduled messages and the printed house-rules sheet already answer the Wi-Fi and parking questions. I am not handing my guests to a chatbot from a new little company I have never heard of, even if it is only €20 a month.",
+  "objection": "If this one person gets sick or closes the company in July, my guests get wrong answers in their language and the bad review lands on me, not on them.",
+  "would_change_my_mind": "A host I know on this coast using it for a whole season and telling me the guests liked it and it never embarrassed her.",
+  "price_too_cheap": 3,
+  "price_cheap": 8,
+  "price_expensive": 15,
+  "price_too_expensive": 25
+}

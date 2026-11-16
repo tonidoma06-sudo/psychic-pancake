@@ -1,0 +1,6 @@
+out/
+stills/
+__pycache__/
+*.jpg
+!poster.jpg
+voice/user.wav

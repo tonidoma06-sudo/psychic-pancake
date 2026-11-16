@@ -1,0 +1,13 @@
+{
+  "id": "P021",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "The German messages in August do eat my day, and I like that I can try it first. But nothing here tells me where my guests' data goes, and one wrong or strange answer from a robot could cost me a review point on Booking, which costs me far more than €35.",
+  "objection": "Is this legal with my guests' data under GDPR? Who stores the chats, where, and who is responsible if something goes wrong: me or them? And will it answer in proper German, or will guests feel they're talking to a machine and mark me down?",
+  "would_change_my_mind": "A written GDPR agreement saying the data stays in the EU and they take responsibility, plus seeing it answer my real German guest questions correctly during the trial on one apartment.",
+  "price_too_cheap": 8,
+  "price_cheap": 20,
+  "price_expensive": 40,
+  "price_too_expensive": 60
+}

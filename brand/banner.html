@@ -1,0 +1,47 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Odd Receipts banner</title>
+<style>
+@font-face { font-family: Montserrat; font-weight: 900; src: url('../olympics/fonts/montserrat-latin-900-normal.woff2') format('woff2'); }
+html, body { margin: 0; width: 2560px; height: 1440px; overflow: hidden; background: #FFD23F; }
+#bg { position: absolute; inset: 0; }
+.strip { position: absolute; left: 0; top: 508px; width: 2560px; height: 424px; }
+#guides { position: absolute; inset: 0; display: none; }
+.word { position: absolute; left: 50%; top: 4px; width: 990px; transform: translateX(-50%); }
+.tag { position: absolute; left: 50%; top: 346px; transform: translateX(-50%); white-space: nowrap;
+  font: 900 40px/1 Montserrat; letter-spacing: 1px; color: #fff; background: #1B1213; padding: 16px 34px 15px; border-radius: 40px; }
+.tag b { color: #FFD23F; }
+.pol { position: absolute; width: 226px; padding: 14px 14px 0; background: #fff; border: 7px solid #1B1213; border-radius: 14px;
+  box-shadow: 10px 12px 0 rgba(0,0,0,.22); }
+.pol img { display: block; width: 226px; height: 226px; object-fit: cover; border-radius: 6px; border: 4px solid #1B1213; box-sizing: border-box; }
+.pol span { display: block; text-align: center; font: 900 23px/1 Montserrat; color: #1B1213; padding: 12px 0 14px; letter-spacing: .5px; }
+</style></head>
+<body>
+<svg id="bg" width="2560" height="1440" viewBox="0 0 2560 1440"></svg>
+<div class="strip">
+  <div class="pol" style="left:18px; top:96px; transform:rotate(-6deg)"><img src="stickers/olympics.jpg"><span>1904 OLYMPICS</span></div>
+  <div class="pol" style="left:232px; top:12px; transform:rotate(5deg)"><img src="stickers/emu.jpg"><span>THE EMU WAR</span></div>
+  <img class="word" src="odd-receipts_wordmark.png">
+  <div class="tag">WEIRD TRUE STORIES. <b>WITH RECEIPTS.</b></div>
+  <div class="pol" style="left:2274px; top:96px; transform:rotate(6deg)"><img src="stickers/pudding.jpg"><span>PUDDING GUY</span></div>
+  <div class="pol" style="left:2060px; top:12px; transform:rotate(-5deg)"><img src="stickers/pepsi.jpg"><span>THE PEPSI JET</span></div>
+</div>
+<svg id="guides" width="2560" height="1440"><rect x="507" y="508" width="1546" height="424" fill="none" stroke="red" stroke-width="4" stroke-dasharray="20 12"/><rect x="0" y="508" width="2560" height="424" fill="none" stroke="blue" stroke-width="4" stroke-dasharray="20 12"/></svg>
+<script>
+// YouTube banner, 2560x1440: TV shows everything; desktop the 2560x424 strip; phones the 1546x424 centre (red guide, ?guides=1)
+const Q = new URLSearchParams(location.search); if (Q.get('guides')) document.getElementById('guides').style.display = 'block';
+const NS = 'http://www.w3.org/2000/svg', bg = document.getElementById('bg'); let html = '';
+for (let i = 0, n = 36; i < n; i++) { const a0 = i / n * Math.PI * 2, a1 = a0 + Math.PI / n, r = 2200;   // the same sunburst as the profile picture
+  html += `<path d="M1280,720 L${1280 + Math.cos(a0) * r},${720 + Math.sin(a0) * r} L${1280 + Math.cos(a1) * r},${720 + Math.sin(a1) * r} Z" fill="#FFE27A" opacity=".75"/>`; }
+html += `<radialGradient id="v" cx="50%" cy="50%" r="75%"><stop offset="45%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#B07A00" stop-opacity=".25"/></radialGradient><rect width="2560" height="1440" fill="url(#v)"/>`;
+// faint doodles above and below the strip (seen on TVs): little receipts and ?!
+let s = 11; const R = () => (s = (s * 16807) % 2147483647) / 2147483647;
+const rc = (x, y, sc, rot) => { let d = 'M-20,-28'; for (let k = 0; k < 4; k++) d += ` L${-15 + k * 10},-33 L${-10 + k * 10},-28`; d += ' L20,28'; for (let k = 3; k >= 0; k--) d += ` L${-15 + k * 10},33 L${-20 + k * 10},28`;
+  return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${sc})" opacity=".16"><path d="${d} Z" fill="none" stroke="#1B1213" stroke-width="5" stroke-linejoin="round"/><line x1="-10" y1="-6" x2="10" y2="-6" stroke="#1B1213" stroke-width="5" stroke-linecap="round"/><line x1="-10" y1="8" x2="4" y2="8" stroke="#1B1213" stroke-width="5" stroke-linecap="round"/></g>`; };
+for (let row = 0; row < 2; row++) for (let i = 0; i < 16; i++) {
+  const x = 80 + i * 160 + R() * 60, y = (row ? 1040 : 90) + R() * 330, rot = (R() - .5) * 50;
+  html += R() < .55 ? rc(x, y, 1.3 + R() * .8, rot) : `<text x="${x}" y="${y}" transform="rotate(${rot} ${x} ${y})" font-family="Montserrat" font-weight="900" font-size="${70 + R() * 40}" fill="#1B1213" opacity=".13">?!</text>`;
+}
+bg.innerHTML = html;
+Promise.all([document.fonts.ready, ...[...document.images].map(i => i.decode().catch(() => {}))]).then(() => { window.READY = true; });
+</script>
+</body></html>

@@ -1,0 +1,10 @@
+[
+ {"id":"L1","text":"In the year one ninety-three, the Roman Empire was sold... at an auction.","voice":"am_michael","speed":1.05,"asr":"In the year 193, the Roman Empire was sold at an auction."},
+ {"id":"L2","text":"The palace guards had just killed the emperor.","voice":"am_michael","speed":1.05},
+ {"id":"L3","text":"Then they offered the throne to the highest bidder.","voice":"am_michael","speed":1.05},
+ {"id":"L4","text":"The emperor's father-in-law offered every soldier twenty thousand coins.","voice":"am_michael","speed":1.05},
+ {"id":"L5","text":"A rich senator, Didius Julianus, bid twenty-five thousand.","voice":"am_michael","speed":1.05,"asr":"A rich senator, Didius Julianus, bid 25,000."},
+ {"id":"L6","text":"He won, and the Senate made him emperor.","voice":"am_michael","speed":1.05},
+ {"id":"L7","text":"Sixty-six days later, a rival general marched on Rome... and Julianus was executed.","voice":"am_michael","speed":1.05},
+ {"id":"L8","text":"He bought an entire empire, and kept it for just sixty-six days.","voice":"am_michael","speed":1.05}
+]

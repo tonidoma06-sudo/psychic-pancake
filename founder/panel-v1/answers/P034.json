@@ -1,0 +1,13 @@
+{
+  "id": "P034",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "I already paste German and Polish messages into ChatGPT at midnight, so if they set it up and I can try it first, I'd put it on one apartment and see if the WhatsApp questions drop. Because I can pause it in winter, it's not a full-year bill, but I'm not putting all my units on it until I see it work.",
+  "objection": "With four or five apartments it's €35 each plus €150 setup each, and that adds up fast for something that only really works June to September. Also, if it tells a guest something wrong about parking or check-in, I'm the one who gets the bad review.",
+  "would_change_my_mind": "If the setup fee were one fee for all my apartments, or there was a lower price per unit from the second apartment, I'd move all of them over instead of just one.",
+  "price_too_cheap": 5,
+  "price_cheap": 15,
+  "price_expensive": 30,
+  "price_too_expensive": 50
+}

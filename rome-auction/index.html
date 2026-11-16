@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SOLD! The Day Rome Was Auctioned</title>
+<style>
+  @font-face { font-family: 'Fredoka'; src: url(fonts/fredoka-latin-700-normal.woff2) format('woff2'); font-weight: 700; font-display: block; }
+  @font-face { font-family: 'Fredoka'; src: url(fonts/fredoka-latin-ext-700-normal.woff2) format('woff2'); font-weight: 700; font-display: block; unicode-range: U+0100-024F; }
+  @font-face { font-family: 'Fredoka'; src: url(fonts/fredoka-latin-600-normal.woff2) format('woff2'); font-weight: 600; font-display: block; }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #26264A; }
+  svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  .mul { mix-blend-mode: multiply; }
+</style>
+</head>
+<body>
+<svg id="stage" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="stampInk" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="11" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" seed="21" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -9 5.9" result="gm"/>
+      <feComposite in="d" in2="gm" operator="in"/>
+    </filter>
+    <clipPath id="frameClip"><rect width="1080" height="1920"/></clipPath>
+    <clipPath id="leftHalf"><rect width="540" height="1920"/></clipPath>
+    <clipPath id="rightHalf"><rect x="540" width="540" height="1920"/></clipPath>
+  </defs>
+  <g clip-path="url(#frameClip)">
+    <g id="cam"><g id="world"></g></g>
+    <g id="hud"></g>
+    <rect id="flash" width="1080" height="1920" fill="#FFFFFF" opacity="0"/>
+  </g>
+</svg>
+<script type="module" src="main.js"></script>
+</body>
+</html>

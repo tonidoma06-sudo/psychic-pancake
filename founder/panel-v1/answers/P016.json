@@ -1,0 +1,13 @@
+{
+  "id": "P016",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My guests ask the same three things, Wi-Fi, parking and the beach, and I already answer them on WhatsApp or leave a printed sheet in the apartment. With four apartments that is €140 a month plus setup for something I do myself for free.",
+  "objection": "It is a monthly fee for every apartment, forever, and I don't need a machine to tell people the Wi-Fi password. If the guest has a real problem they will still message me anyway.",
+  "would_change_my_mind": "One small yearly price for all my apartments together, only in the season, around €10 a month, with my nephew able to change the answers without calling anyone.",
+  "price_too_cheap": 2,
+  "price_cheap": 5,
+  "price_expensive": 12,
+  "price_too_expensive": 20
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P036",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "July and August really do bury me, so I see the point, but nothing here tells me where my guests' questions and data end up, and I'm the one eVisitor and the inspectors come after. With four units it's also €600 setup and €140 a month, and that's real money on what I earn.",
+  "objection": "Is this legal with guests' data under GDPR? Who stores the chats and the WhatsApp messages, where, and who is responsible if something goes wrong, me or them?",
+  "would_change_my_mind": "A written GDPR data processing agreement with EU-hosted data, plus a cheaper price per unit when I put several apartments on it, so I could try it on one unit in spring before the season.",
+  "price_too_cheap": 8,
+  "price_cheap": 15,
+  "price_expensive": 30,
+  "price_too_expensive": 45
+}

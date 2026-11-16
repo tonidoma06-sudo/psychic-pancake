@@ -1,0 +1,13 @@
+{
+  "id": "P008",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "values",
+  "reason": "My guests pay a lot for a villa week and they get me, not a robot; answering them myself, even at midnight, is the hospitality. The price is nothing, but a QR card in my villa tells them I don't have time for them.",
+  "objection": "A machine answering my guests makes the villa feel like a cheap apartment block, and I'm still not sure what happens to their messages and names once some AI company has them, signed paper or not.",
+  "would_change_my_mind": "If another villa owner I respect on this coast used it all summer and told me her guests liked it and it only took the Wi-Fi and parking questions while I was abroad, I would try it for the weeks I'm away.",
+  "price_too_cheap": 5,
+  "price_cheap": 10,
+  "price_expensive": 35,
+  "price_too_expensive": 60
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P004",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "I'm 65 and my phone already rings from Google Maps when people search 'taxi Omiš' or 'rafting Cetina'. I've never had a website and the guests still find me, so why pay €600 now?",
+  "objection": "My Facebook page and Google Maps already bring me guests, and they already WhatsApp me directly. A website is one more thing to pay for every month and I don't see it bringing new bookings I don't already get.",
+  "would_change_my_mind": "If a colleague on the coast showed me in real numbers that a website brought him more bookings, or if you fix my Google Maps first and I see the calls go up before paying for the site.",
+  "price_too_cheap": 150,
+  "price_cheap": 300,
+  "price_expensive": 500,
+  "price_too_expensive": 800
+}

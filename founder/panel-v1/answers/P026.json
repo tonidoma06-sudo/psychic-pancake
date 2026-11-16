@@ -1,0 +1,13 @@
+{
+  "id": "P026",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "I already spend my evenings answering the same Wi-Fi and parking questions in German and Polish, and I'd try it on one apartment first since I can test it before paying the monthly fee and pause it in winter. If it works there I'd add the others, but €35 times four or five units adds up fast.",
+  "objection": "What if it tells a German family the wrong check-out time or a beach that's closed and I get a bad review I can't take back? I need to see exactly what it says before guests do.",
+  "would_change_my_mind": "If in the trial it gave even one guest a wrong or made-up answer instead of forwarding the question to my WhatsApp, I would cancel.",
+  "price_too_cheap": 8,
+  "price_cheap": 20,
+  "price_expensive": 40,
+  "price_too_expensive": 60
+}

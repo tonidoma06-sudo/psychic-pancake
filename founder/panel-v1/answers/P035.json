@@ -1,0 +1,13 @@
+{
+  "id": "P035",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "My guests ask the same three things, Wi-Fi, parking and check-in, and I already have a printed sheet and copy-paste answers on my phone, even in German. Paying €35 a month for each apartment, on top of €150 setup, to answer things I answer myself in two minutes does not make sense for me.",
+  "objection": "With four apartments that is €140 a month plus €600 just to start, for a robot that sends the hard questions back to my WhatsApp anyway. I am not sure my older German guests would even scan a QR code instead of just writing to me.",
+  "would_change_my_mind": "A one-time price with no monthly fee, or one price for all my apartments together around €10 a month, and a neighbour host I trust telling me it really cut her August messages in half.",
+  "price_too_cheap": 3,
+  "price_cheap": 8,
+  "price_expensive": 15,
+  "price_too_expensive": 25
+}

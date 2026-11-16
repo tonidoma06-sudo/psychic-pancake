@@ -1,0 +1,13 @@
+{
+  "id": "P032",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "values",
+  "reason": "I have one apartment and I answer every guest myself, even at night. That is my hospitality, and my guests come back because they talk to me, not to a machine. With what I earn, €150 and then €35 a month for something I already do for free is too much.",
+  "objection": "My guests like talking to me personally, not to a robot. If a machine answers them, they will feel like they are in a hotel, not with a family.",
+  "would_change_my_mind": "If my children could not help anymore and I was too tired to answer at night, maybe, but only for Wi-Fi and parking questions, with no setup fee and around €10 a month.",
+  "price_too_cheap": 3,
+  "price_cheap": 8,
+  "price_expensive": 15,
+  "price_too_expensive": 25
+}

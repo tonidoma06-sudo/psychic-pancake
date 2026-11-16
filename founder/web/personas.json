@@ -1,0 +1,222 @@
+[
+ {
+  "id": "P001",
+  "name": "Ethan",
+  "age": 38,
+  "segment": "Restaurant, konoba or bar owner",
+  "income": 44000,
+  "behaviour": "Has an old site",
+  "behaviour_how": "A site built 5 to 10 years ago by a friend or agency, not mobile-friendly, prices out of date, only in Croatian and English.",
+  "objection": "I paid for a website before and it was never updated",
+  "habit": "you take bookings on WhatsApp while driving or on the boat"
+ },
+ {
+  "id": "P002",
+  "name": "Quinn",
+  "age": 53,
+  "segment": "Villa or apartment-house owner wanting direct bookings to avoid Booking.com commission",
+  "income": 59000,
+  "behaviour": "Cost-cutter",
+  "behaviour_how": "Avoids any monthly fee and anything not obviously paying back this season.",
+  "objection": "€600 is a lot when I don't know if it brings any bookings",
+  "habit": "you take bookings on WhatsApp while driving or on the boat"
+ },
+ {
+  "id": "P003",
+  "name": "Priya",
+  "age": 60,
+  "segment": "Taxi, transfer, tour, rafting or boat operator (takes direct bookings by phone/WhatsApp)",
+  "income": 49000,
+  "behaviour": "Commission-hater",
+  "behaviour_how": "Pays 15-25% to Booking.com, GetYourGuide or Viator and wants more direct bookings.",
+  "objection": "Who owns the domain and the site if I stop paying?",
+  "habit": "your current website still shows last year's prices"
+ },
+ {
+  "id": "P004",
+  "name": "Rafael",
+  "age": 65,
+  "segment": "Taxi, transfer, tour, rafting or boat operator (takes direct bookings by phone/WhatsApp)",
+  "income": 77000,
+  "behaviour": "Facebook-and-Instagram only",
+  "behaviour_how": "Thinks the Facebook page and Google Maps listing are enough; has never had a website.",
+  "objection": "My Facebook page and Google Maps listing already bring guests",
+  "habit": "you mostly get guests from Google Maps searches like 'taxi Omiš' or 'rafting Cetina'"
+ },
+ {
+  "id": "P005",
+  "name": "Kenji",
+  "age": 50,
+  "segment": "Taxi, transfer, tour, rafting or boat operator (takes direct bookings by phone/WhatsApp)",
+  "income": 45000,
+  "behaviour": "Cost-cutter",
+  "behaviour_how": "Avoids any monthly fee and anything not obviously paying back this season.",
+  "objection": "Who owns the domain and the site if I stop paying?",
+  "habit": "you close or slow down from November to March"
+ },
+ {
+  "id": "P006",
+  "name": "Dana",
+  "age": 46,
+  "segment": "Villa or apartment-house owner wanting direct bookings to avoid Booking.com commission",
+  "income": 60000,
+  "behaviour": "Facebook-and-Instagram only",
+  "behaviour_how": "Thinks the Facebook page and Google Maps listing are enough; has never had a website.",
+  "objection": "Another monthly fee, for a site I'll rarely change",
+  "habit": "you mostly get guests from Google Maps searches like 'taxi Omiš' or 'rafting Cetina'"
+ },
+ {
+  "id": "P007",
+  "name": "Selin",
+  "age": 37,
+  "segment": "Restaurant, konoba or bar owner",
+  "income": 113000,
+  "behaviour": "Has an old site",
+  "behaviour_how": "A site built 5 to 10 years ago by a friend or agency, not mobile-friendly, prices out of date, only in Croatian and English.",
+  "objection": "My nephew or a friend can make one for free or with Wix",
+  "habit": "your current website still shows last year's prices"
+ },
+ {
+  "id": "P008",
+  "name": "Owen",
+  "age": 43,
+  "segment": "Taxi, transfer, tour, rafting or boat operator (takes direct bookings by phone/WhatsApp)",
+  "income": 60000,
+  "behaviour": "Facebook-and-Instagram only",
+  "behaviour_how": "Thinks the Facebook page and Google Maps listing are enough; has never had a website.",
+  "objection": "€600 is a lot when I don't know if it brings any bookings",
+  "habit": "your current website still shows last year's prices"
+ },
+ {
+  "id": "P009",
+  "name": "Cole",
+  "age": 49,
+  "segment": "Taxi, transfer, tour, rafting or boat operator (takes direct bookings by phone/WhatsApp)",
+  "income": 45000,
+  "behaviour": "Commission-hater",
+  "behaviour_how": "Pays 15-25% to Booking.com, GetYourGuide or Viator and wants more direct bookings.",
+  "objection": "Guests book through Booking or GetYourGuide anyway",
+  "habit": "you mostly get guests from Google Maps searches like 'taxi Omiš' or 'rafting Cetina'"
+ },
+ {
+  "id": "P010",
+  "name": "Ravi",
+  "age": 56,
+  "segment": "Restaurant, konoba or bar owner",
+  "income": 112000,
+  "behaviour": "Facebook-and-Instagram only",
+  "behaviour_how": "Thinks the Facebook page and Google Maps listing are enough; has never had a website.",
+  "objection": "€600 is a lot when I don't know if it brings any bookings",
+  "habit": "you take bookings on WhatsApp while driving or on the boat"
+ },
+ {
+  "id": "P011",
+  "name": "Zoe",
+  "age": 36,
+  "segment": "Single-apartment host or small trade (only a Facebook page now)",
+  "income": 16000,
+  "behaviour": "Early adopter",
+  "behaviour_how": "Already uses WhatsApp Business and online booking; wants something modern.",
+  "objection": "I paid for a website before and it was never updated",
+  "habit": "your current website still shows last year's prices"
+ },
+ {
+  "id": "P012",
+  "name": "June",
+  "age": 64,
+  "segment": "Villa or apartment-house owner wanting direct bookings to avoid Booking.com commission",
+  "income": 29000,
+  "behaviour": "Has an old site",
+  "behaviour_how": "A site built 5 to 10 years ago by a friend or agency, not mobile-friendly, prices out of date, only in Croatian and English.",
+  "objection": "Guests book through Booking or GetYourGuide anyway",
+  "habit": "your daughter runs the Instagram account"
+ },
+ {
+  "id": "P013",
+  "name": "Maya",
+  "age": 45,
+  "segment": "Villa or apartment-house owner wanting direct bookings to avoid Booking.com commission",
+  "income": 49000,
+  "behaviour": "DIY tempted",
+  "behaviour_how": "Has looked at Wix or asked a nephew; would rather spend nothing.",
+  "objection": "I paid for a website before and it was never updated",
+  "habit": "your daughter runs the Instagram account"
+ },
+ {
+  "id": "P014",
+  "name": "Andre",
+  "age": 65,
+  "segment": "Restaurant, konoba or bar owner",
+  "income": 97000,
+  "behaviour": "Review and Google-ranking focused",
+  "behaviour_how": "Checks where they appear on Google Maps and what guests see first.",
+  "objection": "Guests book through Booking or GetYourGuide anyway",
+  "habit": "you mostly get guests from Google Maps searches like 'taxi Omiš' or 'rafting Cetina'"
+ },
+ {
+  "id": "P015",
+  "name": "Victor",
+  "age": 65,
+  "segment": "Taxi, transfer, tour, rafting or boat operator (takes direct bookings by phone/WhatsApp)",
+  "income": 41000,
+  "behaviour": "Facebook-and-Instagram only",
+  "behaviour_how": "Thinks the Facebook page and Google Maps listing are enough; has never had a website.",
+  "objection": "Another monthly fee, for a site I'll rarely change",
+  "habit": "you pay commission to a booking platform on most bookings"
+ },
+ {
+  "id": "P016",
+  "name": "Sara",
+  "age": 52,
+  "segment": "Restaurant, konoba or bar owner",
+  "income": 35000,
+  "behaviour": "Has an old site",
+  "behaviour_how": "A site built 5 to 10 years ago by a friend or agency, not mobile-friendly, prices out of date, only in Croatian and English.",
+  "objection": "€600 is a lot when I don't know if it brings any bookings",
+  "habit": "you pay commission to a booking platform on most bookings"
+ },
+ {
+  "id": "P017",
+  "name": "Diego",
+  "age": 41,
+  "segment": "Taxi, transfer, tour, rafting or boat operator (takes direct bookings by phone/WhatsApp)",
+  "income": 20000,
+  "behaviour": "DIY tempted",
+  "behaviour_how": "Has looked at Wix or asked a nephew; would rather spend nothing.",
+  "objection": "My Facebook page and Google Maps listing already bring guests",
+  "habit": "your daughter runs the Instagram account"
+ },
+ {
+  "id": "P018",
+  "name": "Sienna",
+  "age": 43,
+  "segment": "Single-apartment host or small trade (only a Facebook page now)",
+  "income": 25000,
+  "behaviour": "DIY tempted",
+  "behaviour_how": "Has looked at Wix or asked a nephew; would rather spend nothing.",
+  "objection": "Who owns the domain and the site if I stop paying?",
+  "habit": "you close or slow down from November to March"
+ },
+ {
+  "id": "P019",
+  "name": "Ava",
+  "age": 40,
+  "segment": "Single-apartment host or small trade (only a Facebook page now)",
+  "income": 20000,
+  "behaviour": "Commission-hater",
+  "behaviour_how": "Pays 15-25% to Booking.com, GetYourGuide or Viator and wants more direct bookings.",
+  "objection": "Another monthly fee, for a site I'll rarely change",
+  "habit": "you close or slow down from November to March"
+ },
+ {
+  "id": "P020",
+  "name": "Caleb",
+  "age": 52,
+  "segment": "Villa or apartment-house owner wanting direct bookings to avoid Booking.com commission",
+  "income": 29000,
+  "behaviour": "Review and Google-ranking focused",
+  "behaviour_how": "Checks where they appear on Google Maps and what guests see first.",
+  "objection": "Who owns the domain and the site if I stop paying?",
+  "habit": "you mostly get guests from Google Maps searches like 'taxi Omiš' or 'rafting Cetina'"
+ }
+]

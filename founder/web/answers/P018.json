@@ -1,0 +1,13 @@
+{
+  "id": "P018",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "€600 is a lot of money for one apartment, and it's November, so I'm closed and nothing is coming in until spring. My Facebook page brings me guests, and if I want a site my nephew can try Wix for free.",
+  "objection": "Who owns the domain and the site if I stop paying the €15? You say it's mine, but I want to know if I can take it somewhere else without losing everything I paid €600 for.",
+  "would_change_my_mind": "A much lower price for a simple one-page site for one apartment, paid in spring when the bookings start, with the domain transfer written down on paper.",
+  "price_too_cheap": 100,
+  "price_cheap": 200,
+  "price_expensive": 350,
+  "price_too_expensive": 500
+}

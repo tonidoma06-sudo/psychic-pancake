@@ -1,0 +1,13 @@
+{
+  "id": "P004",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "habit",
+  "reason": "Answering my guests myself, even at midnight, is my hospitality and why they come back and leave good reviews. It is not expensive, but I don't want a machine talking to my guests in my name, and the Wi-Fi password is already on a card on the fridge.",
+  "objection": "Guests will feel they are talking to a robot instead of the host, and if it tells a German family something wrong about parking or check-in, it is my review that suffers, not the company's. And I still worry what happens with my guests' data, paper agreement or not.",
+  "would_change_my_mind": "If another host I know on the coast used it for a whole season and showed me it cut the night messages without guests complaining, and my son checked the GDPR agreement and said it is fine.",
+  "price_too_cheap": 3,
+  "price_cheap": 8,
+  "price_expensive": 20,
+  "price_too_expensive": 35
+}

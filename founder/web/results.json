@@ -1,0 +1,180 @@
+{
+ "business": "Almissa Digital: multilingual websites for small tourism businesses, Omiš/Croatia",
+ "seed": 908811,
+ "dealt": 20,
+ "answered": 20,
+ "skipped": [],
+ "buys": 2,
+ "passes": 18,
+ "buy_rate": 0.1,
+ "by_segment": [
+  [
+   "Villa or apartment-house owner wanting direct bookings to avoid Booking.com commission",
+   5,
+   0.2
+  ],
+  [
+   "Taxi, transfer, tour, rafting or boat operator (takes direct bookings by phone/WhatsApp)",
+   7,
+   0.14285714285714285
+  ],
+  [
+   "Restaurant, konoba or bar owner",
+   5,
+   0.0
+  ],
+  [
+   "Single-apartment host or small trade (only a Facebook page now)",
+   3,
+   0.0
+  ]
+ ],
+ "by_behaviour": [
+  [
+   "Review and Google-ranking focused",
+   2,
+   0.5
+  ],
+  [
+   "Commission-hater",
+   3,
+   0.3333333333333333
+  ],
+  [
+   "Has an old site",
+   4,
+   0.0
+  ],
+  [
+   "Cost-cutter",
+   2,
+   0.0
+  ],
+  [
+   "Facebook-and-Instagram only",
+   5,
+   0.0
+  ],
+  [
+   "Early adopter",
+   1,
+   0.0
+  ],
+  [
+   "DIY tempted",
+   3,
+   0.0
+  ]
+ ],
+ "by_income": [
+  [
+   "under $35,000",
+   6,
+   0.16666666666666666
+  ],
+  [
+   "$35,000 to $59,000",
+   7,
+   0.14285714285714285
+  ],
+  [
+   "$59,000 and up",
+   7,
+   0.0
+  ]
+ ],
+ "why_not": [
+  [
+   "need",
+   8,
+   [
+    "I'm 65 and my phone already rings from Google Maps when people search 'taxi Omiš' or 'rafting Cetina'. I've never had a website and the guests still find me, so why pay €600 now?",
+    "My bookings already come through Facebook, Instagram, Google Maps and WhatsApp, so I don't see what a website adds. €600 plus €15 every month is real money for something I'm not sure brings even one extra transfer."
+   ],
+   [
+    "P004",
+    "P008"
+   ]
+  ],
+  [
+   "price",
+   6,
+   [
+    "Six hundred euros up front plus fifteen every month, and nobody can tell me how many direct bookings it brings. My guests already find me on Booking and message me on WhatsApp, so I'd be paying for a nice page that maybe pays back next year, maybe never.",
+    "It's November, I'm shut until spring and nothing is coming in, so €600 now plus €15 every month while I'm closed is money going out for nothing. My regulars and the hotels already call me on WhatsApp, and I can't see this paying back the 600 before summer."
+   ],
+   [
+    "P002",
+    "P005"
+   ]
+  ],
+  [
+   "trust",
+   2,
+   [
+    "The price is fair and the WhatsApp changes sound like exactly what I needed last time, but I've heard 'we'll keep it updated' before and then nobody answered. I'm not handing over €600 to a name I don't know just from an ad.",
+    "The price is fair and my old site with last year's prices does embarrass me, but my guests mostly find me on Google Maps and TripAdvisor, and I have never heard of Almissa Digital. I am not handing €600 to a name I saw in passing; my nephew keeps saying he can do it with Wix."
+   ],
+   [
+    "P001",
+    "P007"
+   ]
+  ],
+  [
+   "habit",
+   1,
+   [
+    "My guests find me on Booking.com, Google Maps and Facebook, and I've never needed a website. Six hundred euros plus a monthly fee for a site I'd hardly touch doesn't feel urgent while the bookings keep coming."
+   ],
+   [
+    "P006"
+   ]
+  ],
+  [
+   "timing",
+   1,
+   [
+    "It's November, my apartment is empty until spring and so is my wallet, so €600 now for something that only pays back in summer is not happening. Maybe I'd think about it in February or March before the season starts."
+   ],
+   [
+    "P019"
+   ]
+  ]
+ ],
+ "why_yes": [
+  [
+   "need",
+   2,
+   [
+    "My site still shows last year's prices and I am sick of giving Viator and GetYourGuide a fifth of every booking; €600 is what I lose in commission on a handful of transfers. The domain is in my name and there is no long contract, so if it brings me even a few WhatsApp bookings a month it has paid for itself.",
+    "Booking.com takes around 15% of every stay, so if this site plus a tidy Google Maps profile brings me even two or three direct bookings a season, the €600 pays for itself. The domain being in my name was my first worry and they already answered it, and November is the right time to get it done before the season."
+   ],
+   [
+    "P003",
+    "P020"
+   ]
+  ]
+ ],
+ "flip": [
+  "Seeing a few sites they already built for other konobas or businesses near me and hearing from one of those owners that changes really get done in two days.",
+  "If they took a smaller deposit and the rest only after the site brought me a few direct bookings, or showed me a villa owner nearby who saved more than €600 in Booking commission in one season with it.",
+  "If a colleague on the coast showed me in real numbers that a website brought him more bookings, or if you fix my Google Maps first and I see the calls go up before paying for the site.",
+  "Pay half in spring and half after the first season, or show me a couple of transfer guys on this coast who got real extra bookings from it, plus a clear written promise I can take the site and domain elsewhere if I stop paying.",
+  "Proof from another villa or apartment owner nearby that their site brought real direct bookings in the first season, enough to save more than it cost in Booking commission.",
+  "Seeing two or three sites they already made for konobas or restaurants near Omiš or Makarska, and hearing from one of those owners that changes really happen within two days.",
+  "Seeing another taxi or boat guy on this coast whose new site actually brought him more WhatsApp bookings, or paying half now and half only after the bookings come.",
+  "Another taxi or rafting guy from Omiš showing me his WhatsApp bookings went up and his commission bill went down after the site, or paying part of it only after it brings me bookings.",
+  "If a konoba near me showed me real numbers, more reservations after their site went up, or if you did the Google Maps tidy-up first and took the €600 only once I saw more calls and messages.",
+  "A smaller one-apartment package around €300, or splitting the €600 into payments before the season starts.",
+  "If a villa owner near me showed me they really got direct bookings from a site like this in one season, and my daughter said she could send guests to it from Instagram.",
+  "Seeing another villa owner nearby who actually gets direct bookings from their site, and paying part of the €600 only after it brings me a booking or two.",
+  "If you could show me that a restaurant like mine moved up on Google Maps and got more guests because of your profile work and the website, with real numbers from someone on this coast I can call.",
+  "Proof from another driver or boat operator nearby that the site actually brought direct bookings and cut what they pay the booking platform in commission within one season.",
+  "Seeing a konoba or restaurant nearby that got real WhatsApp bookings from a site like this, or paying half now and the rest only after the season if it brought guests.",
+  "Seeing another taxi or transfer guy here on the coast show me in numbers that he got more bookings from his site in one season than it cost, or paying only when the first bookings come through.",
+  "A much lower price for a simple one-page site for one apartment, paid in spring when the bookings start, with the domain transfer written down on paper.",
+  "Being able to pay in two parts, half now and half after my first direct booking, or seeing another apartment owner near me who really got direct bookings from it."
+ ],
+ "purchases_first_month_per_buyer": 1.0,
+ "price_answers": 20
+}

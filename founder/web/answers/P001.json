@@ -1,0 +1,13 @@
+{
+  "id": "P001",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "The price is fair and the WhatsApp changes sound like exactly what I needed last time, but I've heard 'we'll keep it updated' before and then nobody answered. I'm not handing over €600 to a name I don't know just from an ad.",
+  "objection": "I paid for a website before and it was never updated. Who says these guys will still be around and answering my WhatsApp in two years, in the middle of August?",
+  "would_change_my_mind": "Seeing a few sites they already built for other konobas or businesses near me and hearing from one of those owners that changes really get done in two days.",
+  "price_too_cheap": 200,
+  "price_cheap": 400,
+  "price_expensive": 800,
+  "price_too_expensive": 1200
+}

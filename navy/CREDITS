@@ -1,0 +1,15 @@
+Pepsi's Navy · 3D YouTube Short (1080×1920), style v4 "Toon 3D"
+
+Picture: modelled, lit and animated in code with three.js (MIT). Post (depth of field, bloom, grade): core/three/post.js from
+the Lemo-Opuscar library (github.com/lemomo-ai/lemo-opuscar, MIT). Toon cast with hand-drawn canvas faces (toon.js, with a new
+fur hat, a bald look and medals), and new sets (sets_navy.js): a Soviet naval base in winter with 17 submarines, a cruiser, a frigate
+and a destroyer, a scrap corner; the 1959 Moscow exhibition; a Soviet ministry office; an American liquor store; a White House office.
+The people are stylised stand-ins with no real likeness; branding is generic (see FACTS.md).
+
+Style: techniques studied from a reference Short supplied by the creator (see style/REFERENCE.md); characters, designs,
+story and assets here are original.
+
+Voice-over: recorded by the creator.
+
+Fonts: Montserrat (SIL OFL 1.1, fonts/OFL-Montserrat.txt); Fredoka (SIL OFL 1.1, fonts/OFL-Fredoka.txt).
+Music and sound effects: synthesised in code (music.py; synth_lib.py from the Lemo-Opuscar library, MIT). No samples. The tunes are original.

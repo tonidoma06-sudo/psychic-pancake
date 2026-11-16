@@ -1,0 +1,13 @@
+{
+  "id": "P015",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "habit",
+  "reason": "My Booking and Airbnb scheduled messages and the printed rules sheet already answer the Wi-Fi and check-in questions, and with four apartments this is €140 a month plus €600 setup for something I mostly have. August is busy, but the German messages I get are usually things a robot couldn't answer anyway.",
+  "objection": "Is it legal with my guests' data under GDPR, and who is responsible if the AI tells a guest something wrong about my apartment? Nothing here says where the data goes.",
+  "would_change_my_mind": "A written GDPR guarantee that they handle the data properly, plus a neighbour host on the coast showing me it really cut their August messages, and one price for all my units instead of per property.",
+  "price_too_cheap": 5,
+  "price_cheap": 10,
+  "price_expensive": 20,
+  "price_too_expensive": 35
+}

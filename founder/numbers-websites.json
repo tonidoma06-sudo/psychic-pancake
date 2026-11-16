@@ -1,0 +1,60 @@
+{
+  "business": "Almissa Digital: websites only, \u20ac600 + \u20ac15/month care plan (SCENARIO C)",
+  "unit": "website",
+  "price": 600,
+  "variable": [
+    {
+      "label": "Photos/fonts/plugins (estimate)",
+      "cost": 20
+    },
+    {
+      "label": "Payment fees ~3% (estimate)",
+      "cost": 18
+    }
+  ],
+  "fixed_monthly": [
+    {
+      "label": "Pau\u0161alni obrt contributions 2026",
+      "cost": 290.98
+    },
+    {
+      "label": "Software: AI subscription, site builder/hosting account (estimate)",
+      "cost": 50
+    },
+    {
+      "label": "Phone and fuel for visits (estimate)",
+      "cost": 50
+    }
+  ],
+  "startup": [
+    {
+      "label": "Portfolio: 2 demo sites + flyers (estimate)",
+      "cost": 150
+    },
+    {
+      "label": "Ads (estimate)",
+      "cost": 300
+    },
+    {
+      "label": "Obrt registration and accountant setup (estimate)",
+      "cost": 150
+    }
+  ],
+  "days_per_month": 1,
+  "capacity_per_day": 6,
+  "plan_per_day": 1,
+  "ramp_per_day": [
+    1,
+    1,
+    2,
+    2,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0
+  ]
+}

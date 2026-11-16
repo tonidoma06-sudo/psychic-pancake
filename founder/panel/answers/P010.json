@@ -1,0 +1,13 @@
+{
+  "id": "P010",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "The money is nothing, but my villa guests pay a lot for one week and expect a personal touch. I won't put a new one-person company's bot between them and me, and with weekly changeovers my son and I already handle their few questions ourselves.",
+  "objection": "If this one person gets sick, quits or the bot tells a guest something wrong about the pool or check-in, it's my reviews that suffer, not theirs. A refund doesn't fix a bad review on a high-end listing.",
+  "would_change_my_mind": "Seeing it running for a full season at two or three other villa owners I know on the coast, and hearing from them that guests liked it and it never embarrassed them.",
+  "price_too_cheap": 5,
+  "price_cheap": 15,
+  "price_expensive": 50,
+  "price_too_expensive": 100
+}

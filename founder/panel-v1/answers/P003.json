@@ -1,0 +1,13 @@
+{
+  "id": "P003",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "I have one apartment next to our house and my guests ask the same three questions, which I answer myself on my phone, even at night. Paying €150 plus €35 a month for a machine to tell them the Wi-Fi password makes no sense when I earn so little from it.",
+  "objection": "I don't need it. Answering guests personally is part of my hospitality, and for one apartment it would cost me a big piece of what I earn in a season.",
+  "would_change_my_mind": "If it were almost free for one apartment, like €5 to €10 a month with no setup fee, and only during July and August when I am too busy cleaning to answer.",
+  "price_too_cheap": 3,
+  "price_cheap": 8,
+  "price_expensive": 15,
+  "price_too_expensive": 25
+}

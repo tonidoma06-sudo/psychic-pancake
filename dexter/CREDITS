@@ -1,0 +1,16 @@
+The Luckiest Fool (Lord Timothy Dexter) · 3D YouTube Short (1080×1920), style v4 "Toon 3D"
+
+Picture: modelled, lit and animated in code with three.js (MIT). Post (depth of field, bloom, grade): core/three/post.js from
+the Lemo-Opuscar library (github.com/lemomo-ai/lemo-opuscar, MIT). Toon cast with hand-drawn canvas faces and period costumes
+(toon.js); Newburyport wharf, merchant brig, Caribbean sugar port, Siberian snow, Newcastle coal quay, Dexter's study and the
+voyage chart (sets_dex.js). The people are stylised stand-ins with no real likeness.
+
+Style: techniques studied from a reference Short supplied by the creator (see toon-3d/style/REFERENCE.md); characters, designs,
+story and assets here are original.
+
+Voice-over: Kokoro-82M (Apache-2.0, github.com/hexgrad/kokoro) run locally through kokoro-onnx (MIT), voice "am_fenrir",
+speed 1.15 (tts.py); lines trimmed and joined in timing.py.
+
+Fonts: Montserrat (SIL OFL 1.1, fonts/OFL-Montserrat.txt); Fredoka (SIL OFL 1.1, fonts/OFL-Fredoka.txt); page text in the
+browser's default serif.
+Music and sound effects: synthesised in code (music.py, an original hornpipe; synth_lib.py from the Lemo-Opuscar library, MIT). No samples.

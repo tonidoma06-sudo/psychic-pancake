@@ -1,0 +1,13 @@
+{
+  "id": "P012",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "I have one apartment right next to my house, so when a guest needs something they knock on my door or send me a WhatsApp and I answer. €120 is a lot of money for me to pay for something I already do myself for free.",
+  "objection": "If the AI tells a German guest the wrong check-out time or sends them to a closed beach, I get the bad review, not Almissa Digital, and with one apartment one bad review hurts me for the whole season.",
+  "would_change_my_mind": "If my cousin or a neighbour with the same kind of apartment used it for a full summer and showed me it got no complaints and saved real time, and the price was closer to €40 for the season.",
+  "price_too_cheap": 2,
+  "price_cheap": 5,
+  "price_expensive": 10,
+  "price_too_expensive": 15
+}

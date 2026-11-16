@@ -1,0 +1,659 @@
+1
+00:00:00,280 --> 00:00:02,645
+50,000 people are watching the highest-rated
+
+2
+00:00:02,665 --> 00:00:04,370
+guy in the city fall apart.
+
+3
+00:00:04,600 --> 00:00:06,417
+And for the first time in his life, they
+
+4
+00:00:06,437 --> 00:00:08,186
+can see the one number he's been paying
+
+5
+00:00:08,206 --> 00:00:08,710
+to hide.
+
+6
+00:00:08,940 --> 00:00:09,680
+Let me back up.
+
+7
+00:00:12,510 --> 00:00:14,773
+In this world, everyone has ratings floating
+
+8
+00:00:14,793 --> 00:00:15,660
+above their heads.
+
+9
+00:00:15,890 --> 00:00:16,370
+Strength.
+
+10
+00:00:16,630 --> 00:00:17,480
+Athleticism.
+
+11
+00:00:17,690 --> 00:00:18,140
+Health.
+
+12
+00:00:18,390 --> 00:00:19,020
+IQ.
+
+13
+00:00:19,190 --> 00:00:19,760
+EQ.
+
+14
+00:00:19,970 --> 00:00:20,670
+Mental health.
+
+15
+00:00:20,900 --> 00:00:21,940
+They update live.
+
+16
+00:00:22,210 --> 00:00:24,460
+Go for a run, your athleticism goes up.
+
+17
+00:00:24,730 --> 00:00:26,640
+Skip a night of sleep, your health goes
+
+18
+00:00:26,660 --> 00:00:27,060
+down.
+
+19
+00:00:27,290 --> 00:00:29,600
+Say something cruel, and everyone watches
+
+20
+00:00:29,620 --> 00:00:30,570
+your EQ drop.
+
+21
+00:00:30,800 --> 00:00:32,320
+And everything runs on them.
+
+22
+00:00:32,590 --> 00:00:35,050
+The café is hiring: EQ 70 and up.
+
+23
+00:00:35,280 --> 00:00:38,210
+The gym is members only: strength 80 plus.
+
+24
+00:00:38,470 --> 00:00:40,810
+The bank only lends to an 80 overall.
+
+25
+00:00:41,040 --> 00:00:44,340
+And there's one rule everybody follows:
+
+26
+00:00:44,370 --> 00:00:45,838
+you never date anyone more than ten points
+
+27
+00:00:45,858 --> 00:00:47,050
+away from your own number.
+
+28
+00:00:49,880 --> 00:00:51,000
+This is Theo.
+
+29
+00:00:51,260 --> 00:00:52,510
+Overall 52.
+
+30
+00:00:52,690 --> 00:00:53,960
+Strength 41.
+
+31
+00:00:54,170 --> 00:00:55,820
+Athleticism 47.
+
+32
+00:00:56,000 --> 00:00:57,440
+IQ 104.
+
+33
+00:00:57,660 --> 00:00:59,020
+EQ 93.
+
+34
+00:00:59,250 --> 00:01:01,740
+In this city, that's painfully average.
+
+35
+00:01:01,970 --> 00:01:03,975
+At the very bottom of his card there's a
+
+36
+00:01:03,995 --> 00:01:04,820
+small grey number.
+
+37
+00:01:05,090 --> 00:01:06,790
+Potential: 99.
+
+38
+00:01:07,020 --> 00:01:08,770
+Nobody reads the small grey number.
+
+39
+00:01:09,000 --> 00:01:10,020
+Not even Theo.
+
+40
+00:01:10,250 --> 00:01:11,850
+Theo is in love with Mia.
+
+41
+00:01:12,120 --> 00:01:13,330
+Overall 88.
+
+42
+00:01:13,560 --> 00:01:15,180
+IQ 131.
+
+43
+00:01:15,410 --> 00:01:16,830
+EQ 96.
+
+44
+00:01:17,060 --> 00:01:18,800
+That's a 36-point gap.
+
+45
+00:01:19,070 --> 00:01:21,000
+In this city, that's not a crush.
+
+46
+00:01:21,150 --> 00:01:21,860
+That's a joke.
+
+47
+00:01:22,090 --> 00:01:24,515
+The thing is, the day they met, Theo wasn't
+
+48
+00:01:24,535 --> 00:01:25,210
+okay.
+
+49
+00:01:25,480 --> 00:01:27,650
+His mental health had been sinking for weeks.
+
+50
+00:01:27,920 --> 00:01:28,760
+61.
+
+51
+00:01:29,030 --> 00:01:29,730
+52.
+
+52
+00:01:30,000 --> 00:01:30,680
+44.
+
+53
+00:01:30,910 --> 00:01:32,960
+Thousands of people walked past that number.
+
+54
+00:01:33,230 --> 00:01:34,090
+They could all see it.
+
+55
+00:01:34,360 --> 00:01:35,520
+Nobody said a word.
+
+56
+00:01:35,750 --> 00:01:37,370
+Mia was the first one who stopped.
+
+57
+00:01:37,640 --> 00:01:39,583
+She sat down next to him and asked, "Are
+
+58
+00:01:39,603 --> 00:01:40,250
+you okay?"
+
+59
+00:01:40,520 --> 00:01:41,530
+And then she stayed.
+
+60
+00:01:41,760 --> 00:01:43,769
+Every time she laughed at one of his terrible
+
+61
+00:01:43,789 --> 00:01:45,930
+jokes, his mental health went up by one.
+
+62
+00:01:46,160 --> 00:01:47,800
+But when two people look at each other,
+
+63
+00:01:47,870 --> 00:01:49,320
+one more number appears.
+
+64
+00:01:49,590 --> 00:01:50,470
+Compatibility.
+
+65
+00:01:50,700 --> 00:01:52,740
+Theo and Mia: zero percent.
+
+66
+00:01:53,010 --> 00:01:54,699
+And standing right behind her is the guy
+
+67
+00:01:54,719 --> 00:01:56,920
+she's 97% compatible with.
+
+68
+00:01:57,150 --> 00:01:57,680
+Kai.
+
+69
+00:01:57,950 --> 00:01:59,280
+Overall 94.
+
+70
+00:01:59,450 --> 00:02:00,830
+Strength 97.
+
+71
+00:02:01,020 --> 00:02:02,520
+Athleticism 98.
+
+72
+00:02:02,760 --> 00:02:03,880
+Two-time champion.
+
+73
+00:02:04,110 --> 00:02:06,020
+He won't shake hands with anyone under 80.
+
+74
+00:02:06,290 --> 00:02:08,000
+His EQ is 19.
+
+75
+00:02:08,270 --> 00:02:10,800
+And one line on his card is completely blank.
+
+76
+00:02:11,030 --> 00:02:12,803
+Because if you're rich enough, you can pay
+
+77
+00:02:12,823 --> 00:02:14,080
+to hide one number.
+
+78
+00:02:14,350 --> 00:02:17,250
+Kai pays 9,999 a month.
+
+79
+00:02:20,080 --> 00:02:22,200
+Every year the city holds The Ranking.
+
+80
+00:02:22,430 --> 00:02:24,410
+Three rounds, live on TV.
+
+81
+00:02:24,640 --> 00:02:27,078
+The winner's card turns gold, and gold outranks
+
+82
+00:02:27,098 --> 00:02:28,220
+every number.
+
+83
+00:02:28,450 --> 00:02:29,700
+So Theo signs up.
+
+84
+00:02:29,970 --> 00:02:32,701
+The clerk reads his 52 out loud, and the
+
+85
+00:02:32,721 --> 00:02:33,750
+whole stadium laughs.
+
+86
+00:02:33,980 --> 00:02:35,630
+Round one, the race.
+
+87
+00:02:35,900 --> 00:02:37,570
+Kai wins without breaking a sweat.
+
+88
+00:02:37,840 --> 00:02:39,470
+Theo comes in dead last.
+
+89
+00:02:39,640 --> 00:02:40,460
+By a lot.
+
+90
+00:02:40,690 --> 00:02:42,230
+Round two, the puzzle.
+
+91
+00:02:42,500 --> 00:02:44,060
+And something strange happens.
+
+92
+00:02:44,290 --> 00:02:47,374
+Theo's IQ starts climbing, live on the giant
+
+93
+00:02:47,394 --> 00:02:47,840
+screen.
+
+94
+00:02:48,110 --> 00:02:49,120
+104.
+
+95
+00:02:49,310 --> 00:02:50,340
+105.
+
+96
+00:02:50,550 --> 00:02:51,640
+106.
+
+97
+00:02:51,870 --> 00:02:52,940
+Second place.
+
+98
+00:02:53,210 --> 00:02:56,080
+For the first time all day, nobody's laughing.
+
+99
+00:02:56,310 --> 00:02:57,910
+Then the final is announced.
+
+100
+00:02:58,180 --> 00:03:00,338
+Partners are random, and every hidden number
+
+101
+00:03:00,358 --> 00:03:01,130
+gets switched off.
+
+102
+00:03:01,360 --> 00:03:02,590
+The screen spins.
+
+103
+00:03:02,860 --> 00:03:03,640
+Theo's partner?
+
+104
+00:03:03,880 --> 00:03:04,340
+Kai.
+
+105
+00:03:04,570 --> 00:03:05,570
+The filters drop.
+
+106
+00:03:05,840 --> 00:03:07,760
+Every card in the stadium flickers.
+
+107
+00:03:07,970 --> 00:03:09,830
+And Kai's blank line lights up.
+
+108
+00:03:10,060 --> 00:03:11,530
+Mental health: 12.
+
+109
+00:03:11,800 --> 00:03:13,450
+It's been 12 for years.
+
+110
+00:03:13,670 --> 00:03:15,150
+That's what he was paying to hide.
+
+111
+00:03:17,980 --> 00:03:19,390
+The final is a wall.
+
+112
+00:03:19,660 --> 00:03:22,797
+Halfway up, Kai looks down at 50,000 people
+
+113
+00:03:22,817 --> 00:03:23,640
+reading his number.
+
+114
+00:03:23,870 --> 00:03:24,450
+9.
+
+115
+00:03:24,690 --> 00:03:25,370
+6.
+
+116
+00:03:25,490 --> 00:03:26,060
+4.
+
+117
+00:03:26,330 --> 00:03:27,140
+He freezes.
+
+118
+00:03:27,360 --> 00:03:28,160
+He can't go up.
+
+119
+00:03:28,420 --> 00:03:29,330
+He can't go down.
+
+120
+00:03:29,560 --> 00:03:31,570
+Theo could climb right past him and win.
+
+121
+00:03:31,830 --> 00:03:33,770
+Instead, he climbs back down.
+
+122
+00:03:34,000 --> 00:03:34,890
+He doesn't pull him.
+
+123
+00:03:35,040 --> 00:03:35,910
+He doesn't push him.
+
+124
+00:03:36,130 --> 00:03:37,050
+He just talks to him.
+
+125
+00:03:37,280 --> 00:03:38,040
+"Don't look at them.
+
+126
+00:03:38,310 --> 00:03:39,280
+Look at the next hold.
+
+127
+00:03:39,550 --> 00:03:40,550
+I'm not going anywhere."
+
+128
+00:03:40,780 --> 00:03:42,680
+And the whole stadium watches the number
+
+129
+00:03:42,710 --> 00:03:43,240
+come back.
+
+130
+00:03:43,510 --> 00:03:43,980
+10.
+
+131
+00:03:44,210 --> 00:03:45,010
+25.
+
+132
+00:03:45,190 --> 00:03:45,790
+40.
+
+133
+00:03:46,020 --> 00:03:48,110
+Hold by hold, they climb together.
+
+134
+00:03:48,370 --> 00:03:50,270
+They cross the line dead last.
+
+135
+00:03:50,500 --> 00:03:52,333
+Then the judges reveal how the final was
+
+136
+00:03:52,353 --> 00:03:52,840
+scored.
+
+137
+00:03:53,110 --> 00:03:53,990
+Not by time.
+
+138
+00:03:54,180 --> 00:03:55,880
+By how much your ratings changed.
+
+139
+00:03:56,110 --> 00:03:59,250
+Kai's EQ jumped 40 points in one afternoon.
+
+140
+00:03:59,520 --> 00:04:00,050
+Theo's?
+
+141
+00:04:00,260 --> 00:04:01,840
+Every single stat went up.
+
+142
+00:04:02,070 --> 00:04:03,400
+His card turns gold.
+
+143
+00:04:03,620 --> 00:04:06,320
+And for the first time, 50,000 people read
+
+144
+00:04:06,340 --> 00:04:07,740
+the small grey number.
+
+145
+00:04:08,010 --> 00:04:09,710
+Potential: 99.
+
+146
+00:04:12,540 --> 00:04:15,045
+That night, Mia walks right past the 97
+
+147
+00:04:15,065 --> 00:04:16,920
+and stands next to the zero.
+
+148
+00:04:17,150 --> 00:04:19,150
+Because compatibility only measures how
+
+149
+00:04:19,170 --> 00:04:20,330
+alike two people are.
+
+150
+00:04:20,600 --> 00:04:21,660
+They were nothing alike.
+
+151
+00:04:21,930 --> 00:04:22,710
+That was the point.
+
+152
+00:04:22,940 --> 00:04:24,040
+Oh, and Kai?
+
+153
+00:04:24,260 --> 00:04:25,740
+He cancelled his privacy plan.
+
+154
+00:04:25,960 --> 00:04:27,560
+His mental health is right there on his
+
+155
+00:04:27,580 --> 00:04:28,990
+card for everyone to see.
+
+156
+00:04:29,260 --> 00:04:30,390
+It's 71 now.
+
+157
+00:04:30,620 --> 00:04:33,218
+50 years later, Theo and Mia are still on
+
+158
+00:04:33,238 --> 00:04:35,310
+the same bench, still holding hands.
+
+159
+00:04:35,540 --> 00:04:37,790
+Compatibility: still zero percent.
+
+160
+00:04:38,060 --> 00:04:40,120
+Mental health: both 100.
+
+161
+00:04:40,350 --> 00:04:42,360
+And every time she laughs, it still tries
+
+162
+00:04:42,380 --> 00:04:43,570
+to go up by one.
+
+163
+00:04:43,800 --> 00:04:46,042
+So, if you could hide one rating, which
+
+164
+00:04:46,062 --> 00:04:46,820
+one would it be?
+
+165
+00:04:47,090 --> 00:04:48,090
+Tell me in the comments.

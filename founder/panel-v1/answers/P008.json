@@ -1,0 +1,13 @@
+{
+  "id": "P008",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "I have one apartment next to my house, the agency already talks to my guests, and my laminated sheet covers the Wi-Fi and the rules. My guests knock on my door and I like that, I don't need a machine answering for me.",
+  "objection": "My guests like talking to me personally, not to a robot, and I already pay the agency. Another €35 a month and €150 to start is a lot out of my pension for something I do myself over a coffee.",
+  "would_change_my_mind": "If my agency included it at no extra cost, or my grandson set it up and showed me that guests still came to me for the personal things.",
+  "price_too_cheap": 3,
+  "price_cheap": 8,
+  "price_expensive": 15,
+  "price_too_expensive": 25
+}

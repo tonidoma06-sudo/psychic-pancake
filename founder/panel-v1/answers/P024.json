@@ -1,0 +1,13 @@
+{
+  "id": "P024",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "values",
+  "reason": "My guests come back because they talk to me, not a machine. I answer at night, in my bad German, and they remember that. With €150 setup plus €35 a month, I would pay to push my guests away from me.",
+  "objection": "A guest who scans a QR code and gets a robot will feel the host does not care. Personal contact is the reason my reviews are good, and with my income every euro has to bring something back.",
+  "would_change_my_mind": "If another host I know here showed me that their guests still wrote good reviews about the personal welcome, and it only took the boring Wi-Fi and parking questions off my phone in August, at maybe €15 a month with no setup fee.",
+  "price_too_cheap": 5,
+  "price_cheap": 10,
+  "price_expensive": 20,
+  "price_too_expensive": 35
+}

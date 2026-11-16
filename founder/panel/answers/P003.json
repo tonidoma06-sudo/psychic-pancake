@@ -1,0 +1,13 @@
+{
+  "id": "P003",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "My Booking score is my income, and I'm not letting a brand-new one-person company's robot talk to my guests. My laminated sheet has never given a wrong answer, and when guests write to me I answer them myself.",
+  "objection": "One wrong answer about check-in or parking at midnight and a German guest gives me a 7 for communication. Then I've lost far more than €120. A refund doesn't fix a bad review, and if this one man gets sick or closes in July, who answers?",
+  "would_change_my_mind": "Seeing it running for a whole season with hosts I know on this coast, and their review scores going the same or up, not down.",
+  "price_too_cheap": 5,
+  "price_cheap": 10,
+  "price_expensive": 25,
+  "price_too_expensive": 40
+}

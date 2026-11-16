@@ -1,0 +1,13 @@
+{
+  "id": "P020",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "habit",
+  "reason": "I have one apartment and I answer my guests myself, even at night. That is how we welcome people here, and for one unit I don't need a machine to tell them the Wi-Fi password.",
+  "objection": "My guests ask the same three questions and I already answer them. €120 is real money for me, and I don't want a guest to feel they are talking to a computer instead of to me.",
+  "would_change_my_mind": "If my daughter set it up and showed me that it answers my German guests properly so I don't have to translate at midnight in August, and maybe a cheaper price for just one small apartment.",
+  "price_too_cheap": 2,
+  "price_cheap": 5,
+  "price_expensive": 10,
+  "price_too_expensive": 15
+}

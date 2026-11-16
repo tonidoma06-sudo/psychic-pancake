@@ -1,0 +1,13 @@
+{
+  "id": "P007",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "I get one group a week, Booking and Airbnb already send my check-in and Wi-Fi messages for free, and the few real questions I answer myself on WhatsApp anyway. Paying €150 plus €35 a month to answer what my house manual already says doesn't add up for one villa.",
+  "objection": "If the AI tells a guest something wrong about the pool, parking or check-out, I'm the one who eats the 8 instead of a 10 on Booking. My score is worth more to me than saving a few messages.",
+  "would_change_my_mind": "Seeing other villa owners on this coast whose Booking scores went up with it, and dropping the €150 setup so I can test it for a full season with no money down.",
+  "price_too_cheap": 8,
+  "price_cheap": 15,
+  "price_expensive": 30,
+  "price_too_expensive": 45
+}

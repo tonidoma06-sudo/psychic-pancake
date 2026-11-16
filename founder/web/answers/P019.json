@@ -1,0 +1,13 @@
+{
+  "id": "P019",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "timing",
+  "reason": "It's November, my apartment is empty until spring and so is my wallet, so €600 now for something that only pays back in summer is not happening. Maybe I'd think about it in February or March before the season starts.",
+  "objection": "€600 is a big chunk of what I make in a year, and I'm not sure a site will actually pull guests away from Booking. People search Booking, not my name, so I could pay for a nice site that nobody finds.",
+  "would_change_my_mind": "Being able to pay in two parts, half now and half after my first direct booking, or seeing another apartment owner near me who really got direct bookings from it.",
+  "price_too_cheap": 150,
+  "price_cheap": 300,
+  "price_expensive": 500,
+  "price_too_expensive": 800
+}

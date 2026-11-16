@@ -1,0 +1,9 @@
+out/
+stills/
+__pycache__/
+*.jpg
+!poster.jpg
+voice/scratch/
+voice/george_full.wav
+voice/take_raw.json
+voice/take_stream.jsonl

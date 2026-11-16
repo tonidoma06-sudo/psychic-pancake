@@ -1,0 +1,13 @@
+{
+  "id": "P016",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "price",
+  "reason": "I already have a site, old but it's there, and guests mostly find me on the platform or walk in from the riva. Putting €600 plus €15 a month on top of the commission I already pay, with no proof it brings one extra table, is not something I'd do this week.",
+  "objection": "€600 is a lot when I don't know if it brings any bookings. Nobody can tell me how many guests will come from the website instead of the platform.",
+  "would_change_my_mind": "Seeing a konoba or restaurant nearby that got real WhatsApp bookings from a site like this, or paying half now and the rest only after the season if it brought guests.",
+  "price_too_cheap": 150,
+  "price_cheap": 300,
+  "price_expensive": 450,
+  "price_too_expensive": 700
+}

@@ -1,0 +1,13 @@
+{
+  "id": "P023",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "August is chaos and the German messages do drown me, so the idea is tempting. But I have one apartment and little money, and nothing here tells me where my guests' messages and data go, so I won't sign up from a pitch.",
+  "objection": "Is this legal with guests' data under GDPR? Guests' names and questions go through some AI and through WhatsApp, and if something goes wrong it's my name and my apartment that get the fine or the bad review, not theirs.",
+  "would_change_my_mind": "A written GDPR paper I can show the tourist board, explaining where guest data is stored and who sees it, plus a neighbour host I know who has used it through one August.",
+  "price_too_cheap": 5,
+  "price_cheap": 15,
+  "price_expensive": 30,
+  "price_too_expensive": 45
+}
