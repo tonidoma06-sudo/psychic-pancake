@@ -439,7 +439,7 @@ sh({ t0: tKai33 - .05, set: 'stadium', lt: STADIUM, at: SO, act: t => actPair(t)
   cam: (t, u) => hand(camAt(SP(lerp(1.0, 1.2, u), lerp(3.7, 4.1, u), lerp(1.5, 1.65, u)), SP(.1, 0, lerp(1.7, 1.9, u)), lerp(42, 46, u), 3.8, 4), t) });
 // Every card in the stadium flickers.: the stands, every pill flickering
 sh({ t0: tEvery34 - .1, set: 'stadium', lt: STADIUM, at: SO, act: t => actPair(t),
-  cam: (t, u) => hand(camAt(SP(lerp(-6, -2, u), 10, 4), SP(lerp(-10, -6, u), 40, 6), 40, 30, .6), t, .8) });
+  cam: (t, u) => hand(camAt(SP(lerp(-15, -11, u), 9, 4), SP(lerp(-24, -20, u), 40, 6), 40, 30, .6), t, .8) });
 // And Kai's blank line lights up.: push into his card
 sh({ t0: tBlank34 - .1, set: 'stadium', lt: STADIUM, at: SO, act: t => actPair(t), after: 1,
   cam: (t, u) => { const c0 = cardOf(KAI), k = eio(seg(t, tBlank34 - .1, tLights34 + .3)); return hand(camAt(c0.clone().add(V(lerp(.5, .04, k), lerp(-.5, -.18, k), lerp(3.0, 1.5, k))), c0.clone().add(V(0, lerp(-.35, -.27, k), 0)), lerp(40, 30, k), lerp(3.0, 1.5, k), 6), t, .5); } });
