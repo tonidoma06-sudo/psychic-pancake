@@ -1,0 +1,65 @@
+"""script.py · the narration of the long-form "What If Everyone Had Ratings Above Their Heads?", one line per beat.
+Each line is (id, chapter, caption text, syllable overrides). Captions show numbers as digits; the overrides give the spoken
+syllables of those words (e.g. '50,000' is "fifty thousand", 4) so the word timing stays even."""
+LINES = [
+  # cold open
+  ('L1',  'hook',  "50,000 people are watching the highest-rated guy in the city fall apart.", {'50,000': 4}),
+  ('L2',  'hook',  "And for the first time in his life, they can see the one number he's been paying to hide.", {}),
+  ('L3',  'hook',  "Let me back up.", {}),
+  # 1 · the rules
+  ('L4',  'rules', "In this world, everyone has ratings floating above their heads.", {}),
+  ('L5',  'rules', "Strength. Athleticism. Health. IQ. EQ. Mental health.", {'IQ.': 2, 'EQ.': 2}),
+  ('L6',  'rules', "They update live. Go for a run, your athleticism goes up. Skip a night of sleep, your health goes down.", {}),
+  ('L7',  'rules', "Say something cruel, and everyone watches your EQ drop.", {'EQ': 2}),
+  ('L8',  'rules', "And everything runs on them. The café is hiring: EQ 70 and up.", {'EQ': 2, '70': 2, 'café': 2}),
+  ('L9',  'rules', "The gym is members only: strength 80 plus. The bank only lends to an 80 overall.", {'80': 2}),
+  ('L10', 'rules', "And there's one rule everybody follows: you never date anyone more than ten points away from your own number.", {}),
+  # 2 · the zero
+  ('L11', 'zero',  "This is Theo. Overall 52. Strength 41. Athleticism 47. IQ 104. EQ 93.", {'52.': 3, '41.': 3, '47.': 4, 'IQ': 2, '104.': 4, 'EQ': 2, '93.': 3}),
+  ('L12', 'zero',  "In this city, that's painfully average.", {}),
+  ('L13', 'zero',  "At the very bottom of his card there's a small grey number. Potential: 99.", {'99.': 4}),
+  ('L14', 'zero',  "Nobody reads the small grey number. Not even Theo.", {}),
+  ('L15', 'zero',  "Theo is in love with Mia. Overall 88. IQ 131. EQ 96.", {'88.': 3, 'IQ': 2, '131.': 6, 'EQ': 2, '96.': 3}),
+  ('L16', 'zero',  "That's a 36-point gap. In this city, that's not a crush. That's a joke.", {'36-point': 4}),
+  ('L17', 'zero',  "The thing is, the day they met, Theo wasn't okay. His mental health had been sinking for weeks. 61. 52. 44.", {'61.': 3, '52.': 3, '44.': 3}),
+  ('L18', 'zero',  "Thousands of people walked past that number. They could all see it. Nobody said a word.", {}),
+  ('L19', 'zero',  'Mia was the first one who stopped. She sat down next to him and asked, "Are you okay?" And then she stayed.', {}),
+  ('L20', 'zero',  "Every time she laughed at one of his terrible jokes, his mental health went up by one.", {}),
+  ('L21', 'zero',  "But when two people look at each other, one more number appears. Compatibility.", {}),
+  ('L22', 'zero',  "Theo and Mia: zero percent. And standing right behind her is the guy she's 97% compatible with.", {'97%': 6}),
+  ('L23', 'zero',  "Kai. Overall 94. Strength 97. Athleticism 98. Two-time champion.", {'94.': 3, '97.': 4, '98.': 3}),
+  ('L24', 'zero',  "He won't shake hands with anyone under 80. His EQ is 19. And one line on his card is completely blank.", {'80.': 2, 'EQ': 2, '19.': 2}),
+  ('L25', 'zero',  "Because if you're rich enough, you can pay to hide one number. Kai pays 9,999 a month.", {'9,999': 9}),
+  # 3 · the ranking
+  ('L26', 'rank',  "Every year the city holds The Ranking. Three rounds, live on TV.", {'TV.': 2}),
+  ('L27', 'rank',  "The winner's card turns gold, and gold outranks every number.", {}),
+  ('L28', 'rank',  "So Theo signs up. The clerk reads his 52 out loud, and the whole stadium laughs.", {'52': 3}),
+  ('L29', 'rank',  "Round one, the race. Kai wins without breaking a sweat. Theo comes in dead last. By a lot.", {}),
+  ('L30', 'rank',  "Round two, the puzzle. And something strange happens. Theo's IQ starts climbing, live on the giant screen. 104. 105. 106.", {'IQ': 2, '104.': 4, '105.': 4, '106.': 4}),
+  ('L31', 'rank',  "Second place. For the first time all day, nobody's laughing.", {}),
+  ('L32', 'rank',  "Then the final is announced. Partners are random, and every hidden number gets switched off.", {}),
+  ('L33', 'rank',  "The screen spins. Theo's partner? Kai.", {}),
+  ('L34', 'rank',  "The filters drop. Every card in the stadium flickers. And Kai's blank line lights up.", {}),
+  ('L35', 'rank',  "Mental health: 12. It's been 12 for years. That's what he was paying to hide.", {'12.': 1, '12': 1}),
+  # 4 · the wall
+  ('L36', 'wall',  "The final is a wall. Halfway up, Kai looks down at 50,000 people reading his number.", {'50,000': 4}),
+  ('L37', 'wall',  "9. 6. 4. He freezes. He can't go up. He can't go down.", {'9.': 1, '6.': 1, '4.': 1}),
+  ('L38', 'wall',  "Theo could climb right past him and win. Instead, he climbs back down.", {}),
+  ('L39', 'wall',  "He doesn't pull him. He doesn't push him. He just talks to him.", {}),
+  ('L40', 'wall',  '"Don\'t look at them. Look at the next hold. I\'m not going anywhere."', {}),
+  ('L41', 'wall',  "And the whole stadium watches the number come back. 10. 25. 40.", {'10.': 1, '25.': 3, '40.': 2}),
+  ('L42', 'wall',  "Hold by hold, they climb together. They cross the line dead last.", {}),
+  ('L43', 'wall',  "Then the judges reveal how the final was scored. Not by time. By how much your ratings changed.", {}),
+  ('L44', 'wall',  "Kai's EQ jumped 40 points in one afternoon. Theo's? Every single stat went up.", {'EQ': 2, '40': 2}),
+  ('L45', 'wall',  "His card turns gold. And for the first time, 50,000 people read the small grey number. Potential: 99.", {'50,000': 4, '99.': 4}),
+  # 5 · the point
+  ('L46', 'point', "That night, Mia walks right past the 97 and stands next to the zero.", {'97': 3}),
+  ('L47', 'point', "Because compatibility only measures how alike two people are. They were nothing alike. That was the point.", {}),
+  ('L48', 'point', "Oh, and Kai? He cancelled his privacy plan. His mental health is right there on his card for everyone to see. It's 71 now.", {'71': 4}),
+  ('L49', 'point', "50 years later, Theo and Mia are still on the same bench, still holding hands.", {'50': 2}),
+  ('L50', 'point', "Compatibility: still zero percent. Mental health: both 100.", {'100.': 3}),
+  ('L51', 'point', "And every time she laughs, it still tries to go up by one.", {}),
+  ('L52', 'point', "So, if you could hide one rating, which one would it be? Tell me in the comments.", {}),
+]
+CHAPTERS = {'rules': ('CHAPTER 1', 'THE RULES'), 'zero': ('CHAPTER 2', 'THE ZERO'), 'rank': ('CHAPTER 3', 'THE RANKING'),
+            'wall': ('CHAPTER 4', 'THE WALL'), 'point': ('CHAPTER 5', 'THE POINT')}
