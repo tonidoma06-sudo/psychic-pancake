@@ -86,7 +86,7 @@ const PLANE2 = airliner('#2E6FB5'); scene.add(PLANE2);
 const SAND = sandwich(), RAD = radio(), GUN = pelletGun(), GUN2 = pelletGun(); scene.add(SAND, RAD, GUN, GUN2);
 const COPCAR = policeCar(); scene.add(COPCAR);
 const MICS = [mic('#2A2A30'), mic('#C8283A')]; MICS.forEach(m => scene.add(m)); const TVC = tvCam(); scene.add(TVC);
-const BLOON = new THREE.Mesh(new THREE.SphereGeometry(.82, 22, 16), new THREE.MeshToonMaterial({ color: '#F4EFE4' })); BLOON.castShadow = true; scene.add(BLOON);   // the one being filled
+const BLOON = new THREE.Mesh(new THREE.SphereGeometry(.82, 22, 16), CL.userData.balls[0].material); BLOON.castShadow = true; scene.add(BLOON);   // the one being filled
 let ROPE = null; const ROPEM = [];   // the tether (rebuilt per frame)
 const SPARK = Array.from({ length: 14 }, () => { const s = new THREE.Mesh(new THREE.SphereGeometry(.06, 6, 4), new THREE.MeshBasicMaterial({ color: '#FFE070', toneMapped: false })); scene.add(s); return s; });
 const PUFF = Array.from({ length: 4 }, () => { const s = new THREE.Mesh(new THREE.SphereGeometry(.07, 10, 8), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: .6 })); scene.add(s); return s; });
@@ -184,7 +184,7 @@ sh({ t0: tThen5 - .1, set: 'yard', lt: SUNNY, at: CH0, act: t => actTether(t),
   cam: (t, u) => { const hp = HITCH(); return shake(hand(camAt(hp.clone().add(V(-.4, .55, 2.0)), hp.clone().add(V(-1.3, .95, -.4)), 46, 2.2, 5), t, .6), t, t > tSnapped ? 1 - seg(t, tSnapped, tSnapped + .4) : 0); } });
 // 6a · Larry shot straight up.: from the ground, up: gone
 sh({ t0: C6, set: 'yard', lt: SUNNY, at: CH0, act: t => actLaunch(t),
-  after: 1, cam: (t, u) => { const p = CRAFT.position.clone().add(V(0, 3.0, 0)); return hand(camAt(CH0.clone().add(V(-2.4, 1.3, 8.6)), p.lerp(CH0.clone().add(V(0, 2, 0)), .25), 56, 10, 1), t, .8); } });
+  cam: (t, u) => hand(camAt(CH0.clone().add(V(-2.2, 1.2, 9.4)), CH0.clone().add(V(0, lerp(4.0, 5.5, u), 0)), 62, 10, 1), t, .8) });
 // 6b · Three miles high, freezing, in a lawn chair.: up there, shivering; pull back on "in a lawn chair"
 sh({ t0: tThree - .1, set: 'sky', lt: HIGH, at: SKYP, act: t => actFreeze(t),
   cam: (t, u) => { const k = eio(seg(t, tLawn6 - .15, C7)); return hand(camAt(SKYP.clone().add(V(lerp(.3, 2.2, k), lerp(1.25, 1.9, k), lerp(2.0, 5.4, k))), SKYP.clone().add(V(0, lerp(1.02, 1.7, k), 0)), lerp(40, 50, k), lerp(2.0, 5.4, k), 4), t, .6); } });
@@ -199,7 +199,7 @@ sh({ t0: tTheres - .1, set: 'cockpit', lt: HIGH, at: CPO, act: t => actCockpit(t
   cam: (t, u) => { const c = CPIT.localToWorld(V(-.1, 1.85, .5)), l = SKYP.clone().add(V(0, 2.6, 0)); return hand(camAt(c, l, lerp(30, 24, eo(u)), c.distanceTo(l), .6), t, .4); } });
 // 8a · Larry pulled out the gun. Pop. Pop. Pop.: low beside him, aiming up into the balloons
 sh({ t0: C8, set: 'sky', lt: HIGH, at: SKYP, act: t => actPop(t),
-  cam: (t, u) => hand(camAt(SKYP.clone().add(V(lerp(1.0, .9, u), lerp(.85, .9, u), lerp(2.2, 2.0, u))), SKYP.clone().add(V(-.1, 2.5, 0)), 56, 2.4, 3), t, .6) });
+  cam: (t, u) => hand(camAt(SKYP.clone().add(V(lerp(2.8, 2.6, u), .7, lerp(1.4, 1.3, u))), SKYP.clone().add(V(0, 3.0, 0)), 64, 3.2, 2), t, .6) });
 // 8b · Then he dropped it.: over his shoulder, the gun tumbling away toward the clouds
 sh({ t0: tThen8 - .1, set: 'sky', lt: HIGH, at: SKYP, act: t => actPop(t),
   after: 1, cam: (t, u) => { const g = GUN2.position.clone(); return hand(camAt(SKYP.clone().add(V(.45, 2.4, .9)), g.clone().lerp(SKYP.clone().add(V(0, .2, .5)), .35), 50, 3, 3, .05), t, .7); } });
@@ -211,7 +211,7 @@ sh({ t0: tRight9 - .1, set: 'street', lt: SUNNY, at: STO, act: t => actDescend(t
   cam: (t, u) => shake(hand(camAt(SNAG.clone().add(V(lerp(2.4, 2.1, u), lerp(-.8, -.6, u), lerp(5.6, 5.0, u))), SNAG.clone().add(V(0, 1.0, 0)), 48, 5.5, 2), t), t, t > tPower ? .8 * (1 - seg(t, tPower, tPower + .6)) : 0) });
 // 9c · and blacked out an entire neighborhood.: a living room goes dark
 sh({ t0: tBlacked - .1, set: 'room', lt: 'blackout', at: RMO, act: t => actRoom(t),
-  cam: (t, u) => hand(camAt(RMO.clone().add(V(lerp(2.6, 2.4, u), 1.45, lerp(.3, .1, u))), RMO.clone().add(V(-.4, 1.0, -.3)), 50, 3.0, 3), t) });
+  cam: (t, u) => hand(camAt(RMO.clone().add(V(lerp(1.9, 1.7, u), 1.35, lerp(-1.3, -1.1, u))), RMO.clone().add(V(-.4, 1.0, 1.0)), 54, 2.8, 3), t) });
 // 10a · Police were waiting.: the squad car, lights going
 sh({ t0: C10, set: 'street', lt: SUNNY, at: STO, act: t => actPolice(t),
   cam: (t, u) => hand(camAt(STO.clone().add(V(lerp(9.5, 9.0, u), 1.4, lerp(3.2, 2.8, u))), STO.clone().add(V(4.8, 1.4, -3.6)), 48, 5, 3), t) });
@@ -345,9 +345,9 @@ function actPress(t) {
   const lp = STO.clone().add(V(4.6, 0, -3.6)); put(LARRY, lp, face(lp, STO.clone().add(V(7.3, 0, -.5))));
   const quote = t > tMan - .1;
   apply(LARRY, quote ? TP.shrug : TP.stand, { t, seed: 1, face: quote ? 'happy' : 'calm', look: quote ? CAMP : headOf(REP[0]), talk: t > tMan - .1 && t < LOOP - .4 ? clamp(.5 + .5 * Math.sin(t * 17)) : 0 });
-  REP.forEach((p, i) => { const v = lp.clone().add([V(1.0, 0, 1.2), V(1.4, 0, -.4), V(.3, 0, 1.6)][i]); put(p, v, face(v, lp)); apply(p, i < 2 ? { ...TP.stand, aR: [-80, 10, 0, 50] } : { ...TP.stand, aR: [-110, 10, 0, 120], aL: [-100, -10, 0, 110] }, { t, seed: 35 + i, face: 'happy', look: headOf(LARRY) }); if (i < 2) onHand(p, MICS[i], 0, [0, 0, .04], [-1.2, 0, 0]); });
+  REP.forEach((p, i) => { const v = lp.clone().add([V(1.23, 0, .11), V(-.04, 0, 1.24), V(1.97, 0, .27)][i]); put(p, v, face(v, lp)); apply(p, i < 2 ? { ...TP.stand, aR: [-80, 10, 0, 50] } : { ...TP.stand, aR: [-110, 10, 0, 120], aL: [-100, -10, 0, 110] }, { t, seed: 35 + i, face: 'happy', look: headOf(LARRY) }); if (i < 2) onHand(p, MICS[i], 0, [0, 0, .04], [-1.2, 0, 0]); });
   onHand(REP[2], TVC, 0, [-.08, .12, -.1], [0, 0, 0]);
-  COP.forEach((p, i) => { const v = lp.clone().add(V(-1.3 - i * .5, 0, -1.0 + i * 1.3)); put(p, v, face(v, lp)); apply(p, TP.cross, { t, seed: 33 + i, face: 'deadpan', look: headOf(LARRY) }); });
+  COP.forEach((p, i) => { const v = lp.clone().add([V(-.34, 0, -1.3), V(-1.24, 0, -.5)][i]); put(p, v, face(v, lp)); apply(p, TP.cross, { t, seed: 33 + i, face: 'deadpan', look: headOf(LARRY) }); });
 }
 function actEmpty(t) {
   reset();
