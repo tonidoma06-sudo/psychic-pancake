@@ -257,7 +257,7 @@ function actHall(t) {
   apply(HOST, handed ? { ...TP.stand, aR: [-20, 30, 0, 20] } : { ...TP.stand, aR: [-80, 10, 0, 40], aL: [-80, -10, 0, 40] }, { t, seed: 31, face: biting ? 'shock' : 'happy', look: headOf(MICHEL) });
   const plq = (p, off, roll = 0) => { p.P.updateMatrixWorld(true); place(PLAQ, p.aR.hand.getWorldPosition(V()).add(off), [0, 0, 0], .9); PLAQ.lookAt(CAMP); PLAQ.rotateZ(roll); };
   if (!handed) { apply(HOST, { ...TP.stand, aR: [-80, 10, 0, 40], aL: [-80, -10, 0, 40] }, { t, seed: 31, face: 'happy', look: headOf(MICHEL) }); plq(HOST, V(0, .12, .1)); }
-  else { apply(MICHEL, biting ? { ...TP.stand, ...EAT } : TP.holdUp, { t, seed: 1, face: biting ? 'laugh' : 'proud', look: CAMP, talk: biting ? chew(t) : 0 }); if (biting) { place(PLAQ, headOf(MICHEL).add(V(.2, -.14, .16)), [0, 0, 0], .8); PLAQ.lookAt(CAMP); PLAQ.rotateZ(.55); } else plq(MICHEL, V(0, .2, .05)); return; }
+  else { apply(MICHEL, biting ? { ...TP.stand, ...EAT } : TP.holdUp, { t, seed: 1, face: biting ? 'laugh' : 'proud', look: CAMP, talk: biting ? chew(t) : 0 }); if (biting) { const h = headOf(MICHEL); place(PLAQ, h.clone().add(V(.2, -.14, .16)), [0, 0, 0], .8); PLAQ.lookAt(h.clone().add(V(.35, -.08, 1.3))); PLAQ.rotateZ(.55); } else plq(MICHEL, V(0, .2, .05)); return; }
   apply(MICHEL, TP.stand, { t, seed: 1, face: 'happy', look: headOf(HOST) });
 }
 function actSick(t) {
