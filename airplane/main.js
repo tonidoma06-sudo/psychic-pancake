@@ -225,6 +225,11 @@ function actTally(t) {
   CARTS.forEach((c2, i) => { const k = pop(t15, i, 15); if (k <= 0) return; const r = Math.floor(i / 5), c = i % 5; place(c2, SDO.clone().add(V(ROW[1] - 1.0 + c * .5, r * .9, -.5 + r * .2)), [0, .1 * (c - 2), 0], k); });
   TVS.forEach((v, i) => { const k = pop(t7, i, 7); if (k <= 0) return; const r = i < 4 ? 0 : 1, c = r ? i - 4 : i; place(v, SDO.clone().add(V(ROW[2] - .9 + c * .62 + r * .3, r * .5, 0)), [0, (hash(i) - .5) * .3, 0], k); });
   const kc = back(seg(t, tCoffin - .1, tCoffin + .2), 2.2); if (kc > 0) place(COF, SDO.clone().add(V(ROW[3] + .85, 1.0 * kc, -.2)), [Math.PI / 2, 0, -.15], kc);
+  const walking = t < tCoffin - .15;
+  if (walking) {   // strolling past his menu, patting his belly
+    const x = lerp(ROW[0] - .3, ROW[2] + .6, eio(seg(t, C4 + .1, tCoffin - .2))) - .45, mp = SDO.clone().add(V(x, 0, 2.2)); put(MICHEL, mp, .7);
+    apply(MICHEL, walk({ ...TP.stand, aL: [-20, 30, 0, 100], aR: [-20, 30, 0, 100] }, t * 7, .7), { t, seed: 1, face: 'proud', look: CAMP }); return;
+  }
   const mp = SDO.clone().add(V(ROW[3] - .1, 0, .7)); put(MICHEL, mp, -.3);
   const biting = t > tHandles - .15;
   apply(MICHEL, biting ? { ...TP.stand, ...EAT } : TP.present, { t, seed: 1, face: biting ? 'laugh' : 'proud', look: CAMP, talk: biting ? chew(t) : 0 });
