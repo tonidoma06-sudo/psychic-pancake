@@ -234,7 +234,7 @@ function actWalk(t) {
   reset();
   const k = seg(t, C2 - .2, tBought), v = TRO.clone().add(V(lerp(-5, 1, k), 0, lerp(2.5, 1.5, k))); put(STEVE, v, Math.PI / 2 - .3);
   apply(STEVE, walk(TP.stand, t * 6.5, .9), { t, seed: 1, face: 'proud', look: CAMP }); onHand(STEVE, BRIEF, 0, [0, -.02, .02], [0, Math.PI / 2, 0], 1);
-  STR.forEach((p, i) => { const x = lerp(4 + i * 2, -6 + i * 2, seg(t, C2 - 1, tBought + 2)); const pv = TRO.clone().add(V(x, 0, 4.2 + i * .7)); put(p, pv, -Math.PI / 2); apply(p, walk(TP.stand, t * 6.5 + i, .8), { t, seed: 34 + i, face: 'happy', look: CAMP }); });
+  STR.forEach((p, i) => { const x = lerp(4 + i * 2, -6 + i * 2, seg(t, C2 - 1, tBought + 2)); const pv = TRO.clone().add(V(x, 0, -1.0 - i * .8)); put(p, pv, -Math.PI / 2); apply(p, walk(TP.stand, t * 6.5 + i, .8), { t, seed: 34 + i, face: 'happy', look: CAMP }); });
   place(PLG, TRO.clone().add(V(4, 4.2, -30)), [0, Math.PI, 0], 1);
 }
 function actCard(t) {
