@@ -348,7 +348,7 @@ for e in EV:
     elif s_ == 'rush': addv(whoosh(d), t, .5)
     elif s_ == 'heart': addv(heartbeat(d), t, .6)
     elif s_ == 'crack': addv(crack(), t, .7)
-    elif s_ == 'hit': addv(kick(1.3), t, .7)
+    elif s_ == 'hit': addv(kick(1.3), t, .45)
     elif s_ == 'sparkle': addv(sparkle(), t, .5)
     elif s_ == 'sting': addv(bell(88, 1.0), t, .4)
     elif s_ == 'stadium': addv(stadium(d), t, .6)
@@ -362,9 +362,9 @@ for e in EV:
     elif s_ == 'spin':
         k = 0.0
         while k < d - .03: addv(xylo(90 + int(k * 37) % 5, .06), t + k, .22); k += .07
-    elif s_ == 'crunch': addv(crunch(d), t, .9)
-    elif s_ == 'burp': addv(burp(), t, .8)
-    elif s_ == 'applause': addv(applause(d), t, .8)
+    elif s_ == 'crunch': addv(crunch(d), t, .55)
+    elif s_ == 'burp': addv(burp(), t, .6)
+    elif s_ == 'applause': addv(applause(d), t, .55)
     elif s_ == 'gasp': addv(gasp(), t, .6)
     elif s_ == 'saw': addv(sawing(d), t, .7)
     elif s_ == 'glug': addv(glug(d), t, .7)
@@ -421,7 +421,7 @@ duck = 1 - np.clip(.4 * np.clip(venv * 4, 0, 1), 0, .4)
 rms = lambda x: np.sqrt(np.mean(x ** 2) + 1e-12)
 act = np.zeros(S.N, bool)
 for l in TM['lines']: act[int(l['t0'] * SR):int(l['t1'] * SR)] = True
-MUSIC_DB, SFX_DB = -16, -8
+MUSIC_DB, SFX_DB = -16, -15   # sound effects 7 dB lower (they were too loud)
 if VOICE != 'none':
     vr = rms(VB[act]); mg = vr / rms(((ML + MR) / 2 * duck)[act]) * 10 ** (MUSIC_DB / 20); sg = vr / rms(((VL + VR) / 2)[act] + 1e-9) * 10 ** (SFX_DB / 20)
     tl = TM['lines'][-1]['t1'] + .2; ts = np.arange(S.N) / SR; duck = duck * (1 + (10 ** (6 / 20) - 1) * np.clip((ts - tl) / .4, 0, 1))
