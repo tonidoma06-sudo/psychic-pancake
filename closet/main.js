@@ -211,9 +211,9 @@ function actOffice(t) {
   reset();
   put(MAN, DESKP, Math.PI);
   const buzz = t > tBuzzed - .05, grab = t > tBuzzed + .45;
-  apply(MAN, grab ? { ...TP.sit, y: -.04, aR: [-100, 10, 0, 60], aL: [-50, 10, 0, 70] } : { ...TP.sit, y: -.04, aL: [-50, 10, 0, 75], aR: [-50, 10, 0, 75] }, { t, seed: 3, sweat: buzz, face: grab ? 'shock' : buzz ? 'worried' : 'deadpan', look: buzz ? OO.clone().add(V(.28, .78, .05)) : OO.clone().add(V(0, 1.0, -.2)) });
+  apply(MAN, grab ? { ...TP.sit, y: -.04, aR: [-70, 14, 0, 70], aL: [-50, 10, 0, 70] } : { ...TP.sit, y: -.04, aL: [-50, 10, 0, 75], aR: [-50, 10, 0, 75] }, { t, seed: 3, sweat: buzz, face: grab ? 'shock' : buzz ? 'worried' : 'deadpan', look: buzz ? OO.clone().add(V(.28, .78, .05)) : OO.clone().add(V(0, 1.0, -.2)) });
   const shake = buzz && !grab ? Math.sin(t * 90) * .006 : 0;
-  if (grab) { const hp = handOf(MAN); place(PHONE, hp.add(V(0, .05, .02)), [0, 0, 0], 1.1); PHONE.lookAt(headOf(MAN)); PHONE.rotateX(-.2); }
+  if (grab) { const hp = handOf(MAN); place(PHONE, hp.add(V(0, .06, .03)), [0, 0, 0], 1.2); PHONE.lookAt(CAMP); PHONE.rotateX(-.15); }
   else place(PHONE, OO.clone().add(V(.28 + shake, .78, .1)), [-Math.PI / 2 + .3, 0, .6], 1.3);
   PHONE.userData.screen(buzz ? 'alert' + (Math.floor(t * 4) % 2) : 'home', (c, w, h) => buzz ? feedScreen(c, w, h, t, 1) : (c.fillStyle = '#1E3A6E', c.fillRect(0, 0, w, h)));
   COWORK.forEach((p, i) => { const v = OO.clone().add([V(-1.6, 0, .35), V(1.6, 0, .35)][i]); put(p, v, Math.PI); apply(p, { ...TP.sit, y: -.04, aL: [-50, 10, 0, 75], aR: [-50, 10, 0, 75] }, { t, seed: 20 + i, face: 'calm', look: v.clone().add(V(0, 1.0, -.6)) }); });
