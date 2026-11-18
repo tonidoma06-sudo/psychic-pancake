@@ -1,0 +1,8 @@
+out/
+stills/
+__pycache__/
+*.jpg
+!poster.jpg
+voice/user.wav
+!style/styleframe.jpg
+voice/scratch_full.wav
