@@ -107,7 +107,9 @@ const camAt = (pos, look, fov = 45, focus, aper = 4, roll = 0) => ({ pos, look, 
 const hand = (c, t, a = 1) => { c.pos.x += noise(t, 1) * .012 * a; c.pos.y += noise(t, 2) * .01 * a; c.look.x += noise(t, 3) * .02 * a; c.look.y += noise(t, 4) * .016 * a; return c; };
 const ledOn = t => Math.floor(t * 2.4) % 2 === 0;
 // the fridge: door angle (0 shut … 1 wide), how many items are left
-function fridge(open, left = ITEMS.length) { DOOR.rotation.y = -1.85 * open; FLIGHT.intensity = .9 * open; ITEMS.forEach((o, i) => o.visible = i < left); }
+// gone: how many items have vanished, in this order (the eggs and the bento in view go first)
+const VANISH = [1, 0, 9, 8, 7, 6, 5, 4, 3, 2];
+function fridge(open, gone = 0) { DOOR.rotation.y = -1.85 * open; FLIGHT.intensity = .9 * open; ITEMS.forEach(o => o.visible = true); VANISH.slice(0, gone).forEach(i => ITEMS[i].visible = false); }
 const FFRONT = FRW.clone().add(V(.08, 0, .95));          // where he stands at the fridge
 const CAB = KIT.userData.camSpot;                        // the hidden camera's spot, on the upper cabinets
 const TABLE = V(.3, 0, .32);                             // his chair at the little table
@@ -131,7 +133,7 @@ sh({ t0: tMan - .15, set: 'kitchen', lt: NIGHT, at: KO, act: t => actDinner(t),
   cam: (t, u) => hand(camAt(V(lerp(-.35, -.2, u), lerp(1.2, 1.15, u), lerp(-1.45, -1.3, u)), V(.35, 1.0, .35), 56, 1.9, 5), t) });
 // 2c · A little food missing. Then more.: back inside the fridge: things vanish, one, then a lot
 sh({ t0: tLittle - .15, set: 'kitchen', lt: NIGHT, at: KO, act: t => actFridge(t, 'vanish'),
-  cam: (t, u) => hand(camAt(FRW.clone().add(V(.05, lerp(.96, 1.0, u), -.24)), FFRONT.clone().add(V(-.02, 1.28, 0)), 72, 1.25, 1.5), t, .5) });
+  cam: (t, u) => hand(camAt(FRW.clone().add(V(.05, 1.02, -.27)), FFRONT.clone().add(V(-.02, 1.1, 0)), 80, 1.25, 1.5), t, .3) });
 // 3a · He wired a camera to his phone.: over his shoulder, the live view on the phone
 sh({ t0: C3, set: 'kitchen', lt: NIGHT, at: KO, act: t => actWire(t), after: 1,
   cam: (t, u) => { const h = headOf(MAN), ry = MAN.P.rotation.y, rt = V(-Math.cos(ry), 0, Math.sin(ry)), bk = V(-Math.sin(ry), 0, -Math.cos(ry)), p = PHONE.position.clone().add(V(0, .04, 0)); return hand(camAt(h.clone().add(rt.multiplyScalar(.34)).add(bk.multiplyScalar(lerp(.34, .26, u))).add(V(0, .1, 0)), p, 40, .55, 6), t, .25); } });
@@ -166,12 +168,12 @@ function actFridge(t, mode) {
   reset(); FBODY.visible = false;     // the camera is inside: no shell in the way
   put(MAN, FFRONT, Math.PI);
   if (mode === 'hook') {
-    fridge(1, 3);
+    fridge(1, 8);
     apply(MAN, { ...TP.stand, aL: [-60, 10, 0, 40], aR: [-20, 30, 0, 60], hd: [10, 0, 0] }, { t, seed: 3, face: t > tKitchen ? 'shock' : 'worried', look: FRW.clone().add(V(0, .9, 0)), sweat: 1 });
   } else {
     const open = eo(seg(t, tLittle - .15, tLittle + .25));
     const gone = (t > tFood2 ? 1 : 0) + (t > tMissing ? 1 : 0) + Math.round(lerp(0, 6, seg(t, tThen2, tMore + .3)));
-    fridge(open, ITEMS.length - gone);
+    fridge(open, gone);
     const mad = t > tMore;
     apply(MAN, { ...TP.stand, aL: [-62, 10, 0, 40], aR: mad ? [-40, 60, 0, 100] : [-20, 30, 0, 60], hd: [10, 0, 0] }, { t, seed: 3, face: mad ? 'angry' : t > tFood2 ? 'worried' : 'deadpan', look: FRW.clone().add(V(0, .9, 0)), sweat: t > tFood2 && !mad });
   }
@@ -217,7 +219,7 @@ function actOffice(t) {
   COWORK.forEach((p, i) => { const v = OO.clone().add([V(-1.6, 0, .35), V(1.6, 0, .35)][i]); put(p, v, Math.PI); apply(p, { ...TP.sit, y: -.04, aL: [-50, 10, 0, 75], aR: [-50, 10, 0, 75] }, { t, seed: 20 + i, face: 'calm', look: v.clone().add(V(0, 1.0, -.6)) }); });
 }
 function actFeed(t) {
-  reset(); fridge(eo(seg(t, tWalking - .2, tHouse)), 2); lampL.intensity = 0;
+  reset(); fridge(eo(seg(t, tWalking - .2, tHouse)), 8); lampL.intensity = 0;
   const k = seg(t, tSomeone - .1, tWalking + .2), v = V(lerp(1.4, -.9, k), 0, lerp(.5, -.5, k));
   put(WOMAN, v, face(v, FFRONT) );
   apply(WOMAN, k < 1 ? walk(TP.stand, t * 5.5, .6) : { ...TP.stand, aR: [-60, 10, 0, 30] }, { t, seed: 4, face: 'deadpan', look: FRW.clone().add(V(0, 1, 0)) });
