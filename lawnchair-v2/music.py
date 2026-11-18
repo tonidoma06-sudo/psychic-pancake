@@ -174,7 +174,6 @@ for b in range(nb):
         if section(tn + .01) == 'pop' and b % 2 == 0 and tn < LOOP: add(synpluck(m, d * BEAT), tn, .36, -.15)
 # hits
 add(kick(1.2), 0, .7); add(brass_([60, 64, 67, 72], 1.2), 0, .4)
-add(pad([45, 52, 57, 60], 1.5), tBUT - .1, .3)
 add(kick(1.4), tSNAP - .02, .9); add(brass_([60, 64, 67, 72], 1.0), CUT['L6'] - .02, .45)
 add(kick(1.3), tPOWER - .02, .8); add(pad([38, 45, 50, 53], 2.0), tPOWER, .35)
 add(bell(84, 1.4), tMAN + .6, .25)
