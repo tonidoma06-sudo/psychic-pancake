@@ -20,7 +20,7 @@ GAP, CH_GAP, MAXP = .22, .22, .32             # pause between lines (no chapters
 TEMPO = float(os.environ.get('TEMPO', 1.1))  # sped up like the other Shorts (pitch unchanged)
 # line starts checked by ear/eye in the take, where the pauses alone are ambiguous (seconds in the raw file, before the speed-up):
 # "9. 6. 4." belongs to the freeze, "Second place." to its own line, "The screen spins." to the partner reveal
-FORCE = {}
+FORCE = {'L4': 20.99}   # "Cash on delivery." runs into "Inside:" with only a short breath: L4 starts at the next pause
 DROP = set()                    # lines cut from the take (the film still splits the read by all lines)
 HEAD, TAIL = .03, .45                         # silence before the first word, after the last (then the loop)
 
@@ -94,11 +94,37 @@ def place_words(text, over, segs):
                 d = (b - a) * syl(w, over) / tot; out.append({'w': w, 't0': round(acc, 3), 't1': round(acc + d, 3)}); acc += d
     return out
 
+def place_words_w(text, over, segs):
+    """Word-level placement: split the line's words over its voiced parts so each part's share of syllables matches its share
+    of time, preferring to end a part at punctuation; tiny parts (breaths, < .2 s) are merged into the part before."""
+    m = []
+    for sgm in segs:
+        if m and (sgm[1] - sgm[0] < .2) and sgm[0] - m[-1][1] < .5: m[-1] = [m[-1][0], sgm[1]]
+        else: m.append(list(sgm))
+    segs = m; ws = words_of(text); sy = [syl(w, over) for w in ws]; n, k = len(ws), len(segs)
+    if k == 1 or n < k: return place_words(text, over, segs)
+    D = [b - a for a, b in segs]; SA, SB = sum(sy), sum(D)
+    pu = [1 if re.search(r'[,.…!?:]"?$', w) else 0 for w in ws]
+    INF = 1e18; best = [[INF] * (n + 1) for _ in range(k + 1)]; arg = [[0] * (n + 1) for _ in range(k + 1)]; best[0][0] = 0
+    for j in range(1, k + 1):
+        for e in range(j, n - (k - j) + 1):
+            for st in range(j - 1, e):
+                if best[j - 1][st] >= INF: continue
+                c = best[j - 1][st] + (sum(sy[st:e]) / SA - D[j - 1] / SB) ** 2 - (.004 if pu[e - 1] else 0)
+                if c < best[j][e]: best[j][e] = c; arg[j][e] = st
+    cuts = [n]; e = n
+    for j in range(k, 0, -1): e = arg[j][e]; cuts.append(e)
+    cuts = cuts[::-1]; out = []
+    for j in range(k):
+        rw = ws[cuts[j]:cuts[j + 1]]; a, b = segs[j]; tot = sum(syl(w, over) for w in rw); acc = a
+        for w in rw: d = (b - a) * syl(w, over) / tot; out.append({'w': w, 't0': round(acc, 3), 't1': round(acc + d, 3)}); acc += d
+    return out
+
 def build(per_line, voice, LS=LINES):
     """per_line: for each script line, its voiced parts (absolute times in the final voice track) → the timeline."""
     lines, prev_cut = [], -9
     for (lid, ch, text, over), segs in zip(LS, per_line):
-        v0 = segs[0][0]; words = place_words(text, over, segs)
+        v0 = segs[0][0]; words = place_words_w(text, over, segs) if voice else place_words(text, over, segs)
         if not lines: cut = 0.0
         else:
             c = np.floor((v0 - LEAD) / B) * B
