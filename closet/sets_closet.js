@@ -2,10 +2,15 @@
 // kitchen() at night with the fridge (its door opens, the food can vanish item by item) · street() at dusk with his house,
 // utility poles, a glowing vending machine · office() by day · washitsu() the tatami room with the oshiire closet (its
 // sliding doors open; the top shelf holds the mattress, a lamp, bottles) · props: flipPhone() (live screen), hiddenCam(),
-// flashlight(). Everything toon-shaded (coloured shadows from toon.js v5), outlined.
+// flashlight(). The sets are lit "for real" (physically based materials, soft shadows, warm practical lights, no outlines)
+// while the characters stay flat outlined toons, like the reference channel.
 import * as THREE from 'three';
-import { TM, toon, G } from './toon.js';
+import { G } from './toon.js';
 import { rng } from './kit.js';
+const MC = new Map();
+const pbr = (c, o = {}) => { const k = c + (o.map ? o.map.uuid : '') + (o.r ?? '') + (o.m ?? ''); if (!MC.has(k)) MC.set(k, new THREE.MeshStandardMaterial({ color: c, map: o.map ?? null, roughness: o.r ?? .72, metalness: o.m ?? 0 })); return MC.get(k); };
+const toon = (c, o = {}) => pbr(c, o);
+function TM(geo, m, parent, x = 0, y = 0, z = 0) { const o = new THREE.Mesh(geo, typeof m === 'string' ? pbr(m) : m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; if (parent) parent.add(o); return o; }
 
 const B3 = (w, h, d) => new THREE.BoxGeometry(w, h, d);
 const C3 = (r0, r1, h, s = 20) => new THREE.CylinderGeometry(r0, r1, h, s);
@@ -95,6 +100,15 @@ export function kitchen() {
   // a wall calendar, a clock
   const cal = new THREE.Mesh(new THREE.PlaneGeometry(.34, .46), tmap(ctex(170, 230, (c, w, h) => { c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, w, h); c.fillStyle = '#C8283A'; c.fillRect(0, 0, w, 48); c.fillStyle = '#FFFFFF'; c.font = '900 30px Montserrat'; c.textAlign = 'center'; c.fillText('2008', w / 2, 35); c.fillStyle = '#333'; c.font = '700 16px Montserrat'; for (let i = 0; i < 30; i++) c.fillText(String(i + 1), 18 + (i % 7) * 22, 75 + Math.floor(i / 7) * 32); })));
   cal.position.set(-1.98, 1.6, -.6); cal.rotation.y = Math.PI / 2; g.add(cal);
+  // more life: a shelf of jars over the table, a plant, a rug, a wall clock, a noren curtain on the left wall
+  TM(B3(1.0, .04, .22), '#8A5A34', g, -.6, 1.75, -1.68);
+  ['#E8423A', '#F2B030', '#4FA236', '#2E6FB5', '#F4A0B8'].forEach((c, i) => { TM(C3(.05, .05, .14 + (i % 2) * .04, 16), c, g, -1.0 + i * .2, 1.85 + (i % 2) * .02, -1.66); TM(C3(.052, .052, .03, 16), '#F4F1EA', g, -1.0 + i * .2, 1.94 + (i % 2) * .04, -1.66); });
+  TM(C3(.16, .12, .3, 16), '#C8643C', g, 1.95, .15, .9); for (let i = 0; i < 6; i++) { const lf = TM(new THREE.SphereGeometry(.16, 12, 8), '#3E9A3A', g, 1.95 + Math.sin(i) * .1, .45 + i * .07, .9 + Math.cos(i) * .1); lf.scale.set(1, .6, .5); lf.rotation.y = i; }
+  const rug = new THREE.Mesh(new THREE.CircleGeometry(.9, 40), pbr('#2E5AA8', { r: .95 })); rug.rotation.x = -Math.PI / 2; rug.position.set(.3, .006, .1); rug.receiveShadow = true; g.add(rug);
+  const rug2 = new THREE.Mesh(new THREE.RingGeometry(.62, .72, 40), pbr('#F2B030', { r: .95 })); rug2.rotation.x = -Math.PI / 2; rug2.position.set(.3, .008, .1); g.add(rug2);
+  const clk = G(); clk.position.set(.3, 2.25, -1.78); g.add(clk); TM(C3(.18, .18, .04, 32), '#F4F1EA', clk).rotation.x = Math.PI / 2; TM(new THREE.TorusGeometry(.18, .02, 8, 32), '#2A2A30', clk); TM(B3(.015, .12, .01), '#2A2A30', clk, 0, .05, .03).rotation.z = .6; TM(B3(.012, .15, .01), '#C8283A', clk, 0, .06, .035).rotation.z = -1.2;
+  const noren = ctex(256, 256, (c, w, h) => { c.fillStyle = '#1E3A6E'; c.fillRect(0, 0, w, h); c.fillStyle = '#F4F1EA'; c.beginPath(); c.arc(w / 2, h * .45, 50, 0, 7); c.fill(); c.fillStyle = '#1E3A6E'; c.beginPath(); c.arc(w / 2, h * .45, 34, 0, 7); c.fill(); c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(w / 2 - 2, 0, 4, h); });
+  for (const z of [.55, 1.05]) { const n = new THREE.Mesh(new THREE.PlaneGeometry(.5, 1.0), pbr('#FFFFFF', { map: noren, r: .9 })); n.material.side = THREE.DoubleSide; n.position.set(-1.98, 1.65, z); n.rotation.y = Math.PI / 2; g.add(n); }
   // the fridge: body, a door hinged on its left edge (opens toward the room), an interior light, shelves of food
   const F = G(); F.position.set(-1.35, 0, -1.42); g.add(F); g.userData.fridge = F;
   const body = G(); F.add(body); g.userData.fbody = body;   // the shell (hidden when the camera sits inside the fridge)
@@ -172,6 +186,13 @@ export function office() {
   const desk = (x, z, ry = 0) => { const d = G(); d.position.set(x, 0, z); d.rotation.y = ry; g.add(d); TM(B3(1.3, .04, .7), '#D8DCE2', d, 0, .74, 0, .006); TM(B3(1.3, .7, .03), '#9AA4B0', d, 0, .37, -.33, .004); for (const s of [-1, 1]) TM(B3(.04, .72, .68), '#9AA4B0', d, s * .63, .36, 0, .004);
     TM(B3(.5, .34, .03), '#2A2A30', d, 0, 1.0, -.2, .004); const sc = new THREE.Mesh(new THREE.PlaneGeometry(.46, .3), glow('#7AC8F0', .9)); sc.position.set(0, 1.0, -.184); d.add(sc); TM(B3(.06, .14, .06), '#2A2A30', d, 0, .82, -.22, .003);
     TM(B3(.42, .02, .14), '#E8EAF0', d, 0, .77, .05, .003); TM(B3(.24, .06, .3), ['#F2B030', '#E8423A', '#4FA236'][Math.abs(Math.round(x)) % 3], d, .45, .79, -.1, .004); return d; };
+  plane(10, 3, toon('#DCE6F0'), g, 0, 1.5, 3.2, Math.PI);   // the wall behind him: a whiteboard, a clock, a door, posters
+  TM(B3(1.6, .9, .04), '#F8F8F6', g, -1.0, 1.55, 3.17); TM(B3(1.66, .05, .06), '#9AA4B0', g, -1.0, 1.08, 3.15);
+  for (const [x0, y0, w0, c0] of [[-1.5, 1.75, .5, '#2E6FB5'], [-1.2, 1.55, .7, '#E8423A'], [-.7, 1.35, .4, '#4FA236']]) TM(B3(w0, .03, .01), c0, g, x0 + w0 / 2, y0, 3.14);
+  const ck = G(); ck.position.set(.6, 2.3, 3.15); ck.rotation.y = Math.PI; g.add(ck); TM(C3(.16, .16, .04, 28), '#F4F1EA', ck).rotation.x = Math.PI / 2; TM(new THREE.TorusGeometry(.16, .018, 8, 28), '#2A2A30', ck);
+  TM(B3(.9, 2.1, .06), '#8A9AB0', g, 1.8, 1.05, 3.15); TM(B3(.06, .2, .06), '#C8CCD4', g, 1.45, 1.05, 3.1);
+  for (const [x0, c0] of [[.3, '#F2B030'], [.8, '#E8423A']]) TM(B3(.4, .55, .01), c0, g, x0, 1.55, 3.16);
+  TM(B3(.6, 1.6, .5), '#9AA4B0', g, -2.6, .8, 2.9); for (let i = 0; i < 4; i++) TM(B3(.5, .04, .42), '#C8D0DC', g, -2.6, .3 + i * .4, 2.88);   // a filing cabinet
   g.userData.desk = desk(0, 0); desk(-1.6, -.2); desk(1.6, -.2); desk(-1.6, 1.6, Math.PI); desk(1.6, 1.6, Math.PI);
   for (const x of [-3.2, 3.2]) { TM(C3(.2, .16, .4, 12), '#F4F1EA', g, x, .2, -2.1, .005); TM(S3(.38, 14, 10), '#4FA236', g, x, .75, -2.1, .006); }
   const chair = G(); chair.position.set(0, 0, .55); g.add(chair); TM(B3(.48, .08, .46), '#2E6FB5', chair, 0, .48, 0, .006); TM(B3(.46, .6, .08), '#2E6FB5', chair, 0, .85, .22, .006); TM(C3(.03, .03, .4, 8), '#3A3A44', chair, 0, .24, 0, .003);
@@ -215,6 +236,12 @@ export function washitsu() {
   const L = panel(-.45, 0), Rr = panel(.45, 1); Rr.position.z = .05;
   g.userData.open = k => { Rr.position.x = .45 - .9 * k; };
   TM(B3(1.9, .2, .12), '#8A5A34', O, 0, 1.9, .02, .004);   // the lintel over the closet
+  // more life: a hanging scroll, a tall paper floor lamp (off), a chest of drawers, a vase of flowers, a calendar
+  const scroll = ctex(128, 384, (c, w, h) => { c.fillStyle = '#F4EEDC'; c.fillRect(0, 0, w, h); c.fillStyle = '#2A2A30'; c.font = '700 70px serif'; c.textAlign = 'center'; c.fillText('和', w / 2, 150); c.fillText('心', w / 2, 250); c.fillStyle = '#C8283A'; c.fillRect(w / 2 - 12, 300, 24, 24); });
+  const sc = new THREE.Mesh(new THREE.PlaneGeometry(.4, 1.2), pbr('#FFFFFF', { map: scroll, r: .9 })); sc.position.set(-1.6, 1.35, -1.8); g.add(sc); TM(C3(.015, .015, .5, 8), '#5A3A22', g, -1.6, 1.97, -1.79).rotation.z = Math.PI / 2;
+  const chest = G(); chest.position.set(1.65, 0, -1.45); g.add(chest); TM(B3(.8, .9, .45), '#7A4A26', chest, 0, .45, 0); for (let i = 0; i < 3; i++) { TM(B3(.74, .25, .02), '#8A5A34', chest, 0, .17 + i * .28, .23); TM(B3(.12, .03, .03), '#C8A04A', chest, 0, .17 + i * .28, .25); }
+  TM(C3(.07, .1, .25, 14), '#2E6FB5', chest, -.2, 1.02, 0); for (let i = 0; i < 4; i++) TM(new THREE.SphereGeometry(.05, 10, 8), ['#F2799A', '#F2B030', '#F4F1EA', '#E8423A'][i], chest, -.2 + Math.sin(i * 1.6) * .06, 1.24 + (i % 2) * .05, Math.cos(i * 1.6) * .05);
+  const fl = G(); fl.position.set(-1.9, 0, .9); g.add(fl); TM(C3(.03, .03, 1.1, 8), '#3A2A1E', fl, 0, .55, 0); TM(C3(.16, .2, .45, 16, ), '#F4EEDC', fl, 0, 1.2, 0);
   // a low table, red cushions, a small TV on a stand, a lamp
   TM(new THREE.CylinderGeometry(.55, .55, .05, 32), '#8A5A34', g, .2, .34, .6, .006); for (const a of [0, 1, 2, 3]) TM(B3(.05, .32, .05), '#6A4024', g, .2 + Math.cos(a * Math.PI / 2 + .78) * .4, .16, .6 + Math.sin(a * Math.PI / 2 + .78) * .4, .003);
   for (const [x, z] of [[-.6, .7], [.9, 1.1]]) TM(B3(.5, .08, .5), '#D9483A', g, x, .04, z, .006);

@@ -1,6 +1,4 @@
-// toon.js · style kit v5 (v4 + colour): outlined toon characters with big hand-drawn 2D faces.
-// v5: coloured cel shadows (cool purple-blue, not grey), a crisp rim light on the characters, skin tones, ears and a nose,
-// proper sleeves and trousers on arms and legs (no more black sticks), skin-coloured hands, shoes with soles, eye highlights.
+// toon.js · style kit v4.5: outlined toon characters with big hand-drawn 2D faces (+ sweat drops, lashes, badges, lanyards, belts).
 // Cel-shaded bean bodies (MeshToonMaterial + a 3-step ramp), black ink outlines (inverted hull), thin black stick limbs,
 // a white ball head with a face painted on a canvas decal: expressions snap on story beats, the mouth flaps while talking.
 import * as THREE from 'three';
@@ -10,29 +8,22 @@ function rampTex(stops) {
   const d = new Uint8Array(stops.length * 4); stops.forEach((v, i) => { const b = Math.round(v * 255); d.set([b, b, b, 255], i * 4); });
   const t = new THREE.DataTexture(d, stops.length, 1, THREE.RGBAFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t;
 }
-function rampRGB(stops) {
-  const d = new Uint8Array(stops.length * 4); stops.forEach((c, i) => d.set([...c.map(v => Math.round(v * 255)), 255], i * 4));
-  const t = new THREE.DataTexture(d, stops.length, 1, THREE.RGBAFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t;
-}
-// the shadow side goes cool (purple-blue), the light side stays clean
-export const RAMP = rampRGB([[.5, .45, .72], [.84, .8, .94], [1, 1, 1]]), RAMP_SOFT = rampRGB([[.76, .72, .9], [.92, .9, .98], [1, 1, 1]]);
-export const STYLE = { rim: 0, rimC: { value: new THREE.Color('#FFF2DC') }, rimK: { value: .38 } };   // shared uniforms: set per shot
-// colour lookup in the ramp (three reads only .r by default) + an optional rim light at the silhouette edge
-export function v5(m, rim) {
-  m.onBeforeCompile = sh => {
-    sh.fragmentShader = sh.fragmentShader.replace('#include <gradientmap_pars_fragment>', THREE.ShaderChunk.gradientmap_pars_fragment.replace('vec3( texture2D( gradientMap, coord ).r )', 'texture2D( gradientMap, coord ).rgb'));
-    if (rim) { sh.uniforms.rimC = STYLE.rimC; sh.uniforms.rimK = STYLE.rimK;
-      sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'uniform vec3 rimC; uniform float rimK;\nvoid main() {')
-        .replace('#include <opaque_fragment>', 'float rimF = 1.0 - clamp( dot( normal, normalize( vViewPosition ) ), 0.0, 1.0 ); outgoingLight += rimC * rimK * smoothstep( .58, .66, rimF ) * ( .45 + .55 * diffuseColor.rgb );\n#include <opaque_fragment>'); }
-  };
-  m.customProgramCacheKey = () => 'v5' + (rim ? 'r' : '');
-  return m;
-}
+export const RAMP = rampTex([.5, .78, 1]), RAMP_SOFT = rampTex([.74, .9, 1]);
 const tcache = new Map();
+// 2D characters in a 3D world: while a character is built, its materials are flat and unlit (pure fills, like a drawing),
+// tinted by one shared colour per shot (CHAR_TINT) so they still sit in the scene's mood; thick ink outlines.
+export const CHAR_TINT = { value: new THREE.Color(1, 1, 1) };
+let FLAT = 0;
+function flatMat(o) {
+  const m = new THREE.MeshBasicMaterial({ color: o.color ?? '#FFFFFF', map: o.map ?? null, transparent: !!o.transparent, side: o.side ?? THREE.FrontSide,
+    polygonOffset: !!o.polygonOffset, polygonOffsetFactor: o.polygonOffsetFactor ?? 0, polygonOffsetUnits: o.polygonOffsetUnits ?? 0, depthWrite: o.depthWrite ?? true });
+  m.onBeforeCompile = sh => { sh.uniforms.ctint = CHAR_TINT; sh.fragmentShader = sh.fragmentShader.replace('void main() {', 'uniform vec3 ctint;\nvoid main() {').replace('#include <opaque_fragment>', 'outgoingLight *= ctint;\n#include <opaque_fragment>'); };
+  m.customProgramCacheKey = () => 'flat2d'; return m;
+}
 export function toon(color, o = {}) {
-  const rim = o.rim ?? STYLE.rim;
-  const k = color + (o.soft ? 's' : '') + (o.map ? o.map.uuid : '') + (o.t ? 't' : '') + (rim ? 'r' : '');
-  if (!tcache.has(k)) tcache.set(k, v5(new THREE.MeshToonMaterial({ color, map: o.map ?? null, gradientMap: o.soft ? RAMP_SOFT : RAMP, transparent: !!o.t }), rim));
+  if (FLAT) { const k = 'F' + color + (o.map ? o.map.uuid : '') + (o.t ? 't' : ''); if (!tcache.has(k)) tcache.set(k, flatMat({ color, map: o.map, transparent: o.t })); return tcache.get(k); }
+  const k = color + (o.soft ? 's' : '') + (o.map ? o.map.uuid : '') + (o.t ? 't' : '');
+  if (!tcache.has(k)) tcache.set(k, new THREE.MeshToonMaterial({ color, map: o.map ?? null, gradientMap: o.soft ? RAMP_SOFT : RAMP, transparent: !!o.t }));
   return tcache.get(k);
 }
 export const INK = '#141016';
@@ -78,8 +69,7 @@ function drawFace(g, f) {
     const x = cx + s * EX + lx, y = EY + ly;
     const kind = (blink > .5 && e.eyes !== 'squint') || (f.wink && s > 0) ? 'closed' : e.eyes;
     g.save();
-    if (kind === 'oval') { g.beginPath(); g.ellipse(x, y, 40, 58, 0, 0, 7); g.fill(); g.fillStyle = '#FFFFFF'; g.beginPath(); g.arc(x + 12, y - 22, 13, 0, 7); g.fill(); g.beginPath(); g.arc(x - 12, y + 18, 6, 0, 7); g.fill(); g.fillStyle = INK;
-      if (f.lashes) { g.lineWidth = 12; for (const k of [0, 1]) { g.beginPath(); g.moveTo(x + s * (26 + k * 14), y - 48 + k * 12); g.lineTo(x + s * (50 + k * 16), y - 70 + k * 14); g.stroke(); } } }
+    if (kind === 'oval') { g.beginPath(); g.ellipse(x, y, 40, 58, 0, 0, 7); g.fill(); }
     else if (kind === 'closed') { g.lineWidth = 22; g.beginPath(); g.arc(x, y + 12, 42, Math.PI * 1.1, Math.PI * 1.9); g.stroke(); }
     else if (kind === 'squint') { g.lineWidth = 24; g.beginPath(); g.moveTo(x - s * 44, y - 40); g.lineTo(x + s * 36, y); g.lineTo(x - s * 44, y + 40); g.stroke(); }
     else if (kind === 'lid') { // half-lidded: the lower half of an oval eye under a straight lid line
@@ -89,9 +79,14 @@ function drawFace(g, f) {
     else if (kind === 'evil') { // narrowed, slanted down towards the nose
       g.beginPath(); g.moveTo(x - 54, y - 6 + s * 22); g.lineTo(x + 54, y - 6 - s * 22); g.lineTo(x + 40, y + 40); g.quadraticCurveTo(x, y + 60, x - 40, y + 40); g.closePath(); g.fill();
     }
-    else if (kind === 'wide') { g.fillStyle = '#FFFFFF'; g.lineWidth = 18; g.beginPath(); g.ellipse(x, y, 62, 70, 0, 0, 7); g.fill(); g.stroke(); g.fillStyle = INK; g.beginPath(); g.arc(x + lx * .5, y + 6 + ly * .5, 22, 0, 7); g.fill(); g.fillStyle = '#FFFFFF'; g.beginPath(); g.arc(x + lx * .5 + 7, y - 2 + ly * .5, 7, 0, 7); g.fill(); g.fillStyle = INK; }
+    else if (kind === 'wide') { g.fillStyle = '#FFFFFF'; g.lineWidth = 18; g.beginPath(); g.ellipse(x, y, 62, 70, 0, 0, 7); g.fill(); g.stroke(); g.fillStyle = INK; g.beginPath(); g.arc(x + lx * .5, y + 6 + ly * .5, 20, 0, 7); g.fill(); }
     g.restore();
   }
+  if (f.lashes) { g.lineWidth = 12; for (const s of [-1, 1]) { const x = cx + s * EX + lx; for (const k of [0, 1]) { g.beginPath(); g.moveTo(x + s * (24 + k * 14), EY + ly - 50 + k * 12); g.lineTo(x + s * (46 + k * 16), EY + ly - 72 + k * 14); g.stroke(); } } }
+  if (f.sweat) {   // a big blue sweat drop at the temple
+    g.save(); g.translate(cx + 300, EY - 150); g.fillStyle = '#7FD0FF'; g.strokeStyle = INK; g.lineWidth = 12;
+    g.beginPath(); g.moveTo(0, -70); g.bezierCurveTo(30, -20, 48, 10, 48, 34); g.arc(0, 34, 48, 0, Math.PI); g.bezierCurveTo(-48, 10, -30, -20, 0, -70); g.closePath(); g.fill(); g.stroke();
+    g.fillStyle = 'rgba(255,255,255,.85)'; g.beginPath(); g.ellipse(-16, 30, 10, 18, -.3, 0, 7); g.fill(); g.restore(); }
   if (f.glasses === 'round') { g.lineWidth = 16; for (const s of [-1, 1]) { g.beginPath(); g.arc(cx + s * EX + lx * .3, EY + 4, 74, 0, 7); g.stroke(); } g.beginPath(); g.moveTo(cx - EX + 74, EY - 6); g.quadraticCurveTo(cx, EY - 30, cx + EX - 74, EY - 6); g.stroke(); }
   if (f.glasses === 'shades') { g.fillStyle = '#16131A'; for (const s of [-1, 1]) { g.beginPath(); g.moveTo(cx + s * 40, EY - 44); g.lineTo(cx + s * 250, EY - 52); g.quadraticCurveTo(cx + s * 240, EY + 70, cx + s * 150, EY + 66); g.quadraticCurveTo(cx + s * 50, EY + 60, cx + s * 40, EY - 44); g.fill(); } g.fillRect(cx - 50, EY - 50, 100, 18); g.fillStyle = 'rgba(255,255,255,.35)'; for (const s of [-1, 1]) { g.beginPath(); g.ellipse(cx + s * 190, EY - 14, 22, 9, -.4, 0, 7); g.fill(); } g.fillStyle = INK; }
   // brows
@@ -237,37 +232,39 @@ export function outfitTex(L) {
 // ---------------- the character ----------------
 // L: { name, top, pants, outfit: 'hoodie'|'tee'|'suit', hair: 'messy'|'slick'|'beanie'|'none', hairC, hatC, skin, blush, shoe, H (scale) }
 export function makeToon(L) {
-  const rim0 = STYLE.rim; STYLE.rim = 1;   // every material made below gets the rim light
   const P = G(); P.name = L.name ?? 'toon';
   const root = G(); P.add(root); root.scale.setScalar(L.H ?? 1);
-  const LEG = .5, BH = .58, HR = .21, W = .009;
+  FLAT = L.flat ?? 1;
+  const LEG = .5, BH = .58, HR = .21, W = L.ink ?? .013;
   const hips = G(); hips.position.y = LEG; root.add(hips);
   const spine = G(); hips.add(spine);
   // bean body: a lathe profile (bottom → top), front at u = .5
   const prof = [[0, -.02], [.1, -.015], [.16, .02], [.195, .08], [.205, .17], [.198, .27], [.182, .37], [.165, .45], [.14, .52], [.09, .565], [0, .58]].map(([r, y]) => new THREE.Vector2(r, y));
   const bodyG = new THREE.LatheGeometry(prof, 48, Math.PI, Math.PI * 2);
   const tex = outfitTex(L); tex.flipY = true;
-  const body = TM(bodyG, v5(new THREE.MeshToonMaterial({ map: tex, gradientMap: RAMP }), 1), spine, 0, 0, 0, W);
+  const body = TM(bodyG, FLAT ? flatMat({ map: tex }) : new THREE.MeshToonMaterial({ map: tex, gradientMap: RAMP }), spine, 0, 0, 0, W);
   // hood rolled at the back of the neck / or a collar
   if (L.outfit === 'hoodie' || !L.outfit) { const hg = new THREE.TorusGeometry(.115, .048, 10, 24, Math.PI * 1.3); hg.rotateZ(Math.PI * .85); hg.rotateX(Math.PI / 2); const hood = TM(hg, L.top, spine, 0, .53, -.01, W); hood.rotation.x = -.3; hood.castShadow = false; }
   if (L.outfit === 'suit') { const col = TM(new THREE.TorusGeometry(.085, .022, 8, 24), '#F4F1EA', spine, 0, .56, 0, W * .8); col.rotation.x = Math.PI / 2; }
   if (L.outfit === 'army') { const col = TM(new THREE.TorusGeometry(.088, .028, 8, 24), L.top, spine, 0, .555, 0, W * .8); col.rotation.x = Math.PI / 2 - .15; }
   if (L.outfit === 'polo') { const col = TM(new THREE.TorusGeometry(.09, .026, 8, 24), L.top, spine, 0, .555, 0, W * .8); col.rotation.x = Math.PI / 2 - .15; }
+  // accessories: a belt round the waist, a metal badge on the chest, an ID card on a lanyard
+  if (L.belt) { const b = TM(new THREE.TorusGeometry(.2, .018, 8, 40), L.belt, spine, 0, .2, 0, W * .6); b.rotation.x = Math.PI / 2; b.scale.set(1.0, 1.0, 1); if (L.buckle) TM(new THREE.BoxGeometry(.05, .04, .015), L.buckle, spine, 0, .2, .2, W * .5); }
+  if (L.badge) { const bd = TM(new THREE.CylinderGeometry(.03, .03, .01, 6), L.badge, spine, .085, .42, .162, W * .5); bd.rotation.set(Math.PI / 2 - .3, 0, 0); }
+  if (L.lanyard) { const ly = TM(new THREE.TorusGeometry(.1, .008, 6, 24, Math.PI), L.lanyard, spine, 0, .5, .09, 0); ly.rotation.set(Math.PI * .62, 0, Math.PI); TM(new THREE.BoxGeometry(.06, .08, .006), '#F4F1EA', spine, 0, .37, .19, W * .5).rotation.x = -.22; }
+  if (L.radio) { const r = TM(new THREE.BoxGeometry(.04, .06, .03), '#1E1E24', spine, -.11, .45, .13, W * .5); r.rotation.x = -.2; }
   // head
   const neck = G(); neck.position.y = BH - .02; spine.add(neck);
   const head = G(); head.position.y = HR * .82; neck.add(head);
-  const skin = L.skin ?? '#F4CFA8';
+  const skin = L.skin ?? '#FFFFFF';
   const skull = TM(new THREE.SphereGeometry(HR, 48, 32), toon(skin, { soft: 1 }), head, 0, 0, 0, W); skull.scale.set(1.04, .98, 1); skull.receiveShadow = false;   // faces always read clean
   const fc = document.createElement('canvas'); fc.width = fc.height = 1024; const fctx = fc.getContext('2d'); const ftex = new THREE.CanvasTexture(fc); ftex.colorSpace = THREE.SRGBColorSpace; ftex.anisotropy = 8;
   const A = 1.3, Bt = 1.2;
-  const faceM = v5(new THREE.MeshToonMaterial({ map: ftex, gradientMap: RAMP_SOFT, transparent: true, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2, depthWrite: false }), 0);
-  // ears and a little nose
-  for (const s of [-1, 1]) { const ear = TM(new THREE.SphereGeometry(.05, 16, 12), skin, head, s * HR * 1.0, -.012, -.01, W * .8); ear.scale.set(.45, .85, .62); }
-  const nose = TM(new THREE.SphereGeometry(.026, 16, 12), L.noseC ?? skin, head, 0, -.035, HR * .99, W * .7); nose.scale.set(1.1, .9, .8); nose.castShadow = false;
+  const faceM = FLAT ? flatMat({ map: ftex, transparent: true, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2, depthWrite: false }) : new THREE.MeshToonMaterial({ map: ftex, gradientMap: RAMP_SOFT, transparent: true, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2, depthWrite: false });
   const faceMesh = new THREE.Mesh(new THREE.SphereGeometry(HR * 1.004, 48, 40, Math.PI / 2 - A, 2 * A, Math.PI / 2 - Bt, 2 * Bt), faceM); faceMesh.scale.copy(skull.scale); head.add(faceMesh);
   let fkey = '';
-  const face = { ex: L.face ?? 'happy', talk: 0, blink: 0, look: [0, 0], blush: L.blush ?? 1, skin, glasses: L.glasses, mustache: L.mustache, lashes: L.lashes,
-    set(o) { Object.assign(face, o); const k = JSON.stringify([face.ex, Math.round(face.talk * 8), face.blink > .5, face.wink ? 1 : 0, face.look.map(v => Math.round(v * 6)), face.glasses ?? '']); if (k !== fkey) { fkey = k; drawFace(fctx, face); ftex.needsUpdate = true; } } };
+  const face = { ex: L.face ?? 'happy', talk: 0, blink: 0, look: [0, 0], blush: L.blush, skin, glasses: L.glasses, mustache: L.mustache, lashes: L.lashes, sweat: 0,
+    set(o) { Object.assign(face, o); const k = JSON.stringify([face.ex, Math.round(face.talk * 8), face.blink > .5, face.wink ? 1 : 0, face.look.map(v => Math.round(v * 6)), face.glasses ?? '', face.sweat ? 1 : 0]); if (k !== fkey) { fkey = k; drawFace(fctx, face); ftex.needsUpdate = true; } } };
   face.set({});
   // hair / hat
   const hc = L.hairC ?? '#4A3020';
@@ -324,39 +321,34 @@ export function makeToon(L) {
     const band = TM(new THREE.TorusGeometry(HR * .9, .034, 10, 40), bc, head, 0, HR * .55, 0, W); band.rotation.x = Math.PI / 2; band.scale.set(1.04, 1, 1);
     TM(new THREE.SphereGeometry(.05, 16, 12), L.pomC ?? '#F4F1EA', head, 0, HR * 1.12, 0, W);
   }
-  // arms (v5): sleeves to the wrist (or bare forearms with a tee), skin-coloured hands with a thumb
-  const limb = (r0, r1, len) => { const g2 = new THREE.CylinderGeometry(r0, r1, len, 14); g2.translate(0, -len / 2, 0); return g2; };
-  const sleeve = L.sleeve ?? L.top ?? '#4A6AB0', bare = L.outfit === 'tee' && !L.sleeve, fore = bare ? skin : sleeve;
+  // arms: a sleeve stub (shirt colour), thin black sticks, mitten hands
+  const limb = (r, len) => { const g2 = new THREE.CylinderGeometry(r, r, len, 10); g2.translate(0, -len / 2, 0); return g2; };
+  const black = toon('#1A161C');
   const arm = s => {
     const sh = G(); sh.position.set(s * .165, .43, 0); spine.add(sh);
-    TM(new THREE.SphereGeometry(.05, 16, 12), sleeve, sh, 0, -.01, 0, W * .8);
-    TM(limb(.042, .034, .2), bare ? sleeve : sleeve, sh, 0, 0, 0, W * .8);
-    const el = G(); el.position.y = -.2; sh.add(el);
-    TM(new THREE.SphereGeometry(.034, 14, 10), fore, el, 0, 0, 0, 0);
-    TM(limb(.033, .028, .18), fore, el, 0, 0, 0, W * .8);
-    if (!bare && L.cuff) TM(limb(.031, .031, .025), L.cuff, el, 0, -.165, 0, W * .5);
+    const sl = TM(new THREE.CylinderGeometry(.04, .052, .13, 16), L.top, sh, 0, -.045, 0, W); sl.rotation.z = 0;
+    const up = new THREE.Mesh(limb(.013, .2), black); sh.add(up); up.castShadow = true;
+    const el = G(); el.position.y = -.2; sh.add(el); const lo = new THREE.Mesh(limb(.012, .19), black); el.add(lo); lo.castShadow = true;
     const hand = G(); hand.position.y = -.2; el.add(hand);
-    TM(new THREE.SphereGeometry(.038, 16, 12), skin, hand, 0, 0, 0, W * .7).scale.set(1, 1.1, .82);
-    const th = TM(new THREE.CapsuleGeometry(.013, .03, 4, 8), skin, hand, -s * .03, .012, .012, W * .5); th.rotation.z = s * .9;
+    TM(new THREE.SphereGeometry(.034, 14, 10), '#1A161C', hand, 0, 0, 0, 0).scale.set(1, 1.1, .8);
+    const th = TM(new THREE.CapsuleGeometry(.011, .03, 4, 8), '#1A161C', hand, -s * .028, .012, .01, 0); th.rotation.z = s * .9;
     const props = G(); props.position.set(0, -.03, .02); hand.add(props);
     return { sh, el, hand, props, s };
   };
   const aL = arm(1), aR = arm(-1);
-  // legs (v5): trousers (or skirt + skin), chunky coloured shoes with a pale sole
-  const pants = L.pants ?? '#3A4A6A', shin = L.legs ?? pants;
+  // legs: thin black sticks and chunky shoes
   const leg = s => {
-    const hp = G(); hp.position.set(s * .08, .055, 0); hips.add(hp);
-    TM(limb(.05, .042, .25), pants, hp, 0, 0, 0, W * .8);
-    const kn = G(); kn.position.y = -.25; hp.add(kn);
-    TM(new THREE.SphereGeometry(.042, 14, 10), shin, kn, 0, 0, 0, 0);
-    TM(limb(.041, .036, .23), shin, kn, 0, 0, 0, W * .8);
+    const hp = G(); hp.position.set(s * .075, .055, 0); hips.add(hp);
+    const th = new THREE.Mesh(limb(.016, .25), black); hp.add(th); th.castShadow = true;
+    const kn = G(); kn.position.y = -.25; hp.add(kn); const sh2 = new THREE.Mesh(limb(.015, .24), black); kn.add(sh2); sh2.castShadow = true;
     const ft = G(); ft.position.y = -.245; kn.add(ft);
-    const shoe = TM(new THREE.SphereGeometry(.056, 18, 12), L.shoe ?? '#2A2A30', ft, 0, -.004, .03, W * .8); shoe.scale.set(1.0, .66, 1.75);
-    TM(new THREE.BoxGeometry(.1, .016, .17), L.sole ?? '#F4F1EA', ft, 0, -.036, .032, W * .5);
+    const shoe = TM(new THREE.SphereGeometry(.05, 16, 12), L.shoe ?? '#2A2A30', ft, 0, -.008, .03, W * .8); shoe.scale.set(1.0, .62, 1.7);
+    TM(new THREE.BoxGeometry(.09, .012, .15), '#F4F1EA', ft, 0, -.035, .03, 0);
     return { hp, kn, ft, s };
   };
   const lL = leg(1), lR = leg(-1);
-  STYLE.rim = rim0;
+  P.traverse(o => { if (o.isMesh) o.receiveShadow = false; });   // drawn characters: no shading falls on them
+  FLAT = 0;
   return { P, root, hips, spine, neck, head, face, aL, aR, lL, lR, props: aR.props, propsL: aL.props, L, HR };
 }
 
@@ -441,5 +433,5 @@ export function apply(p, q, o = {}) {
     p.head.rotation.y += Math.max(-1, Math.min(1, yaw)) * .8; p.head.rotation.x -= Math.max(-.6, Math.min(.6, pitch)) * .7;
   }
   const blink = ((t + (o.seed ?? 0) * .7) % 3.1) < .12 ? 1 : 0;
-  p.face.set({ ex: o.face ?? p.face.ex, talk: o.talk ?? 0, blink: o.noBlink || o.wink ? 0 : blink, wink: o.wink ? 1 : 0, look: o.eyes ?? [0, 0] });
+  p.face.set({ ex: o.face ?? p.face.ex, talk: o.talk ?? 0, blink: o.noBlink || o.wink ? 0 : blink, wink: o.wink ? 1 : 0, look: o.eyes ?? [0, 0], sweat: o.sweat ? 1 : 0 });
 }
