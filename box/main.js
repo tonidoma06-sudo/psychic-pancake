@@ -138,8 +138,8 @@ sh({ t0: tWooden - .1, set: 'ware', lt: NIGHTIN, at: CW, act: t => actCrateOutsi
 sh({ t0: C2, set: 'london', lt: RAIN, at: LO, act: t => actLondon(t),
   cam: (t, u) => hand(camAt(LO.clone().add(V(lerp(-1.5, -.8, u), lerp(1.5, 1.6, u), 7.5)), LO.clone().add(V(lerp(-.5, .2, u), 2.4, -2)), 52, 9, 2), t, .5) });
 // 2b · Reg Spiers, an Australian javelin thrower,: the throw
-sh({ t0: tReg - .1, set: 'field', lt: FIELD, at: FO, act: t => actThrow(t),
-  cam: (t, u) => hand(camAt(FO.clone().add(V(lerp(2.6, 2.3, u), 1.0, lerp(1.6, 1.2, u))), FO.clone().add(V(-.2, 1.4, -1.0)), 50, 2.8, 3), t, .5) });
+sh({ t0: tReg - .1, set: 'field', lt: FIELD, at: FO, act: t => actThrow(t), after: 1,
+  cam: (t, u) => { const p = REG.P.position.clone(); p.z = Math.max(p.z, FO.z - .9); return hand(camAt(p.clone().add(V(2.2, 1.1, -1.5)), p.clone().add(V(.35, 1.3, -.15)), 52, 2.6, 3), t, .5); } });
 // 2c · was stuck in London. Broke.: the bedsit, the rain, an empty wallet
 sh({ t0: tStuck - .1, set: 'bedsit', lt: BEDSIT, at: BO, act: t => actBedsit(t, 0),
   cam: (t, u) => hand(camAt(V(lerp(.4, .3, u), lerp(1.3, 1.25, u), lerp(1.4, 1.1, u)), V(-.85, .95, -.5), 52, 1.8, 4), t) });
@@ -209,7 +209,7 @@ function actCrateOutside(t, close) {
 function actLondon(t) { reset(); BUS.position.x = lerp(14, -10, seg(t, C2, tReg + .3)); }
 function actThrow(t) {
   reset();
-  const k = seg(t, tReg - .1, tThrower + .2), v = FO.clone().add(V(-.2, 0, lerp(1.6, -.9, Math.min(1, k * 1.2))));
+  const k = seg(t, tReg - .1, tThrower + .2), v = FO.clone().add(V(-.2, 0, lerp(.6, -.9, Math.min(1, k * 1.2))));
   put(REG, v, Math.PI);
   const thrown = t > tThrower - .05;
   apply(REG, thrown ? { ...TP.point, sp: [12, 0, 0], aR: [-150, 20, 0, 10], lL: [30, 4, 10], lR: [-20, 4, 30] } : walk({ ...TP.stand, aR: [-150, 30, 0, 90] }, t * 9, 1.1), { t, seed: 3, face: thrown ? 'proud' : 'angry', look: v.clone().add(V(0, 2, -5)) });
