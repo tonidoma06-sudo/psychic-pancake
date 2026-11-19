@@ -267,7 +267,7 @@ function actClimb(t) {
   apply(REG, up > .8 ? { ...TP.cheer, sp: [-10, 0, 0] } : { ...TP.stand, aR: [-150, 30, 0, 60], aL: [-150, -30, 0, 60] }, { t, seed: 3, face: up > .8 ? 'laugh' : 'happy', look: CAMP });
 }
 function actStroll(t) {
-  reset(); const k = seg(t, tWalked - .1, tAnd5), v = PO.clone().add(V(lerp(-4, -1, k), 0, 6.5)); put(REG, v, Math.PI / 2 - .25);
+  reset(); TUG.position.set(60, 0, 4); const k = seg(t, tWalked - .1, tAnd5), v = PO.clone().add(V(lerp(-4, -1, k), 0, 6.5)); put(REG, v, Math.PI / 2 - .25);
   apply(REG, walk({ ...TP.stand, aL: [-15, -10, 0, 120], aR: [-15, -10, 0, 120] }, t * 6.5, .8), { t, seed: 3, face: 'smug', look: CAMP, eyes: [.5, 0] });
   place(PLANE, PO.clone().add(V(4, 4.2, -14)), [0, -.3, 0], 1);
 }
